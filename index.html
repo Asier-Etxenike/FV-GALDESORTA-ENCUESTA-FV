@@ -1839,11 +1839,17 @@
              style="width: 80px; padding: 10px; font-size: 1.1rem; border: 1px solid #ccc; border-radius: 5px; text-align: center;">
     </div>
 
+    <p id="error-hogar" style="color: #dc3545; display: none; font-size: 0.9rem; font-weight: bold;"
+       data-es="Debe haber al menos una persona en el hogar."
+       data-eu="Gutxienez pertsona bat egon behar da etxean.">
+       Debe haber al menos una persona en el hogar.
+    </p>
+
   </div>
 
   <div class="nav-bar">
     <button class="btn btn-primary" 
-            onclick="responses.adults = document.getElementById('adults').value; responses.minors = document.getElementById('minors').value; nextScreen();" 
+            onclick="validarHogar()" 
             data-es="Siguiente →" 
             data-eu="Hurrengoa →">Siguiente →</button>
   </div>
@@ -2182,7 +2188,8 @@
            data-eu="Iruzkin gehigarririk gehitu nahi baduzu, hemen egin dezakezu:">
       Si desea añadir algún comentario adicional, puede hacerlo aquí:
     </label>
-    <textarea id="comentarios_final" name="comentarios" rows="4" 
+    <textarea id="comentarios" name="comentarios" rows="4" 
+              oninput="checkS56()"
               data-placeholder-es="Escriba aquí sus comentarios..." 
               data-placeholder-eu="Idatzi hemen zure iruzkinak..."
               style="width: 100%; border-radius: 8px; border: 1px solid #ccc; padding: 10px; font-family: inherit;"></textarea>
@@ -2194,18 +2201,23 @@
            data-eu="Azkenik, eta ados bazaude soilik, harremanetarako telefono zenbaki bat eskatzen dizugu, landa-lanaren kalitatea kontrolatzeko:">
       Por último, y solo si está de acuerdo, le pedimos un <strong>número de teléfono</strong> de contacto:
     </label>
-    <input type="number" id="telefono_final" name="telefono" placeholder="Ej: 600000000" 
+    <input type="tel" id="telefono" name="telefono" placeholder="Ej: 600000000" 
+           oninput="checkS56()"
            style="padding: 12px; width: 220px; border-radius: 5px; border: 1px solid #ccc; font-size: 1.1rem;">
     
     <p id="error-tel" style="color: #dc3545; display: none; margin-top: 10px; font-size: 0.85rem;"
-       data-es="El número debe tener 9 dígitos y ser válido (600.000.000 - 999.999.999)."
-       data-eu="Zenbakiak 9 digitu izan behar ditu eta baliozkoa izan (600.000.000 - 999.999.999).">
-       El número debe tener 9 dígitos y ser válido.
+       data-es="El número debe tener 9 dígitos y ser válido (empezar por 6, 7, 8 o 9)."
+       data-eu="Zenbakiak 9 digitu izan behar ditu eta baliozkoa izan (6, 7, 8 edo 9tik hasita).">
+        El número debe tener 9 dígitos y ser válido.
     </p>
   </div>
   
   <div class="nav-bar">
-      <button class="btn btn-primary" onclick="capturarYContinuar('energy_saving')" data-es="Siguiente (Encuestador) →" data-eu="Hurrengoa (Inkestatzailea) →">Siguiente (Encuestador) →</button>
+      <button class="btn btn-primary" id="btnP56" onclick="validarS56yContinuar()" 
+              data-es="Siguiente (Solo Encuestador) →" 
+              data-eu="Hurrengoa (Inkestatzailea bakarrik) →">
+        Siguiente (Solo Encuestador) →
+      </button>
   </div>
 </div>
 
@@ -2317,10 +2329,19 @@
         Pregunta 34: Lugar de realización de la encuesta:
       </strong>
     </p>
+    
     <div style="margin-bottom: 15px;">
       <label data-es="Código Postal:" data-eu="Posta-kodea:">Código Postal:</label>
-      <input type="text" name="cp" style="padding: 8px; width: 120px; border: 1px solid var(--border); border-radius: var(--r-sm);">
+      <input type="text" id="cp_input" name="cp" maxlength="5" placeholder="01001"
+             style="padding: 8px; width: 120px; border: 1px solid var(--border); border-radius: var(--r-sm);">
+      
+      <p id="error-cp" style="color: #dc3545; display: none; margin-top: 5px; font-size: 0.85rem;"
+         data-es="El código postal debe tener 5 dígitos."
+         data-eu="Posta-kodeak 5 digitu izan behar ditu.">
+         El código postal debe tener 5 dígitos.
+      </p>
     </div>
+
     <div class="options-vertical">
       <label class="option-card">
         <input type="radio" name="entorno" value="urbano"> 
@@ -2336,11 +2357,9 @@
       </label>
     </div>
   </div>
-
+  
   <div class="nav-bar">
-    <button class="btn btn-primary" style="background: #27ae60;" 
-            onclick="finalizarEncuestaDefinitivo()" 
-            data-es="GUARDAR Y CERRAR" data-eu="GORDE ETA ITXI">GUARDAR Y CERRAR</button>
+      <button class="btn btn-primary" onclick="finalizarEncuestaDefinitivo()" data-es="Finalizar y Enviar →" data-eu="Amaitu eta Bidali →">Finalizar y Enviar →</button>
   </div>
 </div>
 
@@ -2966,12 +2985,12 @@ let timerInterval;
 
 let startTime;
 let responses = {
+    Hora_Inicio: null,
+    Duracion_Total: null,
     Idioma: 'Español', // Valor por defecto
     UserAgent: navigator.userAgent,
     Latitud: null,
     Longitud: null,
-    Hora_Inicio: null,
-    Duracion_Total: null,
     Tiempos_Detallados: "{}",
     DCE_resumen: "",
     DCE_Tarjetas_Vistas:"",
@@ -3385,31 +3404,44 @@ function validarIngresos() {
 }
 
 function validarFinalYEnviar() {
-    const telInput = document.getElementById('telefono_final');
+    const telInput = document.getElementById('telefono');
     const telValue = telInput.value.trim();
     const errorMsg = document.getElementById('error-tel');
-    const comentarios = document.getElementById('comentarios_final').value;
+    const comentariosInput = document.getElementById('comentarios');
 
-    // Si el teléfono NO está vacío, validamos el rango
+    // 1. Validar Teléfono (Solo si no está vacío)
     if (telValue !== "") {
-        const num = parseInt(telValue);
-        if (isNaN(num) || num < 600000000 || num > 999999999) {
+        // Expresión regular para 9 dígitos exactos empezando por 6, 7, 8 o 9
+        const telRegex = /^[6-9]\d{8}$/;
+        
+        if (!telRegex.test(telValue)) {
+            // Mostrar error y detener
             errorMsg.style.display = 'block';
             telInput.style.borderColor = '#dc3545';
+            telInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
             telInput.focus();
-            return; // Detenemos el proceso
+            return; // ESTO impide que se ejecute guardarTodo()
         }
     }
 
-    // Si está vacío o es válido:
+    // 2. Si llegamos aquí, los datos son válidos o el teléfono está vacío
     errorMsg.style.display = 'none';
     telInput.style.borderColor = '#ccc';
     
-    // Guardamos datos en el objeto global
-    responses.comentarios_finales = comentarios;
-    responses.telefono_contacto = telValue === "" ? "No facilitado" : telValue;
+    // 3. Guardamos los datos en el objeto global ANTES de enviar
+    responses.comentarios = comentariosInput.value.trim();
+    responses.telefono = (telValue === "") ? "No facilitado" : telValue;
 
-    // Llamamos a la función que guarda en Google Sheets y termina
+    console.log("Datos finales capturados:", {
+        comentarios: responses.comentarios,
+        telefono: responses.telefono
+    });
+
+    // 4. Llamada final al proceso de envío y cierre
+    // Detener el tiempo de la última pantalla
+    if (typeof stopScreenTimer === "function") stopScreenTimer();
+    
+    // Calcular duración y enviar
     guardarTodo(); 
 }
 
@@ -3595,6 +3627,32 @@ function checkP44() {
     if (btn) btn.disabled = !respondido;
 }
 
+function validarHogar() {
+    const adults = parseInt(document.getElementById('adults').value) || 0;
+    const minors = parseInt(document.getElementById('minors').value) || 0;
+    const errorMsg = document.getElementById('error-hogar');
+
+    // Validación: La suma debe ser mayor que 0
+    if (adults + minors <= 0) {
+        errorMsg.style.display = 'block';
+        // Opcional: vibración o feedback visual en los inputs
+        document.getElementById('adults').style.borderColor = '#dc3545';
+        document.getElementById('minors').style.borderColor = '#dc3545';
+        return; // Detiene la función y no pasa de pantalla
+    }
+
+    // Si es válido, guardamos los datos y ocultamos el error
+    errorMsg.style.display = 'none';
+    document.getElementById('adults').style.borderColor = '#ccc';
+    document.getElementById('minors').style.borderColor = '#ccc';
+
+    responses.adults = adults;
+    responses.minors = minors;
+
+    // Avanzamos a la siguiente pantalla
+    nextScreen();
+}
+
 function checkP46() {
     const ok = document.querySelector('input[name="transport"]:checked');
     document.getElementById('btnP46').disabled = !ok;
@@ -3658,7 +3716,48 @@ function checkP55() {
     document.getElementById('btnP55').disabled = !ok;
 }
 
+function checkS56() {
+    const telInput = document.getElementById('telefono');
+    const telValue = telInput.value.trim();
+    const btn = document.getElementById('btnP56');
+    const errorMsg = document.getElementById('error-tel');
+    
+    // RegEx: 9 dígitos empezando por 6,7,8 o 9
+    const telRegex = /^[6-9]\d{8}$/;
 
+    if (telValue === "") {
+        // Si está vacío, es válido (opcional)
+        btn.disabled = false;
+        errorMsg.style.display = 'none';
+        telInput.style.borderColor = '#ccc';
+    } else if (telRegex.test(telValue)) {
+        // Si tiene contenido y es válido
+        btn.disabled = false;
+        errorMsg.style.display = 'none';
+        telInput.style.borderColor = '#2d6a2d'; // Verde éxito opcional
+    } else {
+        // Si tiene contenido pero NO es válido
+        btn.disabled = true;
+        errorMsg.style.display = 'block';
+        telInput.style.borderColor = '#dc3545';
+    }
+}
+
+function validarS56yContinuar() {
+    // 1. Capturamos los valores finales
+    const telValue = document.getElementById('telefono').value.trim();
+    const comentariosValue = document.getElementById('comentarios').value.trim();
+
+    // 2. Guardamos en el objeto global
+    responses.comentarios = comentariosValue;
+    responses.telefono = (telValue === "") ? "No facilitado" : telValue;
+
+    // 3. Detenemos cronómetro de esta pantalla
+    if (typeof stopScreenTimer === "function") stopScreenTimer();
+
+    // 4. Avanzamos a la siguiente pantalla (donde el encuestador pondrá el CP, etc.)
+    nextScreen();
+}
 
 function moveRankUp(btn) {
     const item = btn.closest('.rank-item');
@@ -3794,6 +3893,99 @@ function guardarMultiseleccionP25() {
     nextScreen();
 }
 
+function finalizarEncuestaDefinitivo() {
+    // 1. Capturamos el elemento del Código Postal y el mensaje de error
+    // He usado getElementsByName('cp')[0] como en tu código original
+    const cpElement = document.getElementsByName('cp')[0];
+    const cpValue = cpElement.value.trim();
+    const errorCp = document.getElementById('error-cp'); // Asegúrate de tener este ID en tu HTML
+
+    // 2. VALIDACIÓN ESTRICTA: Debe ser texto con exactamente 5 números
+    // Esto permite códigos como "01003" sin que desaparezca el cero
+    const cpRegex = /^\d{5}$/;
+    
+    if (!cpRegex.test(cpValue)) {
+        if (errorCp) errorCp.style.display = 'block';
+        cpElement.style.borderColor = '#dc3545';
+        cpElement.focus();
+        return; // SE DETIENE AQUÍ: No calcula duración ni envía nada
+    } else {
+        if (errorCp) errorCp.style.display = 'none';
+        cpElement.style.borderColor = '';
+    }
+
+    // 3. Capturamos los datos de la última pantalla
+    const p33Select = document.querySelector('input[name="p33"]:checked');
+    responses.p33 = p33Select ? p33Select.value : "";
+
+    // Guardamos el CP como texto (String) para preservar ceros a la izquierda
+    responses.cp = cpValue;
+
+    const entornoSelect = document.querySelector('input[name="entorno"]:checked');
+    responses.entorno = entornoSelect ? entornoSelect.value : "";
+
+    // 4. Cálculo de la DURACIÓN TOTAL
+    if (responses.startTimeGlobal) {
+        const endTimeGlobal = Date.now();
+        const diferenciaMs = endTimeGlobal - responses.startTimeGlobal;
+        
+        const totalSegundos = Math.floor(diferenciaMs / 1000);
+        const minutos = Math.floor(totalSegundos / 60);
+        const segundos = totalSegundos % 60;
+        
+        responses.Duracion_Total = minutos + "m " + segundos + "s";
+    }
+
+    // 5. LLAMADA FINAL AL SERVIDOR (Envío y cierre de pestaña)
+    guardarTodo();
+    
+    // 6. Avanzar a pantalla final informativa
+    nextScreen();
+}
+
+function guardarTodo() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGluICeVUVlI5dum0DgC8xC69FsouXGrnJj0_6aUbF5bUfWEN4Me_wON-EbrZk-hnrhQ/exec'; 
+
+    console.log("Enviando datos finales...", responses);
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors', // Importante para Google Apps Script
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(responses)
+    })
+    .then(() => {
+        // Mensaje de éxito
+        const mensaje = responses.language === 'eu' ? 
+            "Inkesta ondo bidali da! Eskerrik asko zure laguntzagatik." : 
+            "¡Encuesta enviada con éxito! Muchas gracias por su colaboración.";
+        
+        alert(mensaje);
+
+        // --- CERRAR PESTAÑA ---
+        console.log("Cerrando ventana...");
+        
+        // Intentar cerrar la pestaña directamente
+        window.close();
+
+        // Si window.close() falla (porque la pestaña no se abrió con script), 
+        // redirigimos a una página en blanco o mostramos un mensaje final
+        setTimeout(() => {
+            if (!window.closed) {
+                // Si sigue abierta, vaciamos el contenido para confirmar que terminó
+                document.body.innerHTML = `<div style="text-align:center; margin-top:100px; font-family:sans-serif;">
+                    <h1>${responses.language === 'eu' ? 'Eskerrik asko!' : '¡Muchas gracias!'}</h1>
+                    <p>${responses.language === 'eu' ? 'Inkesta amaitu da. Leiho hau itxi dezakezu orain.' : 'La encuesta ha finalizado. Ya puede cerrar esta ventana.'}</p>
+                </div>`;
+            }
+        }, 500);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Hubo un error al guardar. Por favor, inténtalo de nuevo.");
+    });
+}
+
 function changeLanguage(lang) {
     responses.language = lang; 
     responses.Idioma = (lang === 'es') ? 'Español' : 'Euskara';
@@ -3833,91 +4025,6 @@ function updateLanguage(lang) {
 
     // 3. Volvemos a renderizar las tarjetas para que aparezcan en el idioma nuevo
     renderizarTarjetasDCE();
-}
-
-function finalizarEncuestaDefinitivo() {
-    // 1. Capturamos los datos de la última pantalla
-    const p33Select = document.querySelector('input[name="p33"]:checked');
-    responses.p33 = p33Select ? p33Select.value : "";
-
-    const cpInput = document.getElementsByName('cp')[0];
-    responses.cp = cpInput ? cpInput.value : "";
-
-    const entornoSelect = document.querySelector('input[name="entorno"]:checked');
-    responses.entorno = entornoSelect ? entornoSelect.value : "";
-
-    // 2. Cálculo de la DURACIÓN TOTAL
-    if (responses.startTimeGlobal) {
-        const endTimeGlobal = Date.now();
-        const diferenciaMs = endTimeGlobal - responses.startTimeGlobal;
-        
-        // Calculamos minutos y segundos para un formato legible
-        const totalSegundos = Math.floor(diferenciaMs / 1000);
-        const minutos = Math.floor(totalSegundos / 60);
-        const segundos = totalSegundos % 60;
-        
-        responses.Duracion_Total = minutos + "m " + segundos + "s";
-    }
-
-    // 3. LLAMADA FINAL AL SERVIDOR
-    guardarTodo();
-    
-    // 4. Avanzar a la pantalla de agradecimiento
-    nextScreen();
-}
-
-function guardarTodo() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGluICeVUVlI5dum0DgC8xC69FsouXGrnJj0_6aUbF5bUfWEN4Me_wON-EbrZk-hnrhQ/exec'; 
-
-    console.log("Enviando datos finales...", responses);
-
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(responses)
-    })
-    .then(() => {
-        alert(responses.language === 'eu' ? "Inkesta ondo bidali da! Eskerrik asko zure laguntzagatik." : "¡Encuesta enviada con éxito! Muchas gracias por su colaboración.");
-
-        // --- LIMPIEZA TOTAL ---
-        
-        // 1. Vaciar el objeto de respuestas (Incluyendo los nuevos campos)
-        responses = {
-            eleccionesDCE: {},
-            screenTimes: {},
-            location: { lat: null, lon: null, error: null },
-            language: responses.language || 'es', 
-            Idioma: responses.Idioma || 'Español',
-            Hora_Inicio: null,      // Limpiamos la hora
-            Duracion_Total: null,   // Limpiamos la duración
-            startTimeGlobal: null   // Limpiamos el cronómetro
-        };
-
-        // 2. Resetear contadores y variables de control
-        countC = 0;
-        currentScreenIdx = 0;
-
-        // 3. Desmarcar todos los radios e inputs del HTML
-        const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
-        inputs.forEach(input => input.checked = false);
-
-        // 4. Limpiar campos de texto
-        const textAreas = document.querySelectorAll('textarea, input[type="text"]');
-        textAreas.forEach(txt => txt.value = "");
-
-        // 5. Volver a la primera pantalla
-        showScreen(0);
-        
-        // 6. Volver arriba de la página
-        window.scrollTo(0, 0);
-
-        console.log("Encuesta reseteada y lista para nuevo uso.");
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Hubo un error al guardar. Por favor, inténtalo de nuevo.");
-    });
 }
 
 </script>
