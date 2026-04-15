@@ -2153,10 +2153,22 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="energy_saving" value="ahorro" onchange="checkP55()"> <span data-es="Sí, por el ahorro económico..." data-eu="...">Sí, por el ahorro económico...</span></label>
-    <label class="radio-opt"><input type="radio" name="energy_saving" value="naturaleza" onchange="checkP55()"> <span data-es="Sí, por reducir el impacto sobre la naturaleza" data-eu="...">Sí, por reducir el impacto sobre la naturaleza</span></label>
-    <label class="radio-opt"><input type="radio" name="energy_saving" value="clima" onchange="checkP55()"> <span data-es="Sí, por reducir el impacto sobre el clima" data-eu="...">Sí, por reducir el impacto sobre el clima</span></label>
-    <label class="radio-opt"><input type="radio" name="energy_saving" value="no" onchange="checkP55()"> <span data-es="No" data-eu="Ez">No</span></label>
+    <label class="radio-opt">
+      <input type="radio" name="energy_saving" value="ahorro" onchange="checkP55()"> 
+      <span data-es="Sí, por el ahorro económico que me supone" data-eu="Bai, dakarren aurrezpen ekonomikoagatik">Sí, por el ahorro económico que me supone</span>
+    </label>
+    <label class="radio-opt">
+      <input type="radio" name="energy_saving" value="naturaleza"> 
+      <span data-es="Sí, por reducir el impacto sobre la naturaleza" data-eu="Bai, naturan duen eragina murrizteagatik" onchange="checkP55()">Sí, por reducir el impacto sobre la naturaleza</span>
+    </label>
+    <label class="radio-opt">
+      <input type="radio" name="energy_saving" value="clima" onchange="checkP55()"> 
+      <span data-es="Sí, por reducir el impacto sobre el cambio climático" data-eu="Bai, klima-aldaketan duen eragina murrizteagatik">Sí, por reducir el impacto sobre el cambio climático</span>
+    </label>
+    <label class="radio-opt">
+      <input type="radio" name="energy_saving" value="no" onchange="checkP55()"> 
+      <span data-es="No" data-eu="Ez">No</span>
+    </label>
   </div>
   <div class="nav-bar">
     <button class="btn btn-primary" id="btnP55" onclick="capturarYContinuar('energy_saving')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
@@ -2958,6 +2970,8 @@ let responses = {
     UserAgent: navigator.userAgent,
     Latitud: null,
     Longitud: null,
+    Hora_Inicio: null,
+    Duracion_Total: null,
     Tiempos_Detallados: "{}",
     DCE_resumen: "",
     DCE_Tarjetas_Vistas:"",
@@ -2967,12 +2981,17 @@ let responses = {
 };
 
 function nextScreen() {
-    // 1. Lógica del Cronómetro
-    // Si estamos en la pantalla inicial (0) y vamos a empezar la encuesta
+    // 1. Lógica del Cronómetro e Inicio de Encuesta
     if (currentScreenIdx === 0) {
-        responses.startTimeGlobal = Date.now(); // Inicio del tiempo total
-        screenStart = Date.now();               // Inicio del tiempo de la primera pantalla real
-        console.log("Encuesta iniciada. Cronómetro en marcha.");
+        // Captura la hora exacta de inicio (ej: "14:30:05")
+        const ahora = new Date();
+        responses.Hora_Inicio = ahora.toLocaleTimeString(); 
+        
+        // Inicio del timestamp para el cálculo de duración total al final
+        responses.startTimeGlobal = Date.now(); 
+        
+        screenStart = Date.now(); // Inicio del tiempo de la primera pantalla real
+        console.log("Encuesta iniciada a las: " + responses.Hora_Inicio);
     } else {
         // Si ya estamos dentro de la encuesta, cerramos el tiempo de la pantalla que dejamos
         stopScreenTimer();
@@ -2985,12 +3004,11 @@ function nextScreen() {
     showScreen(currentScreenIdx);
     
     // 4. Iniciar el tiempo de la nueva pantalla
-    // (Solo si no hemos llegado al final)
     if (currentScreenIdx > 0) {
         screenStart = Date.now();
     }
 
-    // 5. Scroll automático hacia arriba (muy útil en móviles al cambiar de paso)
+    // 5. Scroll automático hacia arriba
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -3776,79 +3794,6 @@ function guardarMultiseleccionP25() {
     nextScreen();
 }
 
-
-
-
-function finalizarEncuestaDefinitivo() {
-    // 1. Capturamos el Radio de la escala P33
-    const p33Select = document.querySelector('input[name="p33"]:checked');
-    responses.p33 = p33Select ? p33Select.value : "";
-
-    // 2. Capturamos el Código Postal (Input de texto)
-    responses.cp = document.getElementsByName('cp')[0].value;
-
-    // 3. Capturamos el Entorno (Radio)
-    const entornoSelect = document.querySelector('input[name="entorno"]:checked');
-    responses.entorno = entornoSelect ? entornoSelect.value : "";
-
-    // 4. LLAMADA FINAL AL SERVIDOR (Google Sheets)
-    guardarTodo();
-    
-    // 5. Opcional: Ir a una pantalla de confirmación final o cerrar
-    nextScreen();
-}
-
-function guardarTodo() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGluICeVUVlI5dum0DgC8xC69FsouXGrnJj0_6aUbF5bUfWEN4Me_wON-EbrZk-hnrhQ/exec'; 
-
-    console.log("Enviando datos finales...", responses);
-
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(responses)
-    })
-    .then(() => {
-        alert(responses.language === 'eu' ? "Inkesta ondo bidali da! Eskerrik asko zure laguntzagatik." : "¡Encuesta enviada con éxito! Muchas gracias por su colaboración.");
-
-        // --- LIMPIEZA TOTAL ---
-        
-        // 1. Vaciar el objeto de respuestas
-        responses = {
-            eleccionesDCE: {},
-            screenTimes: {},
-            location: { lat: null, lon: null, error: null },
-            language: responses.language || 'es', // Mantenemos el idioma elegido
-            Idioma: responses.Idioma || 'Español'
-        };
-
-        // 2. Resetear contadores y variables de control
-        countC = 0;
-        currentScreenIdx = 0;
-
-        // 3. Desmarcar todos los radios e inputs del HTML
-        const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
-        inputs.forEach(input => input.checked = false);
-
-        // 4. Limpiar campos de texto si los hubiera
-        const textAreas = document.querySelectorAll('textarea, input[type="text"]');
-        textAreas.forEach(txt => txt.value = "");
-
-        // 5. Volver a la primera pantalla
-        showScreen(0);
-        
-        // 6. Volver arriba de la página (importante en móviles)
-        window.scrollTo(0, 0);
-
-        console.log("Encuesta reseteada y lista para nuevo uso.");
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Hubo un error al guardar. Por favor, inténtalo de nuevo.");
-    });
-}
-
 function changeLanguage(lang) {
     responses.language = lang; 
     responses.Idioma = (lang === 'es') ? 'Español' : 'Euskara';
@@ -3888,6 +3833,91 @@ function updateLanguage(lang) {
 
     // 3. Volvemos a renderizar las tarjetas para que aparezcan en el idioma nuevo
     renderizarTarjetasDCE();
+}
+
+function finalizarEncuestaDefinitivo() {
+    // 1. Capturamos los datos de la última pantalla
+    const p33Select = document.querySelector('input[name="p33"]:checked');
+    responses.p33 = p33Select ? p33Select.value : "";
+
+    const cpInput = document.getElementsByName('cp')[0];
+    responses.cp = cpInput ? cpInput.value : "";
+
+    const entornoSelect = document.querySelector('input[name="entorno"]:checked');
+    responses.entorno = entornoSelect ? entornoSelect.value : "";
+
+    // 2. Cálculo de la DURACIÓN TOTAL
+    if (responses.startTimeGlobal) {
+        const endTimeGlobal = Date.now();
+        const diferenciaMs = endTimeGlobal - responses.startTimeGlobal;
+        
+        // Calculamos minutos y segundos para un formato legible
+        const totalSegundos = Math.floor(diferenciaMs / 1000);
+        const minutos = Math.floor(totalSegundos / 60);
+        const segundos = totalSegundos % 60;
+        
+        responses.Duracion_Total = minutos + "m " + segundos + "s";
+    }
+
+    // 3. LLAMADA FINAL AL SERVIDOR
+    guardarTodo();
+    
+    // 4. Avanzar a la pantalla de agradecimiento
+    nextScreen();
+}
+
+function guardarTodo() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGluICeVUVlI5dum0DgC8xC69FsouXGrnJj0_6aUbF5bUfWEN4Me_wON-EbrZk-hnrhQ/exec'; 
+
+    console.log("Enviando datos finales...", responses);
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(responses)
+    })
+    .then(() => {
+        alert(responses.language === 'eu' ? "Inkesta ondo bidali da! Eskerrik asko zure laguntzagatik." : "¡Encuesta enviada con éxito! Muchas gracias por su colaboración.");
+
+        // --- LIMPIEZA TOTAL ---
+        
+        // 1. Vaciar el objeto de respuestas (Incluyendo los nuevos campos)
+        responses = {
+            eleccionesDCE: {},
+            screenTimes: {},
+            location: { lat: null, lon: null, error: null },
+            language: responses.language || 'es', 
+            Idioma: responses.Idioma || 'Español',
+            Hora_Inicio: null,      // Limpiamos la hora
+            Duracion_Total: null,   // Limpiamos la duración
+            startTimeGlobal: null   // Limpiamos el cronómetro
+        };
+
+        // 2. Resetear contadores y variables de control
+        countC = 0;
+        currentScreenIdx = 0;
+
+        // 3. Desmarcar todos los radios e inputs del HTML
+        const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+        inputs.forEach(input => input.checked = false);
+
+        // 4. Limpiar campos de texto
+        const textAreas = document.querySelectorAll('textarea, input[type="text"]');
+        textAreas.forEach(txt => txt.value = "");
+
+        // 5. Volver a la primera pantalla
+        showScreen(0);
+        
+        // 6. Volver arriba de la página
+        window.scrollTo(0, 0);
+
+        console.log("Encuesta reseteada y lista para nuevo uso.");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Hubo un error al guardar. Por favor, inténtalo de nuevo.");
+    });
 }
 
 </script>
