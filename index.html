@@ -341,7 +341,7 @@
   </div>
 
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="responses.q1 = document.querySelector('input[name=\'q1\']:checked')?.value; responses.q2 = document.querySelector('input[name=\'q2\']:checked')?.value; nextScreen();">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP4" onclick="responses.q1 = document.querySelector('input[name=\'q1\']:checked')?.value; responses.q2 = document.querySelector('input[name=\'q2\']:checked')?.value; nextScreen();" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -422,11 +422,11 @@
   </table>
 
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="
+    <button class="btn btn-primary" id="btnP5" onclick="
     ['q3a','q3b','q3c','q3d'].forEach(q => {
         responses[q] = document.querySelector(`input[name='${q}']:checked`)?.value;
     }); 
-    nextScreen();">Siguiente →</button>
+    nextScreen();" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1412,17 +1412,17 @@
   
   <div class="options-container" style="margin: 25px 0; display: flex; flex-direction: column; gap: 12px;">
     <label class="option-card" style="display: flex; align-items: center; gap: 10px; padding: 15px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
-      <input type="radio" name="p10" value="si"> 
+      <input type="radio" name="p10" value="si" onchange="checkP35()"> 
       <span data-es="Sí" data-eu="Bai">Sí</span>
     </label>
     <label class="option-card" style="display: flex; align-items: center; gap: 10px; padding: 15px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
-      <input type="radio" name="p10" value="no"> 
+      <input type="radio" name="p10" value="no" onchange="checkP35()"> 
       <span data-es="No" data-eu="Ez">No</span>
     </label>
   </div>
 
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('p10')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button id="btnP35" class="btn btn-primary" onclick="capturarYContinuar('p10')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1443,26 +1443,29 @@
     <span data-es="Ninguna influencia" data-eu="Eraginik ez">Ninguna influencia</span>
     <span data-es="Mucha influencia" data-eu="Eragin handia">Mucha influencia</span>
   </div>
+  
   <div class="scale-group">
     <script>
       for(let i=1; i<=10; i++) {
         document.write(`
           <div class="scale-item">
-            <input type="radio" name="p11" id="p11_${i}" value="${i}">
+            <input type="radio" name="p11" id="p11_${i}" value="${i}" onchange="checkP36()">
             <label for="p11_${i}" class="scale-label">${i}</label>
           </div>
         `);
       }
     </script>
   </div>
+  
   <div style="margin-top:12px;">
     <label class="radio-opt" style="display:inline-flex; width:auto; padding:10px 18px;">
-      <input type="radio" name="p11" value="nsnc"> 
+      <input type="radio" name="p11" value="nsnc" onchange="checkP36()"> 
       <span style="margin-left:10px;" data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
     </label>
   </div>
+
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('p11')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP36" onclick="capturarYContinuar('p11')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1483,29 +1486,31 @@
     <span data-es="Nada creíble" data-eu="Batere sinesgarria ez">Nada creíble</span>
     <span data-es="Totalmente creíble" data-eu="Guztiz sinesgarria">Totalmente creíble</span>
   </div>
+  
   <div class="scale-group">
     <script>
       for(let i=1; i<=10; i++) {
         document.write(`
           <div class="scale-item">
-            <input type="radio" name="p12" id="p12_${i}" value="${i}">
+            <input type="radio" name="p12" id="p12_${i}" value="${i}" onchange="checkP37()">
             <label for="p12_${i}" class="scale-label">${i}</label>
           </div>
         `);
       }
     </script>
   </div>
+  
   <div style="margin-top:12px;">
     <label class="radio-opt" style="display:inline-flex; width:auto; padding:10px 18px;">
-      <input type="radio" name="p12" value="nsnc"> 
+      <input type="radio" name="p12" value="nsnc" onchange="checkP37()"> 
       <span style="margin-left:10px;" data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
     </label>
   </div>
+
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('p12')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP37" onclick="capturarYContinuar('p12')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
-
 
 <div class="screen" id="s38">
   <div class="screen-label">
@@ -1533,93 +1538,83 @@
         <tr>
           <td class="text-left" data-es="La naturaleza contribuye al crecimiento económico y ofrece oportunidades de empleo" 
               data-eu="Naturak hazkunde ekonomikoan laguntzen du eta enplegu-aukerak eskaintzen ditu">La naturaleza contribuye al crecimiento económico y ofrece oportunidades de empleo</td>
-          <td><input type="radio" name="prior1" value="1"></td><td><input type="radio" name="prior1" value="2"></td><td><input type="radio" name="prior1" value="3"></td><td><input type="radio" name="prior1" value="4"></td><td><input type="radio" name="prior1" value="5"></td><td><input type="radio" name="prior1" value="6"></td><td><input type="radio" name="prior1" value="7"></td><td><input type="radio" name="prior1" value="nsnc"></td>
+          <td><input type="radio" name="prior1" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior1" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza ofrece oportunidades para recolectar productos como madera, bayas o setas" 
               data-eu="Naturak egurra, baiak edo perretxikoak bezalako produktuak biltzeko aukerak eskaintzen ditu">La naturaleza ofrece oportunidades para recolectar productos como madera, bayas o setas</td>
-          <td><input type="radio" name="prior2" value="1"></td><td><input type="radio" name="prior2" value="2"></td><td><input type="radio" name="prior2" value="3"></td><td><input type="radio" name="prior2" value="4"></td><td><input type="radio" name="prior2" value="5"></td><td><input type="radio" name="prior2" value="6"></td><td><input type="radio" name="prior2" value="7"></td><td><input type="radio" name="prior2" value="nsnc"></td>
+          <td><input type="radio" name="prior2" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior2" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La gente puede disfrutar de la belleza de los espacios naturales" 
               data-eu="Jendeak natura-guneen edertasunaz goza dezake">La gente puede disfrutar de la belleza de los espacios naturales</td>
-          <td><input type="radio" name="prior3" value="1"></td><td><input type="radio" name="prior3" value="2"></td><td><input type="radio" name="prior3" value="3"></td><td><input type="radio" name="prior3" value="4"></td><td><input type="radio" name="prior3" value="5"></td><td><input type="radio" name="prior3" value="6"></td><td><input type="radio" name="prior3" value="7"></td><td><input type="radio" name="prior3" value="nsnc"></td>
+          <td><input type="radio" name="prior3" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior3" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza ofrece oportunidades para el ocio y el deporte al aire libre" 
               data-eu="Naturak aisialdirako eta aire zabaleko kirolerako aukerak eskaintzen ditu">La naturaleza ofrece oportunidades para el ocio y el deporte al aire libre</td>
-          <td><input type="radio" name="prior4" value="1"></td><td><input type="radio" name="prior4" value="2"></td><td><input type="radio" name="prior4" value="3"></td><td><input type="radio" name="prior4" value="4"></td><td><input type="radio" name="prior4" value="5"></td><td><input type="radio" name="prior4" value="6"></td><td><input type="radio" name="prior4" value="7"></td><td><input type="radio" name="prior4" value="nsnc"></td>
+          <td><input type="radio" name="prior4" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior4" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza ofrece oportunidades para mejorar el bienestar mental" 
               data-eu="Naturak ongizate mentala hobetzeko aukerak eskaintzen ditu">La naturaleza ofrece oportunidades para mejorar el bienestar mental</td>
-          <td><input type="radio" name="prior5" value="1"></td><td><input type="radio" name="prior5" value="2"></td><td><input type="radio" name="prior5" value="3"></td><td><input type="radio" name="prior5" value="4"></td><td><input type="radio" name="prior5" value="5"></td><td><input type="radio" name="prior5" value="6"></td><td><input type="radio" name="prior5" value="7"></td><td><input type="radio" name="prior5" value="nsnc"></td>
+          <td><input type="radio" name="prior5" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior5" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La gente puede encontrar en la naturaleza un sentimiento de pertenencia" 
               data-eu="Jendeak kidetasun-sentimendua aurki dezake naturan">La gente puede encontrar en la naturaleza un sentimiento de pertenencia</td>
-          <td><input type="radio" name="prior6" value="1"></td><td><input type="radio" name="prior6" value="2"></td><td><input type="radio" name="prior6" value="3"></td><td><input type="radio" name="prior6" value="4"></td><td><input type="radio" name="prior6" value="5"></td><td><input type="radio" name="prior6" value="6"></td><td><input type="radio" name="prior6" value="7"></td><td><input type="radio" name="prior6" value="nsnc"></td>
+          <td><input type="radio" name="prior6" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior6" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza contribuye a que las personas se sientan realizadas en la vida" 
               data-eu="Naturak pertsonak bizitzan beteak senti daitezen laguntzen du">La naturaleza contribuye a que las personas se sientan realizadas en la vida</td>
-          <td><input type="radio" name="prior7" value="1"></td><td><input type="radio" name="prior7" value="2"></td><td><input type="radio" name="prior7" value="3"></td><td><input type="radio" name="prior7" value="4"></td><td><input type="radio" name="prior7" value="5"></td><td><input type="radio" name="prior7" value="6"></td><td><input type="radio" name="prior7" value="7"></td><td><input type="radio" name="prior7" value="nsnc"></td>
+          <td><input type="radio" name="prior7" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior7" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza proporciona valores o experiencias religiosas, sagradas y espirituales" 
               data-eu="Naturak balio edo esperientzia erlijiosoak, sakratuak eta espiritualak ematen ditu">La naturaleza proporciona valores o experiencias religiosas, sagradas y espirituales</td>
-          <td><input type="radio" name="prior8" value="1"></td><td><input type="radio" name="prior8" value="2"></td><td><input type="radio" name="prior8" value="3"></td><td><input type="radio" name="prior8" value="4"></td><td><input type="radio" name="prior8" value="5"></td><td><input type="radio" name="prior8" value="6"></td><td><input type="radio" name="prior8" value="7"></td><td><input type="radio" name="prior8" value="nsnc"></td>
+          <td><input type="radio" name="prior8" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior8" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La gente puede interactuar y conectar con los árboles y los animales" 
               data-eu="Jendeak zuhaitzekin eta animaliekin elkarreragin eta konekta dezake">La gente puede interactuar y conectar con los árboles y los animales</td>
-          <td><input type="radio" name="prior9" value="1"></td><td><input type="radio" name="prior9" value="2"></td><td><input type="radio" name="prior9" value="3"></td><td><input type="radio" name="prior9" value="4"></td><td><input type="radio" name="prior9" value="5"></td><td><input type="radio" name="prior9" value="6"></td><td><input type="radio" name="prior9" value="7"></td><td><input type="radio" name="prior9" value="nsnc"></td>
+          <td><input type="radio" name="prior9" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior9" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="Se reconoce la historia de los paisajes naturales" 
               data-eu="Natura-paisaiaren historia aitortzen da">Se reconoce la historia de los paisajes naturales</td>
-          <td><input type="radio" name="prior10" value="1"></td><td><input type="radio" name="prior10" value="2"></td><td><input type="radio" name="prior10" value="3"></td><td><input type="radio" name="prior10" value="4"></td><td><input type="radio" name="prior10" value="5"></td><td><input type="radio" name="prior10" value="6"></td><td><input type="radio" name="prior10" value="7"></td><td><input type="radio" name="prior10" value="nsnc"></td>
+          <td><input type="radio" name="prior10" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior10" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="Se reconoce que la naturaleza forma parte de nuestra comunidad" 
               data-eu="Natura gure komunitatearen parte dela aitortzen da">Se reconoce que la naturaleza forma parte de nuestra comunidad</td>
-          <td><input type="radio" name="prior11" value="1"></td><td><input type="radio" name="prior11" value="2"></td><td><input type="radio" name="prior11" value="3"></td><td><input type="radio" name="prior11" value="4"></td><td><input type="radio" name="prior11" value="5"></td><td><input type="radio" name="prior11" value="6"></td><td><input type="radio" name="prior11" value="7"></td><td><input type="radio" name="prior11" value="nsnc"></td>
+          <td><input type="radio" name="prior11" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior11" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza debe ser protegida independientemente de que beneficie o no a los humanos" 
               data-eu="Natura babestu egin behar da, gizakiari mesede egin ala ez">La naturaleza debe ser protegida independientemente de que beneficie o no a los humanos</td>
-          <td><input type="radio" name="prior12" value="1"></td><td><input type="radio" name="prior12" value="2"></td><td><input type="radio" name="prior12" value="3"></td><td><input type="radio" name="prior12" value="4"></td><td><input type="radio" name="prior12" value="5"></td><td><input type="radio" name="prior12" value="6"></td><td><input type="radio" name="prior12" value="7"></td><td><input type="radio" name="prior12" value="nsnc"></td>
+          <td><input type="radio" name="prior12" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior12" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="Tenemos una responsabilidad moral de proteger la naturaleza" 
               data-eu="Natura babesteko ardura morala dugu">Tenemos una responsabilidad moral de proteger la naturaleza</td>
-          <td><input type="radio" name="prior13" value="1"></td><td><input type="radio" name="prior13" value="2"></td><td><input type="radio" name="prior13" value="3"></td><td><input type="radio" name="prior13" value="4"></td><td><input type="radio" name="prior13" value="5"></td><td><input type="radio" name="prior13" value="6"></td><td><input type="radio" name="prior13" value="7"></td><td><input type="radio" name="prior13" value="nsnc"></td>
+          <td><input type="radio" name="prior13" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior13" value="nsnc" onchange="checkP38()"></td>
         </tr>
         <tr>
           <td class="text-left" data-es="La naturaleza debe ser protegida por su propio valor intrínseco" 
               data-eu="Natura babestu egin behar da berezko balioagatik">La naturaleza debe ser protegida por su propio valor intrínseco</td>
-          <td><input type="radio" name="prior14" value="1"></td><td><input type="radio" name="prior14" value="2"></td><td><input type="radio" name="prior14" value="3"></td><td><input type="radio" name="prior14" value="4"></td><td><input type="radio" name="prior14" value="5"></td><td><input type="radio" name="prior14" value="6"></td><td><input type="radio" name="prior14" value="7"></td><td><input type="radio" name="prior14" value="nsnc"></td>
+          <td><input type="radio" name="prior14" value="1" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="2" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="3" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="4" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="5" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="6" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="7" onchange="checkP38()"></td><td><input type="radio" name="prior14" value="nsnc" onchange="checkP38()"></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="nav-bar">
-    <button class="btn btn-primary" 
-            onclick="
-              const variables = ['prior1','prior2','prior3','prior4','prior5','prior6','prior7','prior8','prior9','prior10','prior11','prior12','prior13','prior14'];
-              variables.forEach(v => {
-                const el = document.querySelector(`input[name='${v}']:checked`);
-                responses[v] = el ? el.value : '';
-              });
-              nextScreen();" 
-            data-es="Siguiente →" 
-            data-eu="Hurrengoa →">
+    <button class="btn btn-primary" id="btnP38" onclick="guardarPrioridadesYPasar()" disabled data-es="Siguiente →" data-eu="Hurrengoa →">
       Siguiente →
     </button>
   </div>
 </div>
-
 
 <div class="screen" id="s39">
   <div class="screen-label">
@@ -1631,12 +1626,27 @@
       Pregunta 14: Por favor, indique su año de nacimiento:
     </strong>
   </p>
-  <input type="number" name="birthyear" id="birthyear" placeholder="Ej: 1985" 
-         data-placeholder-es="Ej: 1985" data-placeholder-eu="Adib: 1985"
-         style="padding: 10px; width: 140px; border-radius: 5px; border: 1px solid var(--border);">
-  
+
+  <div style="margin: 30px 0;">
+    <input type="number" name="birthyear" id="birthyear" 
+           placeholder="Ej: 1985" 
+           min="1900" max="2010"
+           style="padding: 15px; width: 100%; max-width: 220px; font-size: 1.3rem; border-radius: 8px; border: 2px solid #ccc; text-align: center; display: block;">
+    
+    <p id="error-year" style="color: #dc3545; display: none; margin-top: 10px; font-size: 0.9rem;"
+       data-es="Por favor, introduce un año válido (entre 1900 y 2010)."
+       data-eu="Mesedez, sartu baliozko urte bat (1900 eta 2010 artean).">
+       Por favor, introduce un año válido (entre 1900 y 2010).
+    </p>
+  </div>
+
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="responses.birthyear = document.getElementById('birthyear').value; nextScreen();" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" 
+            onclick="validarAñoYPasar()" 
+            data-es="Siguiente →" 
+            data-eu="Hurrengoa →">
+      Siguiente →
+    </button>
   </div>
 </div>
 
@@ -1652,24 +1662,24 @@
   </p>
   <div class="options-vertical">
     <label class="option-card">
-      <input type="radio" name="gender" value="hombre"> 
+      <input type="radio" name="gender" value="hombre" onchange="checkP40()"> 
       <span data-es="Hombre" data-eu="Gizona">Hombre</span>
     </label>
     <label class="option-card">
-      <input type="radio" name="gender" value="mujer"> 
+      <input type="radio" name="gender" value="mujer" onchange="checkP40()"> 
       <span data-es="Mujer" data-eu="Emakumea">Mujer</span>
     </label>
     <label class="option-card">
-      <input type="radio" name="gender" value="otro"> 
+      <input type="radio" name="gender" value="otro" onchange="checkP40()"> 
       <span data-es="Otro" data-eu="Besterik">Otro</span>
     </label>
     <label class="option-card">
-      <input type="radio" name="gender" value="nsnc"> 
+      <input type="radio" name="gender" value="nsnc" onchange="checkP40()"> 
       <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('gender')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP40" onclick="capturarYContinuar('gender')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1685,24 +1695,24 @@
   </p>
   <div class="options-vertical">
     <label class="option-card">
-      <input type="radio" name="restime" value="0-5"> 
+      <input type="radio" name="restime" value="0-5" onchange="checkP41()"> 
       <span data-es="De 0 a 5 años" data-eu="0tik 5 urtera">De 0 a 5 años</span>
     </label>
     <label class="option-card">
-      <input type="radio" name="restime" value="6-10"> 
+      <input type="radio" name="restime" value="6-10" onchange="checkP41()"> 
       <span data-es="De 6 a 10 años" data-eu="6tik 10 urtera">De 6 a 10 años</span>
     </label>
     <label class="option-card">
-      <input type="radio" name="restime" value="11-15"> 
+      <input type="radio" name="restime" value="11-15" onchange="checkP41()"> 
       <span data-es="De 11 a 15 años" data-eu="11tik 15 urtera">De 11 a 15 años</span>
     </label>
     <label class="option-card">
-      <input type="radio" name="restime" value="15plus"> 
+      <input type="radio" name="restime" value="15plus" onchange="checkP41()"> 
       <span data-es="Más de 15 años" data-eu="15 urte baino gehiago">Más de 15 años</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('restime')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP41" onclick="capturarYContinuar('restime')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1718,28 +1728,28 @@
   </p>
   <div class="radio-group">
     <label class="radio-opt">
-      <input type="radio" name="birthplace" value="alava"> 
+      <input type="radio" name="birthplace" value="alava" onchange="checkP42()"> 
       <span data-es="Álava" data-eu="Araba">Álava</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="birthplace" value="euskadi"> 
+      <input type="radio" name="birthplace" value="euskadi" onchange="checkP42()"> 
       <span data-es="Euskadi" data-eu="Euskadi">Euskadi</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="birthplace" value="navarra"> 
+      <input type="radio" name="birthplace" value="navarra" onchange="checkP42()"> 
       <span data-es="Navarra" data-eu="Nafarroa">Navarra</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="birthplace" value="otra_ca"> 
+      <input type="radio" name="birthplace" value="otra_ca" onchange="checkP42()"> 
       <span data-es="Otra comunidad autónoma" data-eu="Beste autonomia-erkidego bat">Otra comunidad autónoma</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="birthplace" value="extranjero"> 
+      <input type="radio" name="birthplace" value="extranjero" onchange="checkP42()"> 
       <span data-es="Fuera del Estado español" data-eu="Espainiako Estatutik kanpo">Fuera del Estado español</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('birthplace')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP42" onclick="capturarYContinuar('birthplace')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1755,23 +1765,23 @@
   </p>
   <div class="radio-group">
     <label class="radio-opt">
-      <input type="radio" name="housing_type" value="unifamiliar"> 
+      <input type="radio" name="housing_type" value="unifamiliar" onchange="checkP43()"> 
       <span data-es="Vivienda unifamiliar, independiente o adosada" 
             data-eu="Familia bakarreko etxebizitza, independentea edo atxikia">Vivienda unifamiliar, independiente o adosada</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="housing_type" value="piso"> 
+      <input type="radio" name="housing_type" value="piso" onchange="checkP43()"> 
       <span data-es="Piso o apartamento en edificio" 
             data-eu="Pisua edo apartamentua eraikin batean">Piso o apartamento en edificio</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="housing_type" value="otro"> 
+      <input type="radio" name="housing_type" value="otro" onchange="checkP43()"> 
       <span data-es="Otro tipo de vivienda" 
             data-eu="Beste etxebizitza mota bat">Otro tipo de vivienda</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('housing_type')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP43" onclick="capturarYContinuar('housing_type')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1787,20 +1797,20 @@
   </p>
   <div class="radio-group">
     <label class="radio-opt">
-      <input type="radio" name="tenure" value="propietario"> 
+      <input type="radio" name="tenure" value="propietario" onchange="checkP44()"> 
       <span data-es="Propietario/a" data-eu="Jabea">Propietario/a</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="tenure" value="inquilino"> 
+      <input type="radio" name="tenure" value="inquilino" onchange="checkP44()"> 
       <span data-es="Inquilino/a" data-eu="Maizterra">Inquilino/a</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="tenure" value="otro"> 
+      <input type="radio" name="tenure" value="otro" onchange="checkP44()"> 
       <span data-es="Otro" data-eu="Besterik">Otro</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('tenure')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP44" onclick="capturarYContinuar('tenure')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1850,16 +1860,16 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="transport" value="coche_propio"> <span data-es="Coche propio" data-eu="Auto propioa">Coche propio</span></label>
-    <label class="radio-opt"><input type="radio" name="transport" value="coche_pasajero"> <span data-es="Coche como pasajero/a" data-eu="Autoa bidaiari gisa">Coche como pasajero/a</span></label>
-    <label class="radio-opt"><input type="radio" name="transport" value="andando"> <span data-es="Andando" data-eu="Oinez">Andando</span></label>
-    <label class="radio-opt"><input type="radio" name="transport" value="transporte_publico"> <span data-es="Transporte público" data-eu="Garraio publikoa">Transporte público</span></label>
-    <label class="radio-opt"><input type="radio" name="transport" value="bici_patinete"> <span data-es="Bici o patinete" data-eu="Bizikleta edo patinetea">Bici o patinete</span></label>
-    <label class="radio-opt"><input type="radio" name="transport" value="moto"> <span data-es="Moto" data-eu="Motoa">Moto</span></label>
-    <label class="radio-opt"><input type="radio" name="transport" value="otro"> <span data-es="Otro" data-eu="Besterik">Otro</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="coche_propio" onchange="checkP46()"> <span data-es="Coche propio" data-eu="Auto propioa">Coche propio</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="coche_pasajero" onchange="checkP46()"> <span data-es="Coche como pasajero/a" data-eu="Autoa bidaiari gisa">Coche como pasajero/a</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="andando" onchange="checkP46()"> <span data-es="Andando" data-eu="Oinez">Andando</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="transporte_publico" onchange="checkP46()"> <span data-es="Transporte público" data-eu="Garraio publikoa">Transporte público</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="bici_patinete" onchange="checkP46()"> <span data-es="Bici o patinete" data-eu="Bizikleta edo patinetea">Bici o patinete</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="moto" onchange="checkP46()"> <span data-es="Moto" data-eu="Motoa">Moto</span></label>
+    <label class="radio-opt"><input type="radio" name="transport" value="otro" onchange="checkP46()"> <span data-es="Otro" data-eu="Besterik">Otro</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('transport')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP46" onclick="capturarYContinuar('transport')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1874,13 +1884,13 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="electrico"> <span data-es="Eléctrico" data-eu="Elektrikoa">Eléctrico</span></label>
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="hibrido"> <span data-es="Híbrido" data-eu="Hibridoa">Híbrido</span></label>
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="combustion"> <span data-es="De combustión (gasolina o diésel)" data-eu="Errekuntzakoa (gasolina edo diesela)">De combustión (gasolina o diésel)</span></label>
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="nsnc"> <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span></label>
+    <label class="radio-opt"><input type="radio" name="vehicle_type" value="electrico" onchange="checkP47()"> <span data-es="Eléctrico" data-eu="Elektrikoa">Eléctrico</span></label>
+    <label class="radio-opt"><input type="radio" name="vehicle_type" value="hibrido" onchange="checkP47()"> <span data-es="Híbrido" data-eu="Hibridoa">Híbrido</span></label>
+    <label class="radio-opt"><input type="radio" name="vehicle_type" value="combustion" onchange="checkP47()"> <span data-es="De combustión (gasolina o diésel)" data-eu="Errekuntzakoa (gasolina edo diesela)">De combustión (gasolina o diésel)</span></label>
+    <label class="radio-opt"><input type="radio" name="vehicle_type" value="nsnc" onchange="checkP47()"> <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('vehicle_type')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP47" onclick="capturarYContinuar('vehicle_type')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1895,14 +1905,14 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="education" value="sin_estudios"> <span data-es="Sin estudios o estudios primarios" data-eu="Ikasketarik gabea edo lehen mailako ikasketak">Sin estudios o estudios primarios</span></label>
-    <label class="radio-opt"><input type="radio" name="education" value="secundaria"> <span data-es="Educación secundaria" data-eu="Bigarren hezkuntza">Educación secundaria</span></label>
-    <label class="radio-opt"><input type="radio" name="education" value="bachillerato_fp"> <span data-es="Bachillerato o formación profesional" data-eu="Batxilergoa edo lanbide heziketa">Bachillerato o formación profesional</span></label>
-    <label class="radio-opt"><input type="radio" name="education" value="universitario_grado"> <span data-es="Estudios universitarios de grado" data-eu="Unibertsitateko graduko ikasketak">Estudios universitarios de grado</span></label>
-    <label class="radio-opt"><input type="radio" name="education" value="universitario_posgrado"> <span data-es="Estudios universitarios de posgrado" data-eu="Unibertsitateko graduondoko ikasketak">Estudios universitarios de posgrado</span></label>
+    <label class="radio-opt"><input type="radio" name="education" value="sin_estudios" onchange="checkP48()"> <span data-es="Sin estudios o estudios primarios" data-eu="Ikasketarik gabea edo lehen mailako ikasketak">Sin estudios o estudios primarios</span></label>
+    <label class="radio-opt"><input type="radio" name="education" value="secundaria" onchange="checkP48()"> <span data-es="Educación secundaria" data-eu="Bigarren hezkuntza">Educación secundaria</span></label>
+    <label class="radio-opt"><input type="radio" name="education" value="bachillerato_fp" onchange="checkP48()"> <span data-es="Bachillerato o formación profesional" data-eu="Batxilergoa edo lanbide heziketa">Bachillerato o formación profesional</span></label>
+    <label class="radio-opt"><input type="radio" name="education" value="universitario_grado" onchange="checkP48()"> <span data-es="Estudios universitarios de grado" data-eu="Unibertsitateko graduko ikasketak">Estudios universitarios de grado</span></label>
+    <label class="radio-opt"><input type="radio" name="education" value="universitario_posgrado" onchange="checkP48()"> <span data-es="Estudios universitarios de posgrado" data-eu="Unibertsitateko graduondoko ikasketak">Estudios universitarios de posgrado</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('education')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP48" onclick="capturarYContinuar('education')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1917,17 +1927,17 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="employment" value="estudiante"> <span data-es="Estudiante" data-eu="Ikaslea">Estudiante</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="autonomo"> <span data-es="Autónomo/a" data-eu="Autonomoa">Autónomo/a</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="empleado_parcial"> <span data-es="Empleado/a a tiempo parcial" data-eu="Lanaldi partzialeko langilea">Empleado/a a tiempo parcial</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="empleado_completo"> <span data-es="Empleado/a a tiempo completo" data-eu="Lanaldi osoko langilea">Empleado/a a tiempo completo</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="desempleado"> <span data-es="Desempleado/a" data-eu="Langabezian">Desempleado/a</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="jubilado"> <span data-es="Jubilado/a" data-eu="Erretiratua">Jubilado/a</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="trabajo_domestico"> <span data-es="Trabajo doméstico o de cuidados no remunerado" data-eu="Etxeko lanak edo ordaindu gabeko zaintza-lanak">Trabajo doméstico o de cuidados no remunerado</span></label>
-    <label class="radio-opt"><input type="radio" name="employment" value="otra"> <span data-es="Otra situación" data-eu="Beste egoera bat">Otra situación</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="estudiante" onchange="checkP49()"> <span data-es="Estudiante" data-eu="Ikaslea">Estudiante</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="autonomo" onchange="checkP49()"> <span data-es="Autónomo/a" data-eu="Autonomoa">Autónomo/a</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="empleado_parcial" onchange="checkP49()"> <span data-es="Empleado/a a tiempo parcial" data-eu="Lanaldi partzialeko langilea">Empleado/a a tiempo parcial</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="empleado_completo" onchange="checkP49()"> <span data-es="Empleado/a a tiempo completo" data-eu="Lanaldi osoko langilea">Empleado/a a tiempo completo</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="desempleado" onchange="checkP49()"> <span data-es="Desempleado/a" data-eu="Langabezian">Desempleado/a</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="jubilado" onchange="checkP49()"> <span data-es="Jubilado/a" data-eu="Erretiratua">Jubilado/a</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="trabajo_domestico" onchange="checkP49()"> <span data-es="Trabajo doméstico o de cuidados no remunerado" data-eu="Etxeko lanak edo ordaindu gabeko zaintza-lanak">Trabajo doméstico o de cuidados no remunerado</span></label>
+    <label class="radio-opt"><input type="radio" name="employment" value="otra" onchange="checkP49()"> <span data-es="Otra situación" data-eu="Beste egoera bat">Otra situación</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('employment')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP49" onclick="capturarYContinuar('employment')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -1943,39 +1953,42 @@
   </p>
   <div class="options-vertical">
     <label class="option-card">
-      <input type="checkbox" name="part_reunion" class="check-p25" value="Reuniones"> 
+      <input type="checkbox" name="part_reunion" class="check-p50" value="Reuniones" onchange="checkP50()"> 
       <span data-es="Asistir a reuniones públicas para informarse sobre el proyecto y su desarrollo" 
             data-eu="Bilera publikoetara joatea proiektuari eta haren garaparari buruzko informazioa jasotzeko">Asistir a reuniones públicas para informarse sobre el proyecto y su desarrollo</span>
     </label>
     <label class="option-card">
-      <input type="checkbox" name="part_diseno" class="check-p25" value="Diseño"> 
+      <input type="checkbox" name="part_diseno" class="check-p50" value="Diseño" onchange="checkP50()"> 
       <span data-es="Participar en la revisión y comentario del diseño del proyecto" 
             data-eu="Proiektuaren diseinuaren berrikuspenean eta iruzkinetan parte hartzea">Participar en la revisión y comentario del diseño del proyecto</span>
     </label>
     <label class="option-card">
-      <input type="checkbox" name="part_preoc" class="check-p25" value="Preocupaciones"> 
+      <input type="checkbox" name="part_preoc" class="check-p50" value="Preocupaciones" onchange="checkP50()"> 
       <span data-es="Trasladar sus preocupaciones, o las de su comunidad, a las instituciones públicas" 
             data-eu="Zure kezkak, edo zure komunitatearenak, erakunde publikoei helaraztea">Trasladar sus preocupaciones, o las de su comunidad, a las instituciones públicas</span>
     </label>
     <label class="option-card">
-      <input type="checkbox" name="part_votos" class="check-p25" value="Votos"> 
+      <input type="checkbox" name="part_votos" class="check-p50" value="Votos" onchange="checkP50()"> 
       <span data-es="Participar en votaciones sobre este tipo de instalaciones" 
             data-eu="Mota honetako instalazioei buruzko bozketetan parte hartzea">Participar en votaciones sobre este tipo de instalaciones</span>
     </label>
     <label class="option-card">
-      <input type="checkbox" name="part_nada" class="check-p25" value="Nada"> 
+      <input type="checkbox" name="part_nada" class="check-p50" value="Nada" onchange="checkP50()"> 
       <span data-es="No me interesaría participar de ninguna de estas maneras" 
             data-eu="Ez litzaidake interesatuko modu hauetako asmoetan parte hartzea">No me interesaría participar de ninguna de estas maneras</span>
     </label>
   </div>
   <div class="nav-bar">
     <button class="btn btn-primary" 
-            onclick="guardarMultiseleccionP25()" 
+            id="btnP50"
+            onclick="guardarMultiseleccionP50()" 
+            disabled
             data-es="Siguiente →" 
-            data-eu="Hurrengoa →">Siguiente →</button>
+            data-eu="Hurrengoa →">
+      Siguiente →
+    </button>
   </div>
 </div>
-
 
 <div class="screen" id="s51">
   <div class="screen-label">Pantalla 51</div>
@@ -2020,13 +2033,17 @@
     </table>
   </div>
   <div class="nav-bar">
+    <p id="error-ingresos" style="color: #dc3545; display: none; margin-bottom: 10px;"
+       data-es="Los ingresos familiares no pueden ser inferiores a los personales."
+       data-eu="Familiako diru-sarrerak ezin dira pertsonalak baino txikiagoak izan.">
+       Los ingresos familiares no pueden ser inferiores a los personales.
+    </p>
+
     <button class="btn btn-primary" 
-            onclick="responses.income_personal = document.querySelector('input[name=\'income_personal\']:checked')?.value; 
-                     responses.income_familiar = document.querySelector('input[name=\'income_familiar\']:checked')?.value; 
-                     nextScreen();" 
+            onclick="validarIngresos()" 
             data-es="Siguiente →" 
             data-eu="Hurrengoa →">Siguiente →</button>
-  </div>
+    </div>
 </div>
 
 <div class="screen" id="s52">
@@ -2036,10 +2053,9 @@
   <p>
     <strong data-es="Pregunta 27: En una escala de 1 a 10, donde el 1 indica extrema izquierda y el 10 extrema derecha, ¿en qué posición se situaría usted?" 
             data-eu="27. galdera: 1etik 10erako eskalan, non 1ak ezker muturra adierazten duen eta 10ak eskuin muturra, zein posiziotan kokatuko zinateke?">
-      Pregunta 27: En una escala de 1 a 10, donde el 1 indica extrema izquierda y el 10 extrema derecha, ¿en qué posición se situaría usted?
+      Pregunta 27: En una escala de 1 a 10, donde el 1 indica extrema izquierda y el 10 extrema derecha...
     </strong>
   </p>
-
   <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-muted); margin-bottom:4px; padding:0 2px;">
     <span data-es="Extrema izquierda" data-eu="Ezker muturra">Extrema izquierda</span>
     <span data-es="Extrema derecha" data-eu="Eskuin muturra">Extrema derecha</span>
@@ -2049,7 +2065,7 @@
       for(let i=1; i<=10; i++) {
         document.write(`
           <div class="scale-item">
-            <input type="radio" name="ideology" id="ideology_${i}" value="${i}">
+            <input type="radio" name="ideology" id="ideology_${i}" value="${i}" onchange="checkP52()">
             <label for="ideology_${i}" class="scale-label">${i}</label>
           </div>
         `);
@@ -2058,12 +2074,12 @@
   </div>
   <div style="margin-top:12px;">
     <label class="radio-opt" style="display:inline-flex; width:auto; padding:10px 18px;">
-      <input type="radio" name="ideology" value="nsnc"> 
+      <input type="radio" name="ideology" value="nsnc" onchange="checkP52()"> 
       <span style="margin-left:10px;" data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('ideology')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP52" onclick="capturarYContinuar('ideology')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -2073,11 +2089,10 @@
   </div>
   <p>
     <strong data-es="Pregunta 28: En una escala de 1 a 10, donde 1 significa máxima identidad española y 10 máxima identidad vasca, ¿dónde se situaría usted?" 
-            data-eu="28. galdera: 1etik 10erako eskalan, non 1ak espainiar nortasun handiena adierazten duen eta 10ak euskal nortasun handiena, non kokatuko zinateke?">
-      Pregunta 28: En una escala de 1 a 10, donde 1 significa máxima identidad española y 10 máxima identidad vasca, ¿dónde se situaría usted?
+            data-eu="28. galdera: 1etik 10erako eskalan, non 1ak espainiar nortasun handiena adierazten duen eta 10ak euskal nortasun handiena...">
+      Pregunta 28: En una escala de 1 a 10, donde 1 significa máxima identidad española y 10 máxima identidad vasca...
     </strong>
   </p>
-
   <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-muted); margin-bottom:4px; padding:0 2px;">
     <span data-es="Máxima identidad española" data-eu="Espainiar nortasun handiena">Máxima identidad española</span>
     <span data-es="Máxima identidad vasca" data-eu="Euskal nortasun handiena">Máxima identidad vasca</span>
@@ -2087,7 +2102,7 @@
       for(let i=1; i<=10; i++) {
         document.write(`
           <div class="scale-item">
-            <input type="radio" name="identity" id="identity_${i}" value="${i}">
+            <input type="radio" name="identity" id="identity_${i}" value="${i}" onchange="checkP53()">
             <label for="identity_${i}" class="scale-label">${i}</label>
           </div>
         `);
@@ -2096,12 +2111,12 @@
   </div>
   <div style="margin-top:12px;">
     <label class="radio-opt" style="display:inline-flex; width:auto; padding:10px 18px;">
-      <input type="radio" name="identity" value="nsnc"> 
+      <input type="radio" name="identity" value="nsnc" onchange="checkP53()"> 
       <span style="margin-left:10px;" data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('identity')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP53" onclick="capturarYContinuar('identity')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -2116,14 +2131,14 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="euskera" value="nunca"> <span data-es="Nunca" data-eu="Inoiz ez">Nunca</span></label>
-    <label class="radio-opt"><input type="radio" name="euskera" value="poco"> <span data-es="Poco" data-eu="Gutxi">Poco</span></label>
-    <label class="radio-opt"><input type="radio" name="euskera" value="a_veces"> <span data-es="A veces" data-eu="Batzuetan">A veces</span></label>
-    <label class="radio-opt"><input type="radio" name="euskera" value="bastante"> <span data-es="Con bastante frecuencia" data-eu="Maiz samar">Con bastante frecuencia</span></label>
-    <label class="radio-opt"><input type="radio" name="euskera" value="siempre"> <span data-es="Siempre o casi siempre" data-eu="Betir edo ia beti">Siempre o casi siempre</span></label>
+    <label class="radio-opt"><input type="radio" name="euskera" value="nunca" onchange="checkP54()"> <span data-es="Nunca" data-eu="Inoiz ez">Nunca</span></label>
+    <label class="radio-opt"><input type="radio" name="euskera" value="poco" onchange="checkP54()"> <span data-es="Poco" data-eu="Gutxi">Poco</span></label>
+    <label class="radio-opt"><input type="radio" name="euskera" value="a_veces" onchange="checkP54()"> <span data-es="A veces" data-eu="Batzuetan">A veces</span></label>
+    <label class="radio-opt"><input type="radio" name="euskera" value="bastante" onchange="checkP54()"> <span data-es="Con bastante frecuencia" data-eu="Maiz samar">Con bastante frecuencia</span></label>
+    <label class="radio-opt"><input type="radio" name="euskera" value="always" onchange="checkP54()"> <span data-es="Siempre o casi siempre" data-eu="Betir edo ia beti">Siempre o casi siempre</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('euskera')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP54" onclick="capturarYContinuar('euskera')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -2138,70 +2153,47 @@
     </strong>
   </p>
   <div class="radio-group">
-    <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="ahorro"> 
-      <span data-es="Sí, por el ahorro económico que me supone" data-eu="Bai, dakarren aurrezpen ekonomikoagatik">Sí, por el ahorro económico que me supone</span>
-    </label>
-    <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="naturaleza"> 
-      <span data-es="Sí, por reducir el impacto sobre la naturaleza" data-eu="Bai, naturan duen eragina murrizteagatik">Sí, por reducir el impacto sobre la naturaleza</span>
-    </label>
-    <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="clima"> 
-      <span data-es="Sí, por reducir el impacto sobre el cambio climático" data-eu="Bai, klima-aldaketan duen eragina murrizteagatik">Sí, por reducir el impacto sobre el cambio climático</span>
-    </label>
-    <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="no"> 
-      <span data-es="No" data-eu="Ez">No</span>
-    </label>
+    <label class="radio-opt"><input type="radio" name="energy_saving" value="ahorro" onchange="checkP55()"> <span data-es="Sí, por el ahorro económico..." data-eu="...">Sí, por el ahorro económico...</span></label>
+    <label class="radio-opt"><input type="radio" name="energy_saving" value="naturaleza" onchange="checkP55()"> <span data-es="Sí, por reducir el impacto sobre la naturaleza" data-eu="...">Sí, por reducir el impacto sobre la naturaleza</span></label>
+    <label class="radio-opt"><input type="radio" name="energy_saving" value="clima" onchange="checkP55()"> <span data-es="Sí, por reducir el impacto sobre el clima" data-eu="...">Sí, por reducir el impacto sobre el clima</span></label>
+    <label class="radio-opt"><input type="radio" name="energy_saving" value="no" onchange="checkP55()"> <span data-es="No" data-eu="Ez">No</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" onclick="capturarYContinuar('energy_saving')" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP55" onclick="capturarYContinuar('energy_saving')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
 <div class="screen" id="s56">
-  <div class="screen-label">
-    <span data-es="SECCIÓN 6 — Finalización" data-eu="6. ATALA — Amaiera">SECCIÓN 6 — Finalización</span>
-  </div>
-  <h2 data-es="Muchas gracias" data-eu="Eskerrik asko">Muchas gracias</h2>
-  <p data-es="Gracias por haber tomado parte en nuestra investigación. Sus respuestas son de gran valor para nosotros." 
-     data-eu="Eskerrik asko gure ikerketan parte hartzeagatik. Zure erantzunek balio handia dute guretzat.">
-    Gracias por haber tomado parte en nuestra investigación. Sus respuestas son de gran valor para nosotros.
-  </p>
-  
   <div style="margin-top: 20px;">
     <label style="display: block; margin-bottom: 8px; font-weight: bold;" 
            data-es="Si desea añadir algún comentario adicional, puede hacerlo aquí:" 
            data-eu="Iruzkin gehigarririk gehitu nahi baduzu, hemen egin dezakezu:">
       Si desea añadir algún comentario adicional, puede hacerlo aquí:
     </label>
-    <textarea name="comentarios" rows="4" 
+    <textarea id="comentarios_final" name="comentarios" rows="4" 
               data-placeholder-es="Escriba aquí sus comentarios..." 
               data-placeholder-eu="Idatzi hemen zure iruzkinak..."
-              style="width: 100%; border-radius: 8px; border: 1px solid var(--border); padding: 10px; font-family: inherit;"></textarea>
+              style="width: 100%; border-radius: 8px; border: 1px solid #ccc; padding: 10px; font-family: inherit;"></textarea>
   </div>
 
   <div style="margin-top: 25px; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
     <label style="display: block; margin-bottom: 8px;" 
            data-es="Por último, y solo si está de acuerdo, le pedimos un número de teléfono de contacto para el control de calidad del trabajo de campo:" 
            data-eu="Azkenik, eta ados bazaude soilik, harremanetarako telefono zenbaki bat eskatzen dizugu, landa-lanaren kalitatea kontrolatzeko:">
-      Por último, y solo si está de acuerdo, le pedimos un <strong>número de teléfono</strong> de contacto para el control de calidad del trabajo de campo:
+      Por último, y solo si está de acuerdo, le pedimos un <strong>número de teléfono</strong> de contacto:
     </label>
-    <input type="tel" name="telefono" placeholder="Ej: 600000000" 
-           data-placeholder-es="Ej: 600000000" data-placeholder-eu="Adib: 600000000"
-           style="padding: 10px; width: 200px; border-radius: 5px; border: 1px solid var(--border);">
+    <input type="number" id="telefono_final" name="telefono" placeholder="Ej: 600000000" 
+           style="padding: 12px; width: 220px; border-radius: 5px; border: 1px solid #ccc; font-size: 1.1rem;">
+    
+    <p id="error-tel" style="color: #dc3545; display: none; margin-top: 10px; font-size: 0.85rem;"
+       data-es="El número debe tener 9 dígitos y ser válido (600.000.000 - 999.999.999)."
+       data-eu="Zenbakiak 9 digitu izan behar ditu eta baliozkoa izan (600.000.000 - 999.999.999).">
+       El número debe tener 9 dígitos y ser válido.
+    </p>
   </div>
-
+  
   <div class="nav-bar">
-    <button class="btn btn-primary" 
-            onclick="responses.comentarios = document.getElementsByName('comentarios')[0].value; 
-                     responses.telefono = document.getElementsByName('telefono')[0].value; 
-                     nextScreen();" 
-            data-es="Finalizar participación →" 
-            data-eu="Parte-hartzea amaitu →">
-      Finalizar participación →
-    </button>
+      <button class="btn btn-primary" onclick="capturarYContinuar('energy_saving')" data-es="Siguiente (Encuestador) →" data-eu="Hurrengoa (Inkestatzailea) →">Siguiente (Encuestador) →</button>
   </div>
 </div>
 
@@ -3307,6 +3299,102 @@ function checkConsent() {
     }
 }
 
+function validarAñoYPasar() {
+    const input = document.getElementById('birthyear');
+    const valor = parseInt(input.value);
+    const errorMsg = document.getElementById('error-year');
+
+    // Validación: entre 1900 y 2010
+    if (isNaN(valor) || valor < 1900 || valor > 2010) {
+        // Mostrar error y marcar el borde en rojo
+        errorMsg.style.display = 'block';
+        input.style.borderColor = '#dc3545';
+        input.focus();
+    } else {
+        // Todo OK: Guardamos y pasamos
+        errorMsg.style.display = 'none';
+        input.style.borderColor = '#ccc';
+        responses.birthyear = valor;
+        nextScreen();
+    }
+}
+
+function validarIngresos() {
+    // 1. Definimos el orden de los rangos (de menor a mayor)
+    const escala = {
+        "ninguno": 0,
+        "menos_600": 1,
+        "600_900": 2,
+        "900_1200": 3,
+        "1200_1500": 4,
+        "1500_1800": 5,
+        "1800_2100": 6,
+        "2100_2400": 7,
+        "2400_3000": 8,
+        "3000_3600": 9,
+        "3600_4200": 10,
+        "4200_5000": 11,
+        "5000_6000": 12,
+        "mas_6000": 13,
+        "nsnc": 99 // El "No contesta" lo ignoramos en la validación lógica
+    };
+
+    const personal = document.querySelector('input[name="income_personal"]:checked')?.value;
+    const familiar = document.querySelector('input[name="income_familiar"]:checked')?.value;
+    const errorMsg = document.getElementById('error-ingresos');
+
+    // Validación: ¿Han contestado ambos?
+    if (!personal || !familiar) {
+        alert(responses.language === 'eu' ? "Mesedez, erantzun bi galderak." : "Por favor, responda ambas preguntas.");
+        return;
+    }
+
+    // Validación lógica: ¿Familiar < Personal? 
+    // (Excepto si alguno es NS/NC, que siempre se permite)
+    if (personal !== "nsnc" && familiar !== "nsnc") {
+        if (escala[familiar] < escala[personal]) {
+            errorMsg.style.display = 'block';
+            window.scrollTo({ top: errorMsg.offsetTop - 100, behavior: 'smooth' });
+            return;
+        }
+    }
+
+    // Si todo está bien:
+    errorMsg.style.display = 'none';
+    responses.income_personal = personal;
+    responses.income_familiar = familiar;
+    nextScreen();
+}
+
+function validarFinalYEnviar() {
+    const telInput = document.getElementById('telefono_final');
+    const telValue = telInput.value.trim();
+    const errorMsg = document.getElementById('error-tel');
+    const comentarios = document.getElementById('comentarios_final').value;
+
+    // Si el teléfono NO está vacío, validamos el rango
+    if (telValue !== "") {
+        const num = parseInt(telValue);
+        if (isNaN(num) || num < 600000000 || num > 999999999) {
+            errorMsg.style.display = 'block';
+            telInput.style.borderColor = '#dc3545';
+            telInput.focus();
+            return; // Detenemos el proceso
+        }
+    }
+
+    // Si está vacío o es válido:
+    errorMsg.style.display = 'none';
+    telInput.style.borderColor = '#ccc';
+    
+    // Guardamos datos en el objeto global
+    responses.comentarios_finales = comentarios;
+    responses.telefono_contacto = telValue === "" ? "No facilitado" : telValue;
+
+    // Llamamos a la función que guarda en Google Sheets y termina
+    guardarTodo(); 
+}
+
 // 1. La FUNCIÓN MAESTRA que valida cualquier pregunta
 function validarGenerica(inputName, btnId) {
     const opciones = document.getElementsByName(inputName);
@@ -3389,6 +3477,170 @@ function checkP11() {
 function checkS27() {
     validarGenerica('claridad', 'btnS27');
 }
+
+function checkP35() {
+    const sel = document.querySelector('input[name="p10"]:checked');
+    const btn = document.getElementById('btnP35');
+    if (sel) {
+        responses.p10 = sel.value; // Guardamos el dato
+        btn.disabled = false;      // Activamos botón
+    }
+}
+
+function checkP36() {
+    const respondido = document.querySelector('input[name="p11"]:checked');
+    const btn = document.getElementById('btnP36');
+    
+    if (respondido) {
+        btn.disabled = false;
+    } else {
+        btn.disabled = true;
+    }
+}
+
+function checkP37() {
+    const respondido = document.querySelector('input[name="p12"]:checked');
+    const btn = document.getElementById('btnP37');
+    
+    if (btn) {
+        btn.disabled = !respondido;
+    }
+}
+
+function checkP38() {
+    const variables = ['prior1','prior2','prior3','prior4','prior5','prior6','prior7','prior8','prior9','prior10','prior11','prior12','prior13','prior14'];
+    
+    // Verificamos si CADA una de las filas tiene algún radio seleccionado
+    const todasRespondidas = variables.every(v => {
+        return document.querySelector(`input[name="${v}"]:checked`) !== null;
+    });
+
+    const btn = document.getElementById('btnP38');
+    if (btn) {
+        btn.disabled = !todasRespondidas;
+    }
+}
+
+function guardarPrioridadesYPasar() {
+    const variables = ['prior1','prior2','prior3','prior4','prior5','prior6','prior7','prior8','prior9','prior10','prior11','prior12','prior13','prior14'];
+    
+    variables.forEach(v => {
+        const el = document.querySelector(`input[name='${v}']:checked`);
+        responses[v] = el ? el.value : '';
+    });
+    
+    nextScreen();
+}
+
+function checkP40() {
+    const respondido = document.querySelector('input[name="gender"]:checked');
+    const btn = document.getElementById('btnP40');
+    
+    if (respondido) {
+        btn.disabled = false;
+    } else {
+        btn.disabled = true;
+    }
+}
+
+function checkP41() {
+    const respondido = document.querySelector('input[name="restime"]:checked');
+    const btn = document.getElementById('btnP41');
+    
+    if (respondido) {
+        btn.disabled = false;
+    } else {
+        btn.disabled = true;
+    }
+}
+
+function checkP42() {
+    const respondido = document.querySelector('input[name="birthplace"]:checked');
+    const btn = document.getElementById('btnP42');
+    
+    if (respondido) {
+        btn.disabled = false;
+    } else {
+        btn.disabled = true;
+    }
+}
+
+function checkP43() {
+    const respondido = document.querySelector('input[name="housing_type"]:checked');
+    const btn = document.getElementById('btnP43');
+    if (btn) btn.disabled = !respondido;
+}
+
+function checkP44() {
+    const respondido = document.querySelector('input[name="tenure"]:checked');
+    const btn = document.getElementById('btnP44');
+    if (btn) btn.disabled = !respondido;
+}
+
+function checkP46() {
+    const ok = document.querySelector('input[name="transport"]:checked');
+    document.getElementById('btnP46').disabled = !ok;
+}
+
+function checkP47() {
+    const ok = document.querySelector('input[name="vehicle_type"]:checked');
+    document.getElementById('btnP47').disabled = !ok;
+}
+
+function checkP48() {
+    const ok = document.querySelector('input[name="education"]:checked');
+    document.getElementById('btnP48').disabled = !ok;
+}
+
+function checkP49() {
+    const ok = document.querySelector('input[name="employment"]:checked');
+    document.getElementById('btnP49').disabled = !ok;
+}
+
+function checkP50() {
+    // Buscamos si hay al menos un checkbox marcado en esta pantalla
+    const marcados = document.querySelectorAll('.check-p50:checked').length;
+    const btn = document.getElementById('btnP50');
+    
+    if (btn) {
+        btn.disabled = (marcados === 0);
+    }
+}
+
+function guardarMultiseleccionP50() {
+    // Lista de nombres de los checkboxes
+    const campos = ['part_reunion', 'part_diseno', 'part_preoc', 'part_votos', 'part_nada'];
+    
+    campos.forEach(id => {
+        const el = document.querySelector(`input[name="${id}"]`);
+        // Guardamos 'Sí' si está marcado, 'No' si no lo está
+        responses[id] = el.checked ? "Si" : "No";
+    });
+    
+    nextScreen();
+}
+
+function checkP52() {
+    const ok = document.querySelector('input[name="ideology"]:checked');
+    document.getElementById('btnP52').disabled = !ok;
+}
+
+function checkP53() {
+    const ok = document.querySelector('input[name="identity"]:checked');
+    document.getElementById('btnP53').disabled = !ok;
+}
+
+function checkP54() {
+    const ok = document.querySelector('input[name="euskera"]:checked');
+    document.getElementById('btnP54').disabled = !ok;
+}
+
+function checkP55() {
+    const ok = document.querySelector('input[name="energy_saving"]:checked');
+    document.getElementById('btnP55').disabled = !ok;
+}
+
+
 
 function moveRankUp(btn) {
     const item = btn.closest('.rank-item');
@@ -3523,6 +3775,9 @@ function guardarMultiseleccionP25() {
     
     nextScreen();
 }
+
+
+
 
 function finalizarEncuestaDefinitivo() {
     // 1. Capturamos el Radio de la escala P33
