@@ -45,34 +45,85 @@
     height: 100%; /* Esto obliga a que si están en un flex-container, todas midan lo mismo */
 }
 
-  /* Estilos DCE */
-  .dce-grid { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: var(--r); overflow-x: auto; margin: 20px 0; }
-  .dce-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; border-bottom: 1px solid #eee; min-width: 500px; }
-  .dce-row div, .dce-row td { padding: 12px 8px; text-align: center; border-right: 1px solid #eee; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
-  .dce-row div:first-child { font-weight: bold; background: var(--surface2); justify-content: flex-start; padding-left: 10px; }
-  .dce-row.header { background: var(--accent); color: white; font-weight: bold; }
-  .dce-row.highlight { background: var(--accent-light); font-weight: bold; }
-  .option-card { display: block; background: white; border: 1px solid var(--border); padding: 15px; margin-bottom: 10px; border-radius: 8px; cursor: pointer; }
+/* Estilos DCE Actualizados */
+/* Contenedor principal */
+.dce-grid { 
+    display: grid; 
+    grid-template-columns: 1.2fr 1fr 1fr 1fr; 
+    background: white; 
+    border: 1px solid var(--border); 
+    border-radius: var(--r); 
+    overflow: hidden; 
+    margin: 20px 0; 
+}
 
-  /* RANKING */
-  .rank-item {
+/* Formato común para TODAS las celdas del cuerpo */
+.dce-grid > div { 
+    padding: 12px 8px; 
+    text-align: center; 
+    border-right: 1px solid #eee; 
+    border-bottom: 1px solid #eee;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 0.85rem;
+    min-height: 55px;
+}
+
+/* Clase específica para la columna de Atributos (Gris y negrita) */
+.celda-atributo {
+    font-weight: bold; 
+    background: var(--surface2) !important; 
+    justify-content: flex-start !important; 
+    padding-left: 15px !important;
+}
+
+/* Cabecera */
+.dce-row.header { display: contents; }
+.dce-row.header div {
+    background: var(--accent) !important; 
+    color: white !important; 
+    font-weight: bold;
+    border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Celda combinada "No instalar" */
+.columna-combinada-c {
+    grid-column: 4; 
+    grid-row: 2 / span 8; /* Ajustado a span 8 para cubrir todas las filas */
+    background: #f9f9f9 !important;
+    font-weight: bold;
+    border-right: none !important;
+}
+
+/* --- Estilos para la Tabla de Elección (DCE) --- */
+.celda-factura {
+    font-weight: bold;
+}
+
+/* RANKING */
+.rank-item {
     display: flex; align-items: center; gap: 12px;
     background: var(--surface); border: 1.5px solid var(--border);
     border-radius: var(--r-sm); padding: 12px 16px; margin-bottom: 8px;
     cursor: grab; user-select: none;
-  }
-  .rank-item:active { cursor: grabbing; }
-  .rank-num {
+}
+
+.rank-item:active { cursor: grabbing; }
+.rank-num {
     font-weight: 700; font-size: 1.1rem; color: var(--accent);
     min-width: 24px; text-align: center;
-  }
-  .rank-item > span:nth-child(2) { flex: 1; font-size: 0.9rem; }
-  .rank-arrows { display: flex; flex-direction: column; gap: 2px; }
-  .rank-arrows button {
+}
+
+.rank-item > span:nth-child(2) { flex: 1; font-size: 0.9rem; }
+.rank-arrows { display: flex; flex-direction: column; gap: 2px; }
+.rank-arrows button {
     border: none; background: var(--surface2); border-radius: 4px;
     padding: 2px 7px; cursor: pointer; font-size: 0.75rem; color: var(--text-muted);
-  }
-  .rank-arrows button:hover { background: var(--accent-light); color: var(--accent); }
+}
+
+.rank-arrows button:hover { background: var(--accent-light); color: var(--accent); }
+
 
 /* Estilo para Escalas Numéricas (Preguntas 1-10) */
 .scale-group {
@@ -182,6 +233,49 @@
 }
 .option-item input {
     margin-right: 10px;
+}
+
+/* Contenedor de las opciones de respuesta */
+.options-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+/* La tarjeta del botón de radio */
+.option-card {
+    display: flex !important;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.option-card:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+/* El círculo del radio button */
+.option-card input[type="radio"] {
+    margin-right: 15px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent); /* Para que sea verde como tu diseño */
+    cursor: pointer;
+}
+
+/* Estilo para cuando una opción está seleccionada (opcional pero recomendado) */
+.option-card:has(input:checked) {
+    background: var(--accent-light);
+    border-color: var(--accent);
 }
 
 </style>
@@ -548,11 +642,11 @@
   <div class="radio-group">
     <label class="radio-opt">
       <input type="radio" name="q5" value="si" onchange="checkP9()"> 
-      <span data-es="Sí" data-eu="Bai">Sí</span>
+      <span data-es="Sí, sé que existe alguno" data-eu="Bai, badakit badagoela baten bat">Sí</span>
     </label>
     <label class="radio-opt">
       <input type="radio" name="q5" value="no" onchange="checkP9()"> 
-      <span data-es="No" data-eu="Ez">No</span>
+      <span data-es="No, no hay ninguno" data-eu="Ez, ez dago batere ez">No</span>
     </label>
     <label class="radio-opt">
       <input type="radio" name="q5" value="nsnc" onchange="checkP9()"> 
@@ -622,7 +716,7 @@
     <label class="radio-opt"><input type="radio" name="q6" value="100" onchange="checkP11()"> <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span></label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" id="btnP11" onclick="responses.q6 = document.querySelector('input[name=\'q6\']:checked')?.value; nextScreen();" disabled data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
+    <button class="btn btn-primary" id="btnP11" onclick="responses.q6 = document.querySelector('input[name=\'q6\']:checked')?.value; renderizarTarjetasDCE(); nextScreen();" disabled data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
   </div>
 </div>
 
@@ -897,7 +991,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Positivo.png" alt="Positivo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#2d6a2d; font-weight: bold; margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta genera un efecto favorable sobre la flora y vegetación." 
            data-eu="Zentralak ondorio mesedegarria du landaredian.">
@@ -921,7 +1015,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Negativo.png" alt="Negativo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#c0392b; font-weight: bold; margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta genera un efecto negativo sobre la flora y vegetación." 
            data-eu="Zentralak ondorio negatiboa du landaredian.">
@@ -950,7 +1044,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Impacto-positivo.png" alt="Positivo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#2d6a2d; font-weight: bold; margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta genera un efecto favorable sobre algunas especies de fauna que habita en el entorno de la planta solar." 
            data-eu="Zentralak ondorio mesedegarria du inguruan bizi diren fauna-espezie batzuetan.">
@@ -974,7 +1068,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Impacto-negativo.png" alt="Negativo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#c0392b; font-weight: bold; margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta tiene un efecto negativo sobre la fauna que habita en el entorno de la planta solar, por ejemplo, a diferentes tipos de aves." 
            data-eu="Zentralak ondorio negatiboa du inguruan bizi den faunan, adibidez, hegazti mota desberdinetan.">
@@ -1005,7 +1099,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Irudia14.png" alt="No visible" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#2d6a2d; font-weight: bold; margin-bottom: 5px;" data-es="No visible" data-eu="Ez da ikusten">No visible</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="No visible" data-eu="Ez da ikusten">No visible</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta solar no se ve desde su casa o caminos de uso habitual." 
            data-eu="Eguzki-zentral hori ez da ikusten zure etxetik edo ohiko bideetatik.">
@@ -1031,7 +1125,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Irudia13.png" alt="Visible" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#c0392b; font-weight: bold; margin-bottom: 5px;" data-es="Visible" data-eu="Ikusgai dago">Visible</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Visible" data-eu="Ikusgai dago">Visible</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta solar puede verse claramente desde su casa o caminos que utiliza habitualmente." 
            data-eu="Eguzki-zentral hori argi eta garbi ikus daiteke zure etxetik edo ohiko bideetatik.">
@@ -1079,7 +1173,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Con-participacion.png" alt="Con participación" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#2d6a2d; font-weight: bold; margin-bottom: 8px;" data-es="Con participación" data-eu="Parte-hartzearekin">Con participación</div>
+      <div class="attr-label" style="font-weight: bold; margin-bottom: 8px;" data-es="Con participación" data-eu="Parte-hartzearekin">Con participación</div>
       <div class="attr-desc" style="font-size: 0.95em;" 
            data-es="La comunidad afectada participa en la toma de decisiones sobre la gestión de la planta solar." 
            data-eu="Kaltetutako komunitateak parte hartzen du eguzki-zentralaren kudeaketari buruzko erabakiak hartzerakoan.">
@@ -1311,77 +1405,77 @@
                 data-eu="9. galdera: Zergatik hautatu duzu beti C aukera?">
             Pregunta 9: ¿Por qué ha elegido siempre la opción C?
         </strong><br>
-        <small data-es="Marque todas las razones que considere oportunas." 
-               data-eu="Markatu egoki iruditzen zaizkizun arrazoi guztiak.">
-            Marque todas las razones que considere oportunas.
+        <small data-es="Marque un máximo de 2 razones." 
+               data-eu="Markatu gehienez 2 arrazoi.">
+            Marque un máximo de 2 razones.
         </small>
     </p>
     
     <div class="options-vertical" style="text-align: left; margin-top: 20px;">
         <label class="option-item">
-            <input type="checkbox" name="q9" value="no_instalar"> 
+            <input type="checkbox" name="q9" value="no_instalar" onchange="limitarQ9(this)"> 
             <span data-es="Porque prefería no instalar la planta en las condiciones ofrecidas" 
                   data-eu="Eskainitako baldintzetan zentrala ez instalatzea nahiago nuelako">Porque prefería no instalar la planta en las condiciones ofrecidas</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="dificil_elegir"> 
+            <input type="checkbox" name="q9" value="dificil_elegir" onchange="limitarQ9(this)"> 
             <span data-es="Porque me resultaba difícil elegir entre las opciones A y B" 
                   data-eu="A eta B aukeren artean hautatzea zaila egiten zitzaidalako">Porque me resultaba difícil elegir entre las opciones A y B</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="poco_realista"> 
+            <input type="checkbox" name="q9" value="poco_realista" onchange="limitarQ9(this)"> 
             <span data-es="Considero que las medidas propuestas son poco realistas" 
                   data-eu="Nire ustez, proposatutako neurriak ez dira oso errealistak">Considero que las medidas propuestas son poco realistas</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="gran_tamano"> 
+            <input type="checkbox" name="q9" value="gran_tamano" onchange="limitarQ9(this)"> 
             <span data-es="Prefiero que no se instalen plantas solares de gran tamaño" 
                   data-eu="Nahiago dut tamaina handiko eguzki-zentralik ez instalatzea">Prefiero que no se instalen plantas solares de gran tamaño</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="reducir_consumo"> 
+            <input type="checkbox" name="q9" value="reducir_consumo" onchange="limitarQ9(this)"> 
             <span data-es="Creo que es más importante reducir el consumo de energía primero" 
                   data-eu="Nire ustez, garrantzitsuagoa da lehenik energia-kontsumoa murriztea">Creo que es más importante reducir el consumo de energía primero</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="financiacion_admin"> 
+            <input type="checkbox" name="q9" value="financiacion_admin" onchange="limitarQ9(this)"> 
             <span data-es="Creo que debería financiarse íntegramente por la Administración" 
                   data-eu="Nire ustez, Administrazioak osorik finantzatu beharko luke">Creo que debería financiarse íntegramente por la Administración</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="pago_empresas"> 
+            <input type="checkbox" name="q9" value="pago_empresas" onchange="limitarQ9(this)"> 
             <span data-es="Creo que deberían pagar principalmente las empresas" 
                   data-eu="Nire ustez, enpresek ordaindu beharko lukete batez ere">Creo que deberían pagar principalmente las empresas</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="muchos_impuestos"> 
+            <input type="checkbox" name="q9" value="muchos_impuestos" onchange="limitarQ9(this)"> 
             <span data-es="Ya pago demasiados impuestos o costes similares" 
                   data-eu="Dagoeneko zerga edo antzeko kostu gehiegi ordaintzen ditut">Ya pago demasiados impuestos o costes similares</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="suficiente_ambiente"> 
+            <input type="checkbox" name="q9" value="suficiente_ambiente" onchange="limitarQ9(this)"> 
             <span data-es="Creo que ya se gasta suficiente en protección ambiental" 
                   data-eu="Nire ustez, ingurumena babesteko nahikoa gastatzen da dagoeneko">Creo que ya se gasta suficiente en protección ambiental</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="no_permitir"> 
+            <input type="checkbox" name="q9" value="no_permitir" onchange="limitarQ9(this)"> 
             <span data-es="No me lo puedo permitir dada mi situación económica" 
                   data-eu="Ezin dut hori ordaindu, nire egoera ekonomikoa dela eta">No me lo puedo permitir dada mi situación económica</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="negacionismo"> 
+            <input type="checkbox" name="q9" value="negacionismo" onchange="limitarQ9(this)"> 
             <span data-es="No creo en el cambio climático o la necesidad de renovables" 
                   data-eu="Ez dut sinesten klima-aldaketan edo berriztagarrien beharrean">No creo en el cambio climático o la necesidad de renovables</span>
         </label>
         <label class="option-item">
-            <input type="checkbox" name="q9" value="no_autoabastecimiento"> 
+            <input type="checkbox" name="q9" value="no_autoabastecimiento" onchange="limitarQ9(this)"> 
             <span data-es="No pienso que sea necesario aumentar el autoabastecimiento en Euskadi" 
                   data-eu="Ez dut uste Euskadin autoornikuntza handitzea beharrezkoa denik">No pienso que sea necesario aumentar el autoabastecimiento en Euskadi</span>
         </label>
         
         <div style="margin-top: 10px;">
             <label class="option-item">
-                <input type="checkbox" name="q9" value="otra" id="q9_otra_check"> 
+                <input type="checkbox" name="q9" value="otra" id="q9_otra_check" onchange="limitarQ9(this)"> 
                 <span data-es="Otra:" data-eu="Besterik:">Otra:</span>
             </label>
             <input type="text" id="q9_otra_text" 
@@ -1630,13 +1724,13 @@
   <div style="margin: 30px 0;">
     <input type="number" name="birthyear" id="birthyear" 
            placeholder="Ej: 1985" 
-           min="1900" max="2010"
+           min="1900" max=2008"
            style="padding: 15px; width: 100%; max-width: 220px; font-size: 1.3rem; border-radius: 8px; border: 2px solid #ccc; text-align: center; display: block;">
     
     <p id="error-year" style="color: #dc3545; display: none; margin-top: 10px; font-size: 0.9rem;"
-       data-es="Por favor, introduce un año válido (entre 1900 y 2010)."
-       data-eu="Mesedez, sartu baliozko urte bat (1900 eta 2010 artean).">
-       Por favor, introduce un año válido (entre 1900 y 2010).
+       data-es="Por favor, introduce un año válido (entre 1900 y 2008)."
+       data-eu="Mesedez, sartu baliozko urte bat (1900 eta 2008 artean).">
+       Por favor, introduce un año válido (entre 1900 y 2008).
     </p>
   </div>
 
@@ -1733,7 +1827,7 @@
     </label>
     <label class="radio-opt">
       <input type="radio" name="birthplace" value="euskadi" onchange="checkP42()"> 
-      <span data-es="Euskadi" data-eu="Euskadi">Euskadi</span>
+      <span data-es="Resto de Euskadi" data-eu="Gainontzeko Euskadi">Euskadi</span>
     </label>
     <label class="radio-opt">
       <input type="radio" name="birthplace" value="navarra" onchange="checkP42()"> 
@@ -2023,17 +2117,17 @@
         <tr><td class="text-left" data-es="No tiene ingresos" data-eu="Ez du diru-sarrerarik">No tiene ingresos</td><td><input type="radio" name="income_personal" value="ninguno"></td><td><input type="radio" name="income_familiar" value="ninguno"></td></tr>
         <tr><td class="text-left" data-es="Menos de 600 €" data-eu="600 € baino gutxiago">Menos de 600 €</td><td><input type="radio" name="income_personal" value="menos_600"></td><td><input type="radio" name="income_familiar" value="menos_600"></td></tr>
         <tr><td class="text-left" data-es="Entre 600 y 900 €" data-eu="600 eta 900 € artean">Entre 600 y 900 €</td><td><input type="radio" name="income_personal" value="600_900"></td><td><input type="radio" name="income_familiar" value="600_900"></td></tr>
-        <tr><td class="text-left" data-es="Entre 900 y 1200 €" data-eu="900 eta 1200 € artean">Entre 900 y 1200 €</td><td><input type="radio" name="income_personal" value="900_1200"></td><td><input type="radio" name="income_familiar" value="900_1200"></td></tr>
-        <tr><td class="text-left" data-es="Entre 1200 y 1500 €" data-eu="1200 eta 1500 € artean">Entre 1200 y 1500 €</td><td><input type="radio" name="income_personal" value="1200_1500"></td><td><input type="radio" name="income_familiar" value="1200_1500"></td></tr>
-        <tr><td class="text-left" data-es="Entre 1500 y 1800 €" data-eu="1500 eta 1800 € artean">Entre 1500 y 1800 €</td><td><input type="radio" name="income_personal" value="1500_1800"></td><td><input type="radio" name="income_familiar" value="1500_1800"></td></tr>
-        <tr><td class="text-left" data-es="Entre 1800 y 2100 €" data-eu="1800 eta 2100 € artean">Entre 1800 y 2100 €</td><td><input type="radio" name="income_personal" value="1800_2100"></td><td><input type="radio" name="income_familiar" value="1800_2100"></td></tr>
-        <tr><td class="text-left" data-es="Entre 2100 y 2400 €" data-eu="2100 eta 2400 € artean">Entre 2100 y 2400 €</td><td><input type="radio" name="income_personal" value="2100_2400"></td><td><input type="radio" name="income_familiar" value="2100_2400"></td></tr>
-        <tr><td class="text-left" data-es="Entre 2400 y 3000 €" data-eu="2400 eta 3000 € artean">Entre 2400 y 3000 €</td><td><input type="radio" name="income_personal" value="2400_3000"></td><td><input type="radio" name="income_familiar" value="2400_3000"></td></tr>
-        <tr><td class="text-left" data-es="Entre 3000 y 3600 €" data-eu="3000 eta 3600 € artean">Entre 3000 y 3600 €</td><td><input type="radio" name="income_personal" value="3000_3600"></td><td><input type="radio" name="income_familiar" value="3000_3600"></td></tr>
-        <tr><td class="text-left" data-es="Entre 3600 y 4200 €" data-eu="3600 eta 4200 € artean">Entre 3600 y 4200 €</td><td><input type="radio" name="income_personal" value="3600_4200"></td><td><input type="radio" name="income_familiar" value="3600_4200"></td></tr>
-        <tr><td class="text-left" data-es="Entre 4200 y 5000 €" data-eu="4200 eta 5000 € artean">Entre 4200 y 5000 €</td><td><input type="radio" name="income_personal" value="4200_5000"></td><td><input type="radio" name="income_familiar" value="4200_5000"></td></tr>
-        <tr><td class="text-left" data-es="Entre 5000 y 6000 €" data-eu="5000 eta 6000 € artean">Entre 5000 y 6000 €</td><td><input type="radio" name="income_personal" value="5000_6000"></td><td><input type="radio" name="income_familiar" value="5000_6000"></td></tr>
-        <tr><td class="text-left" data-es="Más de 6000 €" data-eu="6000 € baino gehiago">Más de 6000 €</td><td><input type="radio" name="income_personal" value="mas_6000"></td><td><input type="radio" name="income_familiar" value="mas_6000"></td></tr>
+        <tr><td class="text-left" data-es="Entre 900 y 1.200 €" data-eu="900 eta 1.200 € artean">Entre 900 y 1.200 €</td><td><input type="radio" name="income_personal" value="900_1.200"></td><td><input type="radio" name="income_familiar" value="900_1.200"></td></tr>
+        <tr><td class="text-left" data-es="Entre 1.200 y 1.500 €" data-eu="1.200 eta 1.500 € artean">Entre 1.200 y 1.500 €</td><td><input type="radio" name="income_personal" value="1.200_1.500"></td><td><input type="radio" name="income_familiar" value="1.200_1.500"></td></tr>
+        <tr><td class="text-left" data-es="Entre 1.500 y 1.800 €" data-eu="1.500 eta 1.800 € artean">Entre 1.500 y 1.800 €</td><td><input type="radio" name="income_personal" value="1.500_1.800"></td><td><input type="radio" name="income_familiar" value="1.500_1.800"></td></tr>
+        <tr><td class="text-left" data-es="Entre 1.800 y 2.100 €" data-eu="1.800 eta 2.100 € artean">Entre 1.800 y 2.100 €</td><td><input type="radio" name="income_personal" value="1.800_2.100"></td><td><input type="radio" name="income_familiar" value="1.800_2.100"></td></tr>
+        <tr><td class="text-left" data-es="Entre 2.100 y 2.400 €" data-eu="2.100 eta 2.400 € artean">Entre 2.100 y 2.400 €</td><td><input type="radio" name="income_personal" value="2.100_2.400"></td><td><input type="radio" name="income_familiar" value="2.100_2.400"></td></tr>
+        <tr><td class="text-left" data-es="Entre 2.400 y 3.000 €" data-eu="2.400 eta 3.000 € artean">Entre 2.400 y 3.000 €</td><td><input type="radio" name="income_personal" value="2.400_3.000"></td><td><input type="radio" name="income_familiar" value="2.400_3.000"></td></tr>
+        <tr><td class="text-left" data-es="Entre 3.000 y 3.600 €" data-eu="3.000 eta 3.600 € artean">Entre 3.000 y 3.600 €</td><td><input type="radio" name="income_personal" value="3.000_3.600"></td><td><input type="radio" name="income_familiar" value="3.000_3.600"></td></tr>
+        <tr><td class="text-left" data-es="Entre 3.600 y 4.200 €" data-eu="3.600 eta 4.200 € artean">Entre 3.600 y 4.200 €</td><td><input type="radio" name="income_personal" value="3.600_4.200"></td><td><input type="radio" name="income_familiar" value="3.600_4.200"></td></tr>
+        <tr><td class="text-left" data-es="Entre 4.200 y 5.000 €" data-eu="4.200 eta 5.000 € artean">Entre 4.200 y 5.000 €</td><td><input type="radio" name="income_personal" value="4.200_5.000"></td><td><input type="radio" name="income_familiar" value="4.200_5.000"></td></tr>
+        <tr><td class="text-left" data-es="Entre 5.000 y 6.000 €" data-eu="5.000 eta 6.000 € artean">Entre 5.000 y 6.000 €</td><td><input type="radio" name="income_personal" value="5.000_6.000"></td><td><input type="radio" name="income_familiar" value="5.000_6.000"></td></tr>
+        <tr><td class="text-left" data-es="Más de 6.000 €" data-eu="6.000 € baino gehiago">Más de 6000 €</td><td><input type="radio" name="income_personal" value="mas_6000"></td><td><input type="radio" name="income_familiar" value="mas_6000"></td></tr>
         <tr><td class="text-left" data-es="Prefiere no responder" data-eu="Nahiago du ez erantzun">Prefiere no responder</td><td><input type="radio" name="income_personal" value="nsnc"></td><td><input type="radio" name="income_familiar" value="nsnc"></td></tr>
       </tbody>
     </table>
@@ -3092,6 +3186,13 @@ function showScreen(idx) {
         showScreen(idx + 1);
         return;
     }
+
+    // s47 solo se muestra si el usuario eligió "coche_propio" en s46
+    if (screens[idx] === 's47' && responses.transport !== 'coche_propio') {
+        responses.vehicle_type = 'N/A'; // marcar como no aplica en los datos
+        showScreen(idx + 1);
+        return;
+    }
     
     // Detenemos el tiempo de la pantalla que estamos dejando
     stopScreenTimer();
@@ -3195,8 +3296,7 @@ function imgCell(mapKey, rawValue) {
     }
     return `<div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
         <img src="${url}" alt="${val}" style="width:56px;height:auto;display:block;margin:0 auto;">
-        <span style="font-size:0.78rem;">${val}</span>
-    </div>`;
+        </div>`;
 }
 
 function seleccionarOpcionDCE(numeroTarjeta, eleccion) {
@@ -3221,93 +3321,117 @@ function seleccionarOpcionDCE(numeroTarjeta, eleccion) {
     if (btn) btn.disabled = false;
 }
 
-
 function renderizarTarjetasDCE() {
-    // 1. Identificar el idioma actual
     const lang = responses.language || 'es';
+    
+    // 1. OBTENER EL VALOR DE LA FACTURA
+    // Intentamos 3 vías: el objeto responses, el input directamente, o valor 0
+    let q6Value = responses.q6 || document.querySelector('input[name="q6"]:checked')?.value;
+    const baseFactura = parseFloat(q6Value) || 0;
 
+    console.log("Base Factura detectada para el cálculo:", baseFactura); // Ver en consola (F12)
+
+    // 2. FUNCIÓN DE CÁLCULO
+    const calcularPrecio = (textoOriginal) => {
+        if (!textoOriginal) return "";
+        
+        // Si es "No instalar", no hacemos nada
+        if (textoOriginal.toLowerCase().includes("instalar") || textoOriginal.toLowerCase().includes("instalatu")) {
+            return textoOriginal;
+        }
+
+        // Expresión regular robusta: cubre dos formatos:
+        //   Español: "+30% de la factura"      → número antes del %
+        //   Euskera: "Hileko fakturaren -% 30"  → número después del %
+        const matchEs = textoOriginal.match(/([+-]?\d+)%/);
+        const matchEu = textoOriginal.match(/([+-])?%\s*(\d+)/);
+        const match = matchEs || matchEu;
+        
+        if (match && baseFactura > 0) {
+            // En formato ES:  match[1] = "+30"  (matchEs)
+            // En formato EU:  match[1] = "-" o undefined, match[2] = "30"  (matchEu)
+            const porcentaje = matchEs
+                ? parseInt(matchEs[1], 10)
+                : parseInt((matchEu[1] || '') + matchEu[2], 10);
+            
+            // Si el porcentaje es 0, dejamos el texto tal cual
+            if (porcentaje === 0) return textoOriginal;
+
+            const euros = (baseFactura * porcentaje) / 100;
+            const signo = euros > 0 ? "+" : ""; // El negativo ya viene en el número
+
+            // Devolvemos el texto original + el cálculo
+            return `${textoOriginal} (${signo}${euros.toFixed(2)} €)`;
+        }
+        
+        return textoOriginal;
+    };
+
+    // 3. RENDERIZADO
     tarjetasSeleccionadas.forEach((t, index) => {
         const container = document.getElementById(`dce${index + 1}`);
         if (!container) return;
 
-        // El número de pantalla real para el Excel es index + 1
         const numDCE = index + 1;
+        const textoNoInstalar = lang === 'eu' ? 'Ez instalatu' : 'No instalar';
+
+        // Calculamos los valores de factura para esta tarjeta
+        const fA = calcularPrecio(t.factura[lang][0]);
+        const fB = calcularPrecio(t.factura[lang][1]);
 
         container.innerHTML = `
-            <h2 data-es="Elección ${numDCE} de 6" data-eu="${numDCE} / 6 Aukeraketa">
-                ${lang === 'eu' ? `${numDCE} / 6 Aukeraketa` : `Elección ${numDCE} de 6`}
-            </h2>
+            <h2>${lang === 'eu' ? `${numDCE} / 6 Aukeraketa` : `Elección ${numDCE} de 6`}</h2>
 
             <div class="dce-grid">
                 <div class="dce-row header">
                     <div>${lang === 'eu' ? 'Atributua' : 'Atributo'}</div>
-                    <div>${lang === 'eu' ? 'A Proiektua' : 'Opción A'}</div>
-                    <div>${lang === 'eu' ? 'B Proiektua' : 'Opción B'}</div>
+                    <div>${lang === 'eu' ? 'A Aukera' : 'Opción A'}</div>
+                    <div>${lang === 'eu' ? 'B Aukera' : 'Opción B'}</div>
                     <div>${lang === 'eu' ? 'C Aukera' : 'Opción C'}</div>
                 </div>
                 
-                <div class="dce-row">
-                    <div>${lang === 'eu' ? 'Lur mota' : 'Terreno'}</div>
-                    ${imgCell('terreno', t.terreno['es'][0])}
-                    ${imgCell('terreno', t.terreno['es'][1])}
-                    ${imgCell('terreno', t.terreno['es'][2])}
-                </div>
+                <div class="celda-atributo">${lang === 'eu' ? 'Lur mota' : 'Terreno'}</div>
+                ${imgCell('terreno', t.terreno['es'][0])}
+                ${imgCell('terreno', t.terreno['es'][1])}
+                <div class="columna-combinada-c">${textoNoInstalar}</div>
 
-                <div class="dce-row">
-                    <div>${lang === 'eu' ? 'Distantzia' : 'Distancia'}</div>
-                    ${imgCell('dist', t.dist['es'][0])}
-                    ${imgCell('dist', t.dist['es'][1])}
-                    ${imgCell('dist', t.dist['es'][2])}
-                </div>
+                <div class="celda-atributo">${lang === 'eu' ? 'Distantzia' : 'Distancia'}</div>
+                ${imgCell('dist', t.dist['es'][0])}
+                ${imgCell('dist', t.dist['es'][1])}
 
-                <div class="dce-row">
-                    <div>${lang === 'eu' ? 'Flora eragina' : 'Efecto Flora'}</div>
-                    ${imgCell('florafauna', t.flora['es'][0])}
-                    ${imgCell('florafauna', t.flora['es'][1])}
-                    ${imgCell('florafauna', t.flora['es'][2])}
-                </div>
+                <div class="celda-atributo">${lang === 'eu' ? 'Flora eragina' : 'Efecto Flora'}</div>
+                ${imgCell('florafauna', t.flora['es'][0])}
+                ${imgCell('florafauna', t.flora['es'][1])}
 
-                <div class="dce-row">
-                    <div>${lang === 'eu' ? 'Fauna eragina' : 'Efecto Fauna'}</div>
-                    ${imgCell('fauna', t.fauna['es'][0])}
-                    ${imgCell('fauna', t.fauna['es'][1])}
-                    ${imgCell('fauna', t.fauna['es'][2])}
-                </div>
+                <div class="celda-atributo">${lang === 'eu' ? 'Fauna eragina' : 'Efecto Fauna'}</div>
+                ${imgCell('fauna', t.fauna['es'][0])}
+                ${imgCell('fauna', t.fauna['es'][1])}
 
-                <div class="dce-row">
-                    <div>${lang === 'eu' ? 'Ikusgarritasuna' : 'Visibilidad'}</div>
-                    ${imgCell('visib', t.visib['es'][0])}
-                    ${imgCell('visib', t.visib['es'][1])}
-                    ${imgCell('visib', t.visib['es'][2])}
-                </div>
+                <div class="celda-atributo">${lang === 'eu' ? 'Ikusgarritasuna' : 'Visibilidad'}</div>
+                ${imgCell('visib', t.visib['es'][0])}
+                ${imgCell('visib', t.visib['es'][1])}
 
-                <div class="dce-row">
-                    <div>${lang === 'eu' ? 'Parte-hartzea' : 'Participación'}</div>
-                    ${imgCell('part', t.part['es'][0])}
-                    ${imgCell('part', t.part['es'][1])}
-                    ${imgCell('part', t.part['es'][2])}
-                </div>
+                <div class="celda-atributo">${lang === 'eu' ? 'Parte-hartzea' : 'Participación'}</div>
+                ${imgCell('part', t.part['es'][0])}
+                ${imgCell('part', t.part['es'][1])}
 
-                <div class="dce-row highlight">
-                    <div>${lang === 'eu' ? 'Faktura' : 'Factura'}</div>
-                    <div>${t.factura[lang][0]}</div>
-                    <div>${t.factura[lang][1]}</div>
-                    <div>${t.factura[lang][2]}</div>
-                </div>
+                <div class="celda-atributo celda-factura">${lang === 'eu' ? 'Faktura' : 'Factura'}</div>
+                <div class="celda-factura">${fA}</div>
+                <div class="celda-factura">${fB}</div>
             </div>
 
             <div class="options-vertical">
                 <label class="option-card">
                     <input type="radio" name="choice_${t.id}" value="A" onclick="seleccionarOpcionDCE(${numDCE}, 'A'); document.getElementById('btnNextDCE${numDCE}').disabled=false;"> 
-                    ${lang === 'eu' ? 'A Proiektua hautatu' : 'Elegir Opción A'}
+                    <span>${lang === 'eu' ? 'A Aukera hautatu' : 'Elegir Opción A'}</span>
                 </label>
                 <label class="option-card">
                     <input type="radio" name="choice_${t.id}" value="B" onclick="seleccionarOpcionDCE(${numDCE}, 'B'); document.getElementById('btnNextDCE${numDCE}').disabled=false;"> 
-                    ${lang === 'eu' ? 'B Proiektua hautatu' : 'Elegir Opción B'}
+                    <span>${lang === 'eu' ? 'B Aukera hautatu' : 'Elegir Opción B'}</span>
                 </label>
                 <label class="option-card">
                     <input type="radio" name="choice_${t.id}" value="C" onclick="seleccionarOpcionDCE(${numDCE}, 'C'); document.getElementById('btnNextDCE${numDCE}').disabled=false;"> 
-                    ${lang === 'eu' ? 'C Aukera (Ez instalatu)' : 'Opción C (No instalar)'}
+                    <span>${lang === 'eu' ? 'C Aukera (Ez instalatu)' : 'Opción C (No instalar)'}</span>
                 </label>
             </div>
 
@@ -3341,8 +3465,8 @@ function validarAñoYPasar() {
     const valor = parseInt(input.value);
     const errorMsg = document.getElementById('error-year');
 
-    // Validación: entre 1900 y 2010
-    if (isNaN(valor) || valor < 1900 || valor > 2010) {
+    // Validación: entre 1900 y 2008
+    if (isNaN(valor) || valor < 1900 || valor > 2008) {
         // Mostrar error y marcar el borde en rojo
         errorMsg.style.display = 'block';
         input.style.borderColor = '#dc3545';
@@ -3362,17 +3486,17 @@ function validarIngresos() {
         "ninguno": 0,
         "menos_600": 1,
         "600_900": 2,
-        "900_1200": 3,
-        "1200_1500": 4,
-        "1500_1800": 5,
-        "1800_2100": 6,
-        "2100_2400": 7,
-        "2400_3000": 8,
-        "3000_3600": 9,
-        "3600_4200": 10,
-        "4200_5000": 11,
-        "5000_6000": 12,
-        "mas_6000": 13,
+        "900_1.200": 3,
+        "1.200_1.500": 4,
+        "1.500_1.800": 5,
+        "1.800_2.100": 6,
+        "2.100_2.400": 7,
+        "2.400_3.000": 8,
+        "3.000_3.600": 9,
+        "3.600_4.200": 10,
+        "4.200_5.000": 11,
+        "5.000_6.000": 12,
+        "mas_6.000": 13,
         "nsnc": 99 // El "No contesta" lo ignoramos en la validación lógica
     };
 
@@ -3849,7 +3973,28 @@ function guardarQ9() {
     responses.q9_otra_text = document.getElementById('q9_otra_text')?.value || "";
     nextScreen();
 }
-// En el botón de s34: onclick="guardarQ9()"
+
+// Límite de 2 opciones para la pregunta 9 (s34)
+function limitarQ9(checkbox) {
+    const checked = document.querySelectorAll('input[name="q9"]:checked');
+    if (checked.length > 2) {
+        checkbox.checked = false;
+        const lang = responses.language || 'es';
+        const msg = lang === 'eu'
+            ? 'Gehienez 2 arrazoi hauta ditzakezu.'
+            : 'Solo puedes marcar un máximo de 2 razones.';
+        // Mostrar aviso inline (evita alert bloqueante)
+        let aviso = document.getElementById('q9_aviso');
+        if (!aviso) {
+            aviso = document.createElement('p');
+            aviso.id = 'q9_aviso';
+            aviso.style.cssText = 'color:var(--danger);font-size:0.85rem;margin-top:8px;';
+            document.querySelector('#s34 .options-vertical').before(aviso);
+        }
+        aviso.textContent = msg;
+        setTimeout(() => { if (aviso) aviso.textContent = ''; }, 3000);
+    }
+}
 
 function capturarYContinuar(name) {
     const el = document.querySelector(`input[name="${name}"]:checked`);
