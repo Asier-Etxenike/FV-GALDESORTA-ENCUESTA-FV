@@ -2308,6 +2308,41 @@
   </div>
 </div>
 
+<div class="screen" id="s56b">
+  <div class="screen-label">
+    <span data-es="Pantalla 56" data-eu="56. Pantaila">Pantalla 56</span>
+  </div>
+  <p>
+    <strong data-es="Pregunta 31: ¿Con cuál de estas afirmaciones sobre la relación entre la economía y el medio ambiente está más de acuerdo?"
+            data-eu="31. galdera: Ingurumena eta ekonomiaren arteko harremanari buruz zein baieztapenekin zaude gehien ados?">
+      Pregunta 31: ¿Con cuál de estas afirmaciones sobre la relación entre la economía y el medio ambiente está más de acuerdo?
+    </strong>
+  </p>
+  <div class="radio-group">
+    <label class="radio-opt">
+      <input type="radio" name="econ_env" value="medioambiente" onchange="checkP56b()">
+      <span data-es="La protección del medioambiente debería ser prioritario, incluso con riesgo de reducir el crecimiento económico."
+            data-eu="Ingurumenaren babesa lehentasuna izan beharko litzateke, nahiz eta hazkunde ekonomikoa murrizteko arriskua egon.">
+        La protección del medioambiente debería ser prioritario, incluso con riesgo de reducir el crecimiento económico.
+      </span>
+    </label>
+    <label class="radio-opt">
+      <input type="radio" name="econ_env" value="economia" onchange="checkP56b()">
+      <span data-es="El crecimiento económico debería ser prioritario, incluso con riesgo de perjudicar al medio ambiente."
+            data-eu="Hazkunde ekonomikoa lehentasuna izan beharko litzateke, nahiz eta ingurumena kaltetzeko arriskua egon.">
+        El crecimiento económico debería ser prioritario, incluso con riesgo de perjudicar al medio ambiente.
+      </span>
+    </label>
+    <label class="radio-opt">
+      <input type="radio" name="econ_env" value="nsnc" onchange="checkP56b()">
+      <span data-es="NS/NC" data-eu="EZ/EE">NS/NC</span>
+    </label>
+  </div>
+  <div class="nav-bar">
+    <button class="btn btn-primary" id="btnP56b" onclick="guardarEconEnvYContinuar()" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
+  </div>
+</div>
+
 <div class="screen" id="s56">
   <div style="margin-top: 20px;">
     <label style="display: block; margin-bottom: 8px; font-weight: bold;" 
@@ -2511,7 +2546,7 @@
 const screens = ["s1", "s2", "s3", "s4", "s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17", "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25", "s26", "s27",  
     "dce1", "dce2", "dce3", "dce4", "dce5", "dce6", // IDs para las 6 pantallas de tarjetas
     "s34", "s35","s36","s37","s38","s39","s40","s41","s42","s43","s44",
-    "s45","s46","s47","s48","s49","s50","s51","s52","s53","s54","s55","s56","s57","s58"];
+    "s45","s46","s47","s48","s49","s50","s51","s52","s53","s54","s55","s56b","s56","s57","s58"];
 
     // 2. Datos DCE - Versión Bilingüe Unificada
 const TODAS_LAS_TARJETAS = [
@@ -3923,6 +3958,18 @@ function checkP55() {
     // Habilitar botón si hay al menos una opción seleccionada
     const ok = document.querySelector('input[name="energy_saving"]:checked');
     document.getElementById('btnP55').disabled = !ok;
+}
+
+function checkP56b() {
+    const sel = document.querySelector('input[name="econ_env"]:checked');
+    document.getElementById('btnP56b').disabled = !sel;
+}
+
+function guardarEconEnvYContinuar() {
+    const sel = document.querySelector('input[name="econ_env"]:checked');
+    if (sel) responses.econ_env = sel.value;
+    if (typeof stopScreenTimer === "function") stopScreenTimer();
+    nextScreen();
 }
 
 function checkS56() {
