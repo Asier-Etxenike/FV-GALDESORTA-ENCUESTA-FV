@@ -67,7 +67,7 @@
     align-items: center; 
     justify-content: center; 
     font-size: 0.85rem;
-    min-height: 55px;
+    min-height: 75px;
 }
 
 /* Clase específica para la columna de Atributos (Gris y negrita) */
@@ -753,11 +753,24 @@
      data-eu="Kontuan hartu beharreko lehen alderdia eguzki-zentralak har dezakeen lurzoru mota da. Hiru lurzoru mota hartzen dira kontuan:">
     El primer aspecto que debe tener en cuenta es el <strong>tipo de terreno</strong> en el que podría ubicarse la planta solar. Se consideran tres tipos de terreno:
   </p>
-  <div class="attr-grid">
-    <div class="attr-card"><strong data-es="Terreno Natural" data-eu="Natura-lurzoruak">Terreno Natural</strong></div>
-    <div class="attr-card"><strong data-es="Artificializado" data-eu="Artifizialduak">Artificializado</strong></div>
-    <div class="attr-card"><strong data-es="Agrícola" data-eu="Nekazaritza-lurzoruak">Agrícola</strong></div>
+
+  <div style="background: #fdfaf3; padding: 20px; border-radius: 12px; border-left: 5px solid #f39c12; margin: 20px 0;">
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <strong data-es="Terreno Natural" data-eu="Natura-lurzoruak">Terreno Natural</strong>
+      </li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <strong data-es="Artificializado" data-eu="Artifizialduak">Artificializado</strong>
+      </li>
+      <li style="margin-bottom: 0; display: flex; gap: 10px;">
+        <span>•</span>
+        <strong data-es="Agrícola" data-eu="Nekazaritza-lurzoruak">Agrícola</strong>
+      </li>
+    </ul>
   </div>
+
   <div class="nav-bar">
     <button class="btn btn-primary" onclick="nextScreen()" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
   </div>
@@ -792,7 +805,7 @@
            alt="Terreno natural" 
            style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;">
       <p style="margin-top: 8px;">
-        <small data-es="Terreno natural" data-eu="Natura-lurzoruak">Terreno natural</small>
+        <small data-es="Ejemplo de terreno natural" data-eu="Lurzoru naturalaren adibidea">Ejemplo de terreno natural</small>
       </p>
     </div>
 
@@ -801,7 +814,7 @@
            alt="Terreno con placas" 
            style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;">
       <p style="margin-top: 8px;">
-        <small data-es="Con placas solares" data-eu="Eguzki-plakekin">Con placas solares</small>
+        <small data-es="Ejemplo de terreno natural con placas solares" data-eu="Eguzki-plakak dituen lur naturalaren adibidea">Ejemplo de terreno natural con placas solares</small>
       </p>
     </div>
   </div>
@@ -848,7 +861,7 @@
            alt="Ejemplo con placas" 
            style="width: 100%; height: 180px; object-fit: cover; border-radius: 4px;">
       <p style="margin-top: 8px;">
-        <small data-es="Ejemplo de terreno artificializado con paneles solares" data-eu="Lurzoru artifizialdua eguzki-panelekin">Ejemplo de terreno artificializado con paneles solares</small>
+        <small data-es="Ejemplo de terreno artificializado con paneles solares" data-eu="Eguzki-panelak dituen lurzoru artifizializatuaren adibidea">Ejemplo de terreno artificializado con paneles solares</small>
       </p>
     </div>
   </div>
@@ -887,7 +900,7 @@
            alt="Terreno agrícola" 
            style="width: 100%; height: 180px; object-fit: cover; border-radius: 4px;">
       <p style="margin-top: 8px;">
-        <small data-es="Terreno agrícola" data-eu="Nekazaritza-lurzoruak">Terreno agrícola</small>
+        <small data-es="Ejemplo de terreno agrícola" data-eu="Nekazaritza-lurzoruaren adibidea">Ejemplo de terreno agrícola</small>
       </p>
     </div>
 
@@ -896,7 +909,7 @@
            alt="Con placas" 
            style="width: 100%; height: 180px; object-fit: cover; border-radius: 4px;">
       <p style="margin-top: 8px;">
-        <small data-es="Terreno agrícola con placas" data-eu="Nekazaritza-lurzoruak plakekin">Terreno agrícola con placas</small>
+        <small data-es="Ejemplo de terreno agrícola con placas solares" data-eu="Eguzki-plakak dituen nekazaritza-lurzoruaren adibidea">Ejemplo de terreno agrícola con placas solares</small>
       </p>
     </div>
   </div>
@@ -914,38 +927,48 @@
      data-eu="Lurzoru motaz gain, pantaila bakoitzak eguzki-zentralarekin lotutako beste ezaugarri batzuk erakutsiko ditu:">
     Además del tipo de terreno, cada pantalla mostrará otras características relacionadas con la planta solar:
   </p>
-  <div class="attr-grid">
-    <div class="attr-card">
-        <strong data-es="La distancia entre la planta solar y su vivienda" 
-                data-eu="Eguzki-zentralaren eta zure etxebizitzaren arteko distantzia">
-            La distancia entre la planta solar y su vivienda
-        </strong>
-    </div>
-    <div class="attr-card">
-        <strong data-es="El efecto sobre la flora en el lugar y entorno cercano donde se instale la planta solar" 
-                data-eu="Landarediaren gaineko eragina, eguzki-zentralak instalatzen diren lekuan eta inguruan">
-            El efecto sobre la flora en el lugar y entorno cercano donde se instale la planta solar
-        </strong>
-    </div>
-    <div class="attr-card">
-        <strong data-es="El impacto visual que le puede producir la planta solar" 
-                data-eu="Eguzki-zentralak eragin diezazukeen ikusmen-inpaktua">
-            El impacto visual que le puede producir la planta solar
-        </strong>
-    </div>
-    <div class="attr-card">
-        <strong data-es="El grado de participación de la población afectada en relación con la gestión de la planta solar" 
-                data-eu="Kaltetutako biztanleen parte-hartze maila eguzki-zentralaren kudeaketari dagokionez">
-            El grado de participación de la población afectada en relación con la gestión de la planta solar
-        </strong>
-    </div>
-    <div class="attr-card">
-        <strong data-es="El cambio en la factura eléctrica debido a la instalación de la planta solar" 
-                data-eu="Eguzki-zentralaren instalazioaren ondorioz elektrizitatearen fakturan gertatuko den aldaketa">
-            El cambio en la factura eléctrica debido a la instalación de la planta solar
-        </strong>
-    </div>
+
+  <div style="background: #fdfaf3; padding: 20px; border-radius: 12px; border-left: 5px solid #f39c12; margin: 20px 0;">
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <span data-es="La distancia entre la planta solar y su vivienda" data-eu="Eguzki-zentralaren eta zure etxebizitzaren arteko distantzia">
+          <strong>La distancia entre la planta solar y su vivienda</strong>
+        </span>
+      </li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <span data-es="El efecto sobre la flora en el lugar y entorno cercano donde se instale la planta solar" data-eu="Landarediaren gaineko eragina, eguzki-zentralak instalatzen diren lekuan eta inguruan">
+          <strong>El efecto sobre la flora en el lugar y entorno cercano donde se instale la planta solar</strong>
+        </span>
+      </li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <span data-es="El efecto sobre la fauna en el lugar y entorno cercano donde se instale la planta solar" data-eu="Faunaren gaineko eragina, eguzki-zentralak instalatzen diren lekuan eta inguruan">
+          <strong>El efecto sobre la fauna en el lugar y entorno cercano donde se instale la planta solar</strong>
+        </span>
+      </li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <span data-es="El impacto visual que le puede producir la planta solar" data-eu="Eguzki-zentralak eragin diezazukeen ikusmen-inpaktua">
+          <strong>El impacto visual que le puede producir la planta solar</strong>
+        </span>
+      </li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+        <span>•</span>
+        <span data-es="El grado de participación de la población afectada en relación con la gestión de la planta solar" data-eu="Kaltetutako biztanleen parte-hartze maila eguzki-zentralaren kudeaketari dagokionez">
+          <strong>El grado de participación de la población afectada en relación con la gestión de la planta solar</strong>
+        </span>
+      </li>
+      <li style="margin-bottom: 0; display: flex; gap: 10px;">
+        <span>•</span>
+        <span data-es="El cambio en la factura eléctrica debido a la instalación de la planta solar" data-eu="Eguzki-zentralaren instalazioaren ondorioz elektrizitatearen fakturan gertatuko den aldaketa">
+          <strong>El cambio en la factura eléctrica debido a la instalación de la planta solar</strong>
+        </span>
+      </li>
+    </ul>
   </div>
+
   <div class="nav-bar">
     <button class="btn btn-primary" onclick="nextScreen()" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
   </div>
@@ -1203,9 +1226,9 @@
      data-eu="Elektrizitate-fakturaren aldaketa eguzki-zentralaren funtzionamenduak irauten duen bitartean mantenduko litzateke, gutxi gorabehera 30 urtean.">
     El cambio en la factura de la electricidad se mantendría durante el funcionamiento de la planta solar, estimada en alrededor de 30 años.
   </p>
-  <p data-es="En la encuesta, estos cambios pueden ir desde una disminución del 50% de su factura mensual hasta un aumento del 50% en la factura mensual."
-     data-eu="Inkestan, aldaketa horiek hileko fakturaren % 50eko murrizketatik hileko fakturaren % 50eko gehikuntzara joan daitezke.">
-    En la encuesta, estos cambios pueden ir desde una <strong>disminución del 50% de su factura mensual</strong> hasta un <strong>aumento del 50% en la factura mensual</strong>.
+  <p data-es="En la encuesta, estos cambios pueden ir desde una disminución del 50% de su factura mensual hasta un aumento del 30% en la factura mensual."
+     data-eu="Inkestan, aldaketa horiek hileko fakturaren % 50eko murrizketatik hileko fakturaren % 30eko gehikuntzara joan daitezke.">
+    En la encuesta, estos cambios pueden ir desde una <strong>disminución del 50% de su factura mensual</strong> hasta un <strong>aumento del 30% en la factura mensual</strong>.
   </p>
 
   <div class="nav-bar">
@@ -1273,7 +1296,7 @@
 
 <div class="screen" id="s25">
   <div class="screen-label">
-    <span data-es="Pantalla 25" data-eu="25. Pantaila">Pantalla 25</span>
+    <span data-es="Pantalla 25" data-eu="26. Pantaila">Pantalla 25</span>
   </div>
   <h2 data-es="Ejemplo de tarjeta de elección" data-eu="Hautatze-txartelaren adibidea">Ejemplo de tarjeta de elección</h2>
   <p data-es="A continuación, le mostraremos una tarjeta de ejemplo muy sencilla para que pueda familiarizarse con el formato de las próximas preguntas."
@@ -1293,10 +1316,7 @@
     <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Txartela-eredua.png" 
          alt="Ejemplo de tarjeta de elección" 
          style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-    <p style="margin-top: 10px;">
-      <small data-es="Ejemplo de tarjeta de elección" data-eu="Hautatze-txartelaren adibidea">Ejemplo de tarjeta de elección</small>
-    </p>
-  </div>
+    </div>
 
   <div class="nav-bar" style="margin-top: 25px;">
     <button class="btn btn-primary" onclick="nextScreen()" data-es="Siguiente →" data-eu="Hurrengoa →">Siguiente →</button>
@@ -1524,7 +1544,6 @@
   <div class="screen-label">
     <span data-es="SECCIÓN 5 — Pantalla 36" data-eu="5. ATALA — 36. Pantaila">SECCIÓN 5 — Pantalla 36</span>
   </div>
-  <h2 data-es="Debriefing" data-eu="Erantzunen analisia">Debriefing</h2>
 
   <p>
     <strong data-es="Pregunta 11: ¿Hasta qué punto cree que los resultados de esta encuesta podrían servir para influir en la realidad sobre la instalación de plantas solares en Álava?" 
@@ -1827,7 +1846,7 @@
     </label>
     <label class="radio-opt">
       <input type="radio" name="birthplace" value="euskadi" onchange="checkP42()"> 
-      <span data-es="Resto de Euskadi" data-eu="Gainontzeko Euskadi">Resto de Euskadi</span>
+      <span data-es="Otra provincia de Euskadi" data-eu="Euskadiko beste probintzia bat">Otra provincia de Euskadi</span>
     </label>
     <label class="radio-opt">
       <input type="radio" name="birthplace" value="navarra" onchange="checkP42()"> 
@@ -1978,19 +1997,33 @@
     <span data-es="Pantalla 47" data-eu="47. Pantaila">Pantalla 47</span>
   </div>
   <p>
-    <strong data-es="Pregunta 22: Si utiliza coche propio, indique qué tipo de vehículo usa habitualmente:" 
-            data-eu="22. galdera: Auto propioa erabiltzen baduzu, adierazi zein ibilgailu mota erabili ohi duzun:">
-      Pregunta 22: Si utiliza coche propio, indique qué tipo de vehículo usa habitualmente:
+    <strong data-es="Pregunta 22: Si utiliza coche propio, indique qué tipo de vehículo usa habitualmente (puede marcar varias opciones):" 
+            data-eu="22. galdera: Auto propioa erabiltzen baduzu, adierazi zein ibilgailu mota erabili ohi duzun (aukera bat baino gehiago marka ditzakezu):">
+      Pregunta 22: Si utiliza coche propio, indique qué tipo de vehículo usa habitualmente (puede marcar varias opciones):
     </strong>
   </p>
+  
   <div class="radio-group">
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="electrico" onchange="checkP47()"> <span data-es="Eléctrico" data-eu="Elektrikoa">Eléctrico</span></label>
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="hibrido" onchange="checkP47()"> <span data-es="Híbrido" data-eu="Hibridoa">Híbrido</span></label>
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="combustion" onchange="checkP47()"> <span data-es="De combustión (gasolina o diésel)" data-eu="Errekuntzakoa (gasolina edo diesela)">De combustión (gasolina o diésel)</span></label>
-    <label class="radio-opt"><input type="radio" name="vehicle_type" value="nsnc" onchange="checkP47()"> <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span></label>
-  </div>
+  <label class="radio-opt">
+    <input type="checkbox" name="vehicle_type" value="electrico" onchange="checkP47()"> 
+    <span data-es="Eléctrico" data-eu="Elektrikoa">Eléctrico</span>
+  </label>
+  <label class="radio-opt">
+    <input type="checkbox" name="vehicle_type" value="hibrido" onchange="checkP47()"> 
+    <span data-es="Híbrido" data-eu="Hibridoa">Híbrido</span>
+  </label>
+  <label class="radio-opt">
+    <input type="checkbox" name="vehicle_type" value="combustion" onchange="checkP47()"> 
+    <span data-es="De combustión (gasolina o diésel)" data-eu="Errekuntzakoa (gasolina edo diesela)">De combustión (gasolina o diésel)</span>
+  </label>
+  <label class="radio-opt">
+    <input type="checkbox" name="vehicle_type" value="nsnc" onchange="checkP47()"> 
+    <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
+  </label>
+</div>
+
   <div class="nav-bar">
-    <button class="btn btn-primary" id="btnP47" onclick="capturarYContinuar('vehicle_type')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
+    <button class="btn btn-primary" id="btnP47" onclick="guardarYContinuar('vehicle_type')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -2247,31 +2280,31 @@
     <span data-es="Pantalla 55" data-eu="55. Pantaila">Pantalla 55</span>
   </div>
   <p>
-    <strong data-es="Pregunta 30: En su vida cotidiana, ¿toma decisiones para tratar de reducir su consumo energético?" 
-            data-eu="30. galdera: Zure eguneroko bizitzan, hartzen al duzu energia-kontsumoa murrizteko erabakirik?">
-      Pregunta 30: En su vida cotidiana, ¿toma decisiones para tratar de reducir su consumo energético?
+    <strong data-es="Pregunta 30: En su vida cotidiana, ¿toma decisiones para tratar de reducir su consumo energético? (puede marcar varias opciones):" 
+            data-eu="30. galdera: Zure eguneroko bizitzan, hartzen al duzu energia-kontsumoa murrizteko erabakirik? (aukera bat baino gehiago marka ditzakezu):">
+      Pregunta 30: En su vida cotidiana, ¿toma decisiones para tratar de reducir su consumo energético? (puede marcar varias opciones):
     </strong>
   </p>
   <div class="radio-group">
     <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="ahorro" onchange="checkP55()"> 
+      <input type="checkbox" name="energy_saving" value="ahorro" onchange="checkP55()"> 
       <span data-es="Sí, por el ahorro económico que me supone" data-eu="Bai, dakarren aurrezpen ekonomikoagatik">Sí, por el ahorro económico que me supone</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="naturaleza"> 
-      <span data-es="Sí, por reducir el impacto sobre la naturaleza" data-eu="Bai, naturan duen eragina murrizteagatik" onchange="checkP55()">Sí, por reducir el impacto sobre la naturaleza</span>
+      <input type="checkbox" name="energy_saving" value="naturaleza" onchange="checkP55()"> 
+      <span data-es="Sí, por reducir el impacto sobre la naturaleza" data-eu="Bai, naturan duen eragina murrizteagatik">Sí, por reducir el impacto sobre la naturaleza</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="clima" onchange="checkP55()"> 
+      <input type="checkbox" name="energy_saving" value="clima" onchange="checkP55()"> 
       <span data-es="Sí, por reducir el impacto sobre el cambio climático" data-eu="Bai, klima-aldaketan duen eragina murrizteagatik">Sí, por reducir el impacto sobre el cambio climático</span>
     </label>
     <label class="radio-opt">
-      <input type="radio" name="energy_saving" value="no" onchange="checkP55()"> 
+      <input type="checkbox" name="energy_saving" value="no" onchange="checkP55()"> 
       <span data-es="No" data-eu="Ez">No</span>
     </label>
   </div>
   <div class="nav-bar">
-    <button class="btn btn-primary" id="btnP55" onclick="capturarYContinuar('energy_saving')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
+    <button class="btn btn-primary" id="btnP55" onclick="guardarYContinuar('energy_saving')" data-es="Siguiente →" data-eu="Hurrengoa →" disabled>Siguiente →</button>
   </div>
 </div>
 
@@ -2452,8 +2485,22 @@
     </div>
   </div>
   
+  <div style="margin-top: 20px;">
+    <p>
+      <strong data-es="Código de encuestador/a:" data-eu="Inkestatzailearen kodea:">
+        Código de encuestador/a:
+      </strong>
+    </p>
+    <input type="text" id="cod_encuestador" name="cod_encuestador"
+           placeholder="Ej: ENC-01"
+           style="padding: 10px; width: 220px; border: 1px solid var(--border); border-radius: var(--r-sm); font-size: 1rem; margin-top: 8px;">
+  </div>
+
   <div class="nav-bar">
-      <button class="btn btn-primary" onclick="finalizarEncuestaDefinitivo()" data-es="Finalizar y Enviar →" data-eu="Amaitu eta Bidali →">Finalizar y Enviar →</button>
+      <button class="btn btn-primary" onclick="
+        const codEl = document.getElementById('cod_encuestador');
+        if (codEl) responses.cod_encuestador = codEl.value;
+        finalizarEncuestaDefinitivo();" data-es="Finalizar y Enviar →" data-eu="Amaitu eta Bidali →">Finalizar y Enviar →</button>
   </div>
 </div>
 
@@ -3295,7 +3342,7 @@ function imgCell(mapKey, rawValue) {
         return `<div style="display:flex;flex-direction:column;gap:4px;align-items:center;">${val}</div>`;
     }
     return `<div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-        <img src="${url}" alt="${val}" style="width:56px;height:auto;display:block;margin:0 auto;">
+        <img src="${url}" alt="${val}" style="width:80px;height:auto;display:block;margin:0 auto;">
         </div>`;
 }
 
@@ -3379,8 +3426,20 @@ function renderizarTarjetasDCE() {
         const fA = calcularPrecio(t.factura[lang][0]);
         const fB = calcularPrecio(t.factura[lang][1]);
 
+        // Texto introductorio para la primera tarjeta, pregunta para las siguientes
+        const introHTML = numDCE === 1
+            ? `<div style="background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: var(--r-sm); padding: 16px 20px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">
+                ${lang === 'eu'
+                    ? 'Kontuan hartu gutxi gorabehera 100 futbol-zelairen azalerako lur-sail bat. Lur-sail hori Araban dago eta zuk bizi zaren tokitik 10 km baino gutxiagora. Jarraian, eguzki-planten bi plan posible aurkezten dira. Planen bat onar dezakezu, edo biak baztu eta lur-sail horretan eguzki-energia ez ekoiztea erabaki.'
+                    : 'Considere un terreno de aproximadamente 100 campos de fútbol. Este terreno se encuentra en Álava y a menos de 10 Km del lugar donde usted vive. A continuación, se muestran dos posibles planes de plantas solares. Usted puede aprobar uno de los planes, o bien rechazar ambos y no producir energía solar en este terreno.'}
+               </div>`
+            : `<p style="font-weight: 600; font-size: 1rem; margin-bottom: 12px;">
+                ${lang === 'eu' ? 'Eta kasu honetan, zein aukera nahiago duzu?' : 'Y en este caso, ¿qué opción prefiere?'}
+               </p>`;
+
         container.innerHTML = `
             <h2>${lang === 'eu' ? `${numDCE} / 6 Aukeraketa` : `Elección ${numDCE} de 6`}</h2>
+            ${introHTML}
 
             <div class="dce-grid">
                 <div class="dce-row header">
@@ -3783,6 +3842,18 @@ function checkP46() {
 }
 
 function checkP47() {
+    const checkboxes = document.getElementsByName('vehicle_type');
+    const lastChecked = document.activeElement; // El que acaba de pulsar el usuario
+    
+    if (lastChecked.value === 'nsnc' && lastChecked.checked) {
+        // Si marca NS/NC, desmarcamos todo lo demás
+        checkboxes.forEach(cb => { if(cb.value !== 'nsnc') cb.checked = false; });
+    } else if (lastChecked.checked && lastChecked.value !== 'nsnc') {
+        // Si marca cualquier otra cosa, desmarcamos NS/NC
+        checkboxes.forEach(cb => { if(cb.value === 'nsnc') cb.checked = false; });
+    }
+
+    // Habilitar botón si hay al menos uno marcado
     const ok = document.querySelector('input[name="vehicle_type"]:checked');
     document.getElementById('btnP47').disabled = !ok;
 }
@@ -3836,6 +3907,20 @@ function checkP54() {
 }
 
 function checkP55() {
+    const checkboxes = document.getElementsByName('energy_saving');
+    const lastChecked = document.activeElement; 
+
+    if (lastChecked && lastChecked.name === 'energy_saving' && lastChecked.checked) {
+        if (lastChecked.value === 'no') {
+            // Si marca "No", desmarcamos todas las opciones de "Sí"
+            checkboxes.forEach(cb => { if(cb.value !== 'no') cb.checked = false; });
+        } else {
+            // Si marca cualquier opción de "Sí", desmarcamos el "No"
+            checkboxes.forEach(cb => { if(cb.value === 'no') cb.checked = false; });
+        }
+    }
+
+    // Habilitar botón si hay al menos una opción seleccionada
     const ok = document.querySelector('input[name="energy_saving"]:checked');
     document.getElementById('btnP55').disabled = !ok;
 }
@@ -4089,7 +4174,7 @@ function finalizarEncuestaDefinitivo() {
 }
 
 function guardarTodo() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGluICeVUVlI5dum0DgC8xC69FsouXGrnJj0_6aUbF5bUfWEN4Me_wON-EbrZk-hnrhQ/exec'; 
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxuI_Wd0wbJesD-vycvtlrrTsWOTRf0vAhg3kpILeuQzlf4eb4C7gtZPD0OkfNC27f1/exec'; 
 
     console.log("Enviando datos finales...", responses);
 
