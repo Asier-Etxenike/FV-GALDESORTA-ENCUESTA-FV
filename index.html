@@ -76,6 +76,7 @@
     background: var(--surface2) !important; 
     justify-content: flex-start !important; 
     padding-left: 15px !important;
+    text-align: left;
 }
 
 /* Cabecera */
@@ -278,6 +279,22 @@
     border-color: var(--accent);
 }
 
+.factura-valor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.factura-mes {
+    font-size: 1rem;
+    font-weight: 700;
+}
+.factura-anio {
+    font-size: 0.82rem;
+    color: var(--text-muted, #666);
+}
+.factura-mes:not(:empty)[style*="color"] { /* por si quieres color */ }
+
 </style>
 </head>
 <body>
@@ -319,11 +336,12 @@
   <div class="screen-label" data-es="Pantalla 2" data-eu="2. pantaila">Pantalla 2</div>
   <h2 data-es="Consentimiento informado" data-eu="Onarpen informatua">Consentimiento informado</h2>
   <div style="font-size: 0.9rem; color: var(--text-muted); background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
-    <p data-es="Su participación en esta encuesta es voluntaria. Puede decidir no participar o dejar la encuesta en cualquier momento, sin necesidad de dar explicaciones y sin que ello tenga ninguna consecuencia para usted." data-eu="Inkesta honetan parte hartzea borondatezkoa da. Ez parte hartzea edo inkesta edozein unetan uztea erabaki dezakezu, azalpenik eman beharrik gabe eta horrek zuretzat inolako ondoriorik izan gabe.">Su participación en esta encuesta es voluntaria. Puede decidir no participar o dejar la encuesta en cualquier momento, sin necesidad de dar explicaciones y sin que ello tenga ninguna consecuencia para usted.</p>
-    <p data-es="Sus respuestas serán tratadas de forma confidencial y de acuerdo con la normativa vigente en materia de protección de datos. En caso de difusión o publicación de resultados, nunca se identificará personalmente a los participantes." data-eu="Zure erantzunak konfidentzialtasunez eta datuen babesaren arloan indarrean dagoen araudiaren arabera tratatuko dira. Emaitzak zabalduz edo argitaratuz gero, parte-hartzaileak ez dira inoiz pertsonalki identifikatuko.">Sus respuestas serán tratadas de forma confidencial y de acuerdo con la normativa vigente en materia de protección de datos. En caso de difusión o publicación de resultados, nunca se identificará personalmente a los participantes.</p>
+    <p data-es="Antes de continuar, le informamos de lo siguiente:" data-eu="Jarraitu aurretik, honako hau jakinarazten dizugu:">Antes de continuar, le informamos de lo siguiente:</p>
+    <p data-es="Su participación en esta encuesta es <strong>voluntaria</strong>. Puede decidir no participar o dejar la encuesta en cualquier momento, sin necesidad de dar explicaciones y sin que ello tenga ninguna consecuencia para usted." data-eu="Inkesta honetan parte hartzea <strong>borondatezkoa</strong> da. Ez parte hartzea edo inkesta edozein unetan uztea erabaki dezakezu, azalpenik eman beharrik gabe eta horrek zuretzat inolako ondoriorik izan gabe.">Su participación en esta encuesta es <strong>voluntaria</strong>. Puede decidir no participar o dejar la encuesta en cualquier momento, sin necesidad de dar explicaciones y sin que ello tenga ninguna consecuencia para usted.</p>
+    <p data-es="Sus respuestas serán tratadas de forma <strong>confidencial</strong> y de acuerdo con la normativa vigente en materia de protección de datos. En caso de difusión o publicación de resultados, nunca se identificará personalmente a los participantes." data-eu="Zure erantzunak <strong>konfidentzialtasunez</strong> eta datuen babesaren arloan indarrean dagoen araudiaren arabera tratatuko dira. Emaitzak zabalduz edo argitaratuz gero, parte-hartzaileak ez dira inoiz pertsonalki identifikatuko.">Sus respuestas serán tratadas de forma <strong>confidencial</strong> y de acuerdo con la normativa vigente en materia de protección de datos. En caso de difusión o publicación de resultados, nunca se identificará personalmente a los participantes.</p>
     <p data-es="Si desea más información sobre el estudio, puede ponerse en contacto con: David Hoyos (david.hoyos@ehu.eus) o Unai Pascual (unai.pascual@bc3research.org)." data-eu="Azterlanari buruzko informazio gehiago nahi izanez gero, jar zaitez harremanetan David Hoyosekin (david.hoyos@ehu.eus) edo Unai Pascualekin (unai.pascual@bc3research.org).">Si desea más información sobre el estudio, puede ponerse en contacto con: David Hoyos (david.hoyos@ehu.eus) o Unai Pascual (unai.pascual@bc3research.org).</p>
     <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
-    <p data-es="DECLARACIÓN: Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento." data-eu="ADIERAZPENA: Adierazten dut ikerketa honi buruzko informazio nahikoa jaso dudala, ulertzen dudala zertan datzan nire parte-hartzea eta badakidala edozein unetan erretiratu naitekeela."><strong> DECLARACIÓN:</strong> Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento.</p>
+    <p data-es="CONSENTIMIENTO: Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento." data-eu="ONARPENA: Adierazten dut ikerketa honi buruzko informazio nahikoa jaso dudala, ulertzen dudala zertan datzan nire parte-hartzea eta badakidala edozein unetan erretiratu naitekeela."><strong> CONSENTIMIENTO:</strong> Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento.</p>
   </div>
   <div class="radio-group">
     <p data-es="¿Da su consentimiento para participar en esta encuesta?" data-eu="Inkesta honetan parte hartzeko baimena ematen duzu?"><strong>¿Da su consentimiento para participar en esta encuesta?</strong></p>
@@ -408,9 +426,9 @@
   </div>
 
   <p>
-    <strong data-es="Pregunta 2: En su opinión, ¿hasta qué punto cree que es importante poder producir electricidad en Euskadi?" 
-            data-eu="2. galdera: Zure ustez, norainoko garrantzia du Euskadin elektrizitatea ekoitzi ahal izateak?">
-      Pregunta 2: En su opinión, ¿hasta qué punto cree que es importante poder producir electricidad en Euskadi?
+    <strong data-es="Pregunta 2: En su opinión, ¿hasta qué punto cree que es importante poder producir electricidad en Euskadi, en lugar de importarla de fuera de Euskadi?" 
+            data-eu="2. galdera: Zure ustez, zenbateraino da garrantzitsua elektrizitatea Euskadin ekoiztea, Euskaditik kanpo inportatu beharrean?">
+      Pregunta 2: En su opinión, ¿hasta qué punto cree que es importante poder producir electricidad en Euskadi, en lugar de importarla de fuera de Euskadi?
     </strong><br>
     <small data-es="1 nada importante - 10 muy importante" data-eu="1 batere garrantzitsua ez - 10 oso garrantzitsua">
       1 nada importante - 10 muy importante
@@ -529,13 +547,13 @@
     <span data-es="Pantalla 6" data-eu="6. Pantaila">Pantalla 6</span>
   </div>
   
-  <p data-es="Una de las opciones para aumentar la producción de electricidad de origen renovable es mediante la energía solar, también conocida como energía fotovoltaica."
-     data-eu="Energia berriztagarriko elektrizitate-ekoizpena handitzeko aukeretako bat eguzki-energia da, energia fotovoltaiko gisa ere ezagutzen dena.">
-    Una de las opciones para aumentar la producción de electricidad de origen renovable es mediante la energía solar, también conocida como energía fotovoltaica.
+  <p data-es="Una de las opciones para aumentar la producción de electricidad de origen renovable es mediante la <strong>energía solar</strong> , también conocida como <strong>energía fotovoltaica</strong>."
+     data-eu="Energia berriztagarriko elektrizitate-ekoizpena handitzeko aukeretako bat <strong>eguzki-energia</strong> da, <strong>energia fotovoltaiko</strong> gisa ere ezagutzen dena.">
+    Una de las opciones para aumentar la producción de electricidad de origen renovable es mediante la <strong>energía solar</strong>, también conocida como energía <strong>fotovoltaica</strong>.
   </p>
   
-  <p data-es="Actualmente, Álava tiene una capacidad para la producción de electricidad con paneles solares de aproximadamente 150 MW, con la que se satisface el consumo eléctrico de alrededor de 55.000 hogares."
-     data-eu="Gaur egun, Arabak 150 MW inguruko gaitasuna du eguzki-panelen bidez elektrizitatea ekoizteko, eta horrekin 55.000 etxebizitza ingururen elektrizitate-kontsumoa asetzen da.">
+  <p data-es="Actualmente, <strong>Álava</strong> tiene una capacidad para la producción de electricidad con paneles solares de aproximadamente 150 MW, con la que se satisface el consumo eléctrico de alrededor de 55.000 hogares."
+     data-eu="Gaur egun, <strong>Arabak</strong> 150 MW inguruko gaitasuna du eguzki-panelen bidez elektrizitatea ekoizteko, eta horrekin 55.000 etxebizitza ingururen elektrizitate-kontsumoa asetzen da.">
     Actualmente, Álava tiene una capacidad para la producción de electricidad con paneles solares de aproximadamente 150 MW, con la que se satisface el consumo eléctrico de alrededor de 55.000 hogares.
   </p>
   
@@ -592,13 +610,13 @@
     La ampliación de la capacidad para la producción de electricidad por medio de placas solares en Álava se puede conseguir aprovechando los tejados de las viviendas u ocupando diferentes tipos de terreno.
   </p>
   
-  <p data-es="En Álava, existen actualmente alrededor de 25 propuestas de nuevas plantas solares de gran tamaño con potencia de alrededor de 50 megavatios. Cada una de estas plantas podría ocupar el equivalente a unos 100 campos de fútbol y abastecer a 18.000 hogares, contribuyendo así a la lucha contra el cambio climático y autoabastecimiento energético."
-     data-eu="Araban, gaur egun, tamaina handiko eguzki-zentral berriak jartzeko 25 proposamen inguru daude, 50 megawatt inguruko potentziakoak. Zentral horietako bakoitzak 100 futbol-zelairen baliokidea den azalera har dezake eta 18.000 etxebizitza hornitu, horrela aldaketa klimatikoaren aurkako borrokan eta energia-autoornikuntzan lagunduz.">
+  <p data-es="En Álava, existen actualmente alrededor de 25 propuestas de nuevas <strong>plantas solares de gran tamaño</strong> con potencia de alrededor de <strong>50 megavatios</strong>. Cada una de estas plantas podría ocupar el equivalente a unos <strong>100 campos de fútbol</strong> y abastecer a <strong>18.000 hogares</strong>, contribuyendo así a la lucha contra el cambio climático y autoabastecimiento energético."
+     data-eu="Araban, gaur egun, <strong>tamaina handiko eguzki-zentral</strong> berriak jartzeko 25 proposamen inguru daude, <strong>50 megavatio</strong> inguruko potentziakoak. Zentral horietako bakoitzak <strong>100 futbol-zelairen</strong> baliokidea den azalera har dezake eta <strong>18.000 etxebizitza</strong> hornitu, horrela aldaketa klimatikoaren aurkako borrokan eta energia-autoornikuntzan lagunduz.">
     En Álava, existen actualmente alrededor de 25 propuestas de nuevas <strong>plantas solares de gran tamaño</strong> con potencia de alrededor de <strong>50 megavatios</strong>. Cada una de estas plantas podría ocupar el equivalente a unos <strong>100 campos de fútbol</strong> y abastecer a <strong>18.000 hogares</strong>, contribuyendo así a la lucha contra el cambio climático y autoabastecimiento energético.
   </p>
   
-  <p data-es="Algunas de estas plantas solares de gran tamaño podrían ubicarse sobre terrenos agrícolas, terrenos naturales, o terrenos artificializados, como zonas industriales o tejados en zonas urbanas."
-     data-eu="Tamaina handiko eguzki-zentral horietako batzuk nekazaritza-lurretan, natura-lurretan edo lurzoru artifizialduetan (industrialdeetan edo hiri-eremuetako teilatuetan, adibidez) koka litezke.">
+  <p data-es="Algunas de estas plantas solares de gran tamaño podrían ubicarse sobre <strong>terrenos agrícolas, terrenos naturales, o terrenos artificializados,</strong> como zonas industriales o tejados en zonas urbanas."
+     data-eu="Tamaina handiko eguzki-zentral horietako batzuk <strong>nekazaritza-lurretan, natura-lurretan edo lurzoru artifizialduetan</strong> (industrialdeetan edo hiri-eremuetako teilatuetan, adibidez) koka litezke.">
     Algunas de estas plantas solares de gran tamaño podrían ubicarse sobre <strong>terrenos agrícolas, terrenos naturales, o terrenos artificializados,</strong> como zonas industriales o tejados en zonas urbanas.
   </p>
 
@@ -665,8 +683,8 @@
     <span data-es="Pantalla 10" data-eu="10. Pantaila">Pantalla 10</span>
   </div>
   <h2 data-es="Objetivo del estudio" data-eu="Azterketaren helburua">Objetivo del estudio</h2>
-  <p data-es="Queremos conocer la opinión de la ciudadanía de Álava sobre el desarrollo de energía renovable mediante plantas solares."
-     data-eu="Arabako herritarrek eguzki-zentralen bidezko energia berriztagarriaren garapenari buruz duten iritzia ezagutu nahi dugu.">
+  <p data-es="Queremos conocer la opinión de la ciudadanía de Álava sobre el <strong>desarrollo de energía renovable mediante plantas solares."
+     data-eu="Arabako herritarrek <strong>eguzki-zentralen bidezko energia berriztagarriaren garapenari</strong> buruz duten iritzia ezagutu nahi dugu.">
     Queremos conocer la opinión de la ciudadanía de Álava sobre el <strong>desarrollo de energía renovable mediante plantas solares.</strong>
   </p>
   <p data-es="A lo largo de la encuesta le pediremos que compare varias opciones y que indique cuál prefiere en cada caso."
@@ -677,15 +695,15 @@
      data-eu="Inkesta hau ikerketa-helburuetarako soilik diseinatu da. Galderak ez zaizkie proiektu zehatzei zuzentzen, baina euskal administrazio publikoek har ditzaketen erabaki motak islatzen dituzte.">
     La encuesta ha sido diseñada únicamente con fines de investigación. Las preguntas no corresponden a proyectos concretos, aunque sí reflejan el tipo de decisiones que pueden afrontar las administraciones públicas vascas.
   </p>
-  <p data-es="Le pediremos que responda pensando en sus preferencias personales como ciudadano o ciudadana alavesa."
-     data-eu="Arabako herritar gisa dituzun lehentasun pertsonaletan pentsatuz erantzuteko eskatzen dizugu.">
+  <p data-es="Le pediremos que responda pensando en sus <strong>preferencias personales</strong> como ciudadano o ciudadana alavesa."
+     data-eu="Arabako herritar gisa dituzun <strong>lehentasun pertsonaletan</strong> pentsatuz erantzuteko eskatzen dizugu.">
     Le pediremos que responda pensando en sus <strong>preferencias personales</strong> como ciudadano o ciudadana alavesa.
   </p>
   
   <div class="info-card green">
     <h2 data-es="Utilidad del estudio" data-eu="Azterketaren erabilgarritasuna">Utilidad del estudio</h2>
-    <p data-es="Los resultados servirán para comprender mejor cómo valora la ciudadanía el desarrollo de plantas solares y podrán ser de utilidad para diseñar políticas relacionadas con la energía renovable en Álava."
-       data-eu="Emaitzek herritarrek eguzki-zentralen garapena nola baloratzen duten hobeto ulertzeko balio izango dute, eta lagungarri izan litezke Araban energia berriztagarriarekin lotutako politikak diseinatzeko.">
+    <p data-es="Los resultados servirán para <strong>comprender mejor cómo valora la ciudadanía el desarrollo de plantas solares</strong> y podrán ser de utilidad para diseñar políticas relacionadas con la energía renovable en Álava."
+       data-eu="Emaitzek <strong>herritarrek eguzki-zentralen garapena nola baloratzen duten hobeto ulertzeko</strong> balio izango dute, eta lagungarri izan litezke Araban energia berriztagarriarekin lotutako politikak diseinatzeko.">
       Los resultados servirán para <strong>comprender mejor cómo valora la ciudadanía el desarrollo de plantas solares</strong> y podrán ser de utilidad para diseñar políticas relacionadas con la energía renovable en Álava.
     </p>
   </div>
@@ -725,12 +743,12 @@
     <span data-es="SECCIÓN 3 — Pantalla 12" data-eu="3. ATALA — 12. Pantaila">SECCIÓN 3 — Pantalla 12</span>
   </div>
   <h2 data-es="Explicación de las tarjetas de elección" data-eu="Hautatzeko txartelen azalpena">Explicación de las tarjetas de elección</h2>
-  <p data-es="A continuación, le mostraremos varias pantallas sobre posibles plantas solares de gran tamaño en Álava. A efectos de este estudio, una planta solar de gran tamaño es una instalación de aproximadamente 50 megavatios que ocuparía una superficie de alrededor de 100 campos de fútbol y generaría electricidad para alrededor de 18.000 hogares."
-     data-eu="Jarraian, Arabako tamaina handiko balizko eguzki-zentralei buruzko hainbat pantaila erakutsiko dizkizugu. Azterketa honen ondorioetarako, tamaina handiko eguzki-zentral bat 50 megawatt inguruko instalazio bat da, 100 futbol-zelaiko azalera hartuko lukeena eta 18.000 etxebizitza ingururentzako elektrizitatea sortuko lukeena.">
+  <p data-es="A continuación, le mostraremos varias pantallas sobre posibles plantas solares de gran tamaño en Álava. A efectos de este estudio, una <strong>planta solar de gran tamaño</strong> es una instalación de aproximadamente <strong>50 megavatios</strong> que ocuparía una superficie de alrededor de <strong>100 campos de fútbol</strong> y generaría electricidad para alrededor de <strong>18.000 hogares</strong>"
+     data-eu="Jarraian, Arabako <strong>tamaina handiko balizko eguzki-zentralei</strong> buruzko hainbat pantaila erakutsiko dizkizugu. Azterketa honen ondorioetarako, tamaina handiko eguzki-zentral bat <strong>50 megawatt</strong> inguruko instalazio bat da, <strong>100 futbol-zelaiko</strong> azalera hartuko lukeena eta <strong>18.000 etxebizitza</strong> ingururentzako elektrizitatea sortuko lukeena.">
     A continuación, le mostraremos varias pantallas sobre posibles plantas solares de gran tamaño en Álava. A efectos de este estudio, una <strong>planta solar de gran tamaño</strong> es una instalación de aproximadamente <strong>50 megavatios</strong> que ocuparía una superficie de alrededor de <strong>100 campos de fútbol</strong> y generaría electricidad para alrededor de <strong>18.000 hogares</strong>.
   </p>
-  <p data-es="En las pantallas siguientes, se presentarán dos posibles tipos de plantas solares de gran tamaño, con características diferentes, y una tercera opción que consiste en no instalar este tipo de plantas solares. En caso de optar por la opción de no instalar la planta de energía solar, se dificultaría el logro de los objetivos de lucha contra el cambio climático y autoabastecimiento energético."
-     data-eu="Hurrengo pantailetan, tamaina handiko eguzki-zentralen bi mota aurkeztuko dira, ezaugarri desberdinekin, eta hirugarren aukera bat, mota horretako zentroak ez instalatzean datzana. Eguzki-zentralik ez instalatzea aukeratuz gero, zaildu egingo litzateke aldaketa klimatikoaren aurkako borrokaren eta energia-autoornikuntzaren helburuak lortzea.">
+  <p data-es="En las pantallas siguientes, se presentarán dos posibles tipos de plantas solares de gran tamaño, con características diferentes, y una tercera opción que consiste en no instalar este tipo de plantas solares. <strong>En caso de optar por la opción de no instalar la planta de energía solar, se dificultaría el logro de los objetivos de lucha contra el cambio climático y autoabastecimiento energético.</strong>"
+     data-eu="Hurrengo pantailetan, tamaina handiko eguzki-zentralen bi mota aurkeztuko dira, ezaugarri desberdinekin, eta hirugarren aukera bat, mota horretako zentroak ez instalatzean datzana. <strong>Eguzki-zentralik ez instalatzea aukeratuz gero, zaildu egingo litzateke aldaketa klimatikoaren aurkako borrokaren eta energia-autoornikuntzaren helburuak lortzea.</strong>">
     En las pantallas siguientes, se presentarán dos posibles tipos de plantas solares de gran tamaño, con características diferentes, y una tercera opción que consiste en no instalar este tipo de plantas solares. <strong>En caso de optar por la opción de no instalar la planta de energía solar, se dificultaría el logro de los objetivos de lucha contra el cambio climático y autoabastecimiento energético.</strong>
   </p>
   <div class="info-card amber">
@@ -749,8 +767,8 @@
     <span data-es="Pantalla 13" data-eu="13. Pantaila">Pantalla 13</span>
   </div>
   <h2 data-es="Tipo de terreno" data-eu="Lurzoru mota">Tipo de terreno</h2>
-  <p data-es="El primer aspecto que debe tener en cuenta es el tipo de terreno en el que podría ubicarse la planta solar. Se consideran tres tipos de terreno:"
-     data-eu="Kontuan hartu beharreko lehen alderdia eguzki-zentralak har dezakeen lurzoru mota da. Hiru lurzoru mota hartzen dira kontuan:">
+  <p data-es="El primer aspecto que debe tener en cuenta es el <strong>tipo de terreno</strong> en el que podría ubicarse la planta solar. Se consideran tres tipos de terreno:"
+     data-eu="Kontuan hartu beharreko lehen alderdia eguzki-zentralak har dezakeen <strong>lurzoru mota</strong> da. Hiru lurzoru mota hartzen dira kontuan:">
     El primer aspecto que debe tener en cuenta es el <strong>tipo de terreno</strong> en el que podría ubicarse la planta solar. Se consideran tres tipos de terreno:
   </p>
 
@@ -787,8 +805,8 @@
          style="width: 90px; height: auto;">
     <div>
       <p style="margin: 0;" 
-         data-es="Un terreno natural es un terreno con vegetación natural mayormente, que sirve de hábitat para distintas especies de fauna y flora. Por ejemplo, prados o bosques."
-         data-eu="Natura-lurzoru bat, gehienbat natura-begetazioa duen lurra da, eta fauna eta flora espezie desberdinentzako habitata da. Adibidez, belardiak edo basoak.">
+         data-es="Un <strong>terreno natural</strong> es un terreno con vegetación natural mayormente, que sirve de hábitat para distintas especies de fauna y flora. Por ejemplo, prados o bosques."
+         data-eu="<strong>Natura-lurzoru</strong> bat, gehienbat natura-begetazioa duen lurra da, eta fauna eta flora espezie desberdinentzako habitata da. Adibidez, belardiak edo basoak.">
         Un <strong>terreno natural</strong> es un terreno con vegetación natural mayormente, que sirve de hábitat para distintas especies de fauna y flora. Por ejemplo, prados o bosques.
       </p>
     </div>
@@ -834,8 +852,8 @@
          style="width: 90px; height: auto; flex-shrink: 0;">
     <div>
       <p style="margin: 0;" 
-         data-es="Un terreno artificializado es un terreno que ya ha sido transformado por usos urbanos, industriales o comerciales, como edificios y aparcamientos"
-         data-eu="Lurzoru artifizialdua hirigintza-, industria- edo merkataritza-erabileren ondorioz eraldatutako lurra da, hala nola eraikinak eta aparkalekuak.">
+         data-es="<strong>Un terreno artificializado</strong> es un terreno que ya ha sido transformado por usos urbanos, industriales o comerciales, como edificios y aparcamientos"
+         data-eu="<strong>Lurzoru artifizialdua</strong> hirigintza-, industria- edo merkataritza-erabileren ondorioz eraldatutako lurra da, hala nola eraikinak eta aparkalekuak.">
         Un <strong>terreno artificializado</strong> es un terreno que ya ha sido transformado por usos urbanos, industriales o comerciales, como edificios y aparcamientos
       </p>
     </div>
@@ -882,8 +900,8 @@
          style="width: 90px; height: auto; flex-shrink: 0;">
     <div>
       <p style="margin: 0;"
-         data-es="Un terreno agrícola es un terreno que actualmente se utiliza para la agricultura o ganadería en la producción de alimentos."
-         data-eu="Nekazaritza-lurzoru bat, gaur egun elikagaiak ekoizteko nekazaritzan edo abeltzaintzan erabiltzen den lurra da.">
+         data-es="<strong>Un terreno agrícola</strong> es un terreno que actualmente se utiliza para la agricultura o ganadería en la producción de alimentos."
+         data-eu="<strong>Nekazaritza-lurzoru</strong> bat, gaur egun elikagaiak ekoizteko nekazaritzan edo abeltzaintzan erabiltzen den lurra da.">
         Un <strong>terreno agrícola</strong> es un terreno que actualmente se utiliza para la agricultura o ganadería en la producción de alimentos.
       </p>
     </div>
@@ -979,8 +997,8 @@
     <span data-es="Pantalla 18" data-eu="18. Pantaila">Pantalla 18</span>
   </div>
   <h2 data-es="Distancia de la instalación" data-eu="Instalazioaren distantzia">Distancia de la instalación</h2>
-  <p data-es="Se considera la distancia entre la planta solar y su vivienda. Imagínese que la planta solar se pueda colocar a distintas distancias de su vivienda: 500 m, 2 km, 5 km, 10 km"
-     data-eu="Eguzki-zentralaren eta zure etxebizitzaren arteko distantzia hartzen da kontuan. Imajinatu eguzki-zentrala zure etxebizitzatik distantzia desberdinetara jar daitekeela: 500 m, 2 km, 5 km, 10 km">
+  <p data-es="Se considera la <strong>distancia entre la planta solar y su vivienda.</strong> Imagínese que la planta solar se pueda colocar a distintas distancias de su vivienda: <strong>500 m, 2 km, 5 km, 10 km</strong>"
+     data-eu="Eguzki-zentralaren eta <strong>zure etxebizitzaren arteko distantzia</strong> hartzen da kontuan. Imajinatu eguzki-zentrala zure etxebizitzatik distantzia desberdinetara jar daitekeela: <strong>500 m, 2 km, 5 km, 10 km</strong>">
     Se considera la <strong>distancia entre la planta solar y su vivienda.</strong> Imagínese que la planta solar se pueda colocar a distintas distancias de su vivienda: <strong>500 m, 2 km, 5 km, 10 km</strong>
   </p>
   <p id="s18_p1"></p>
@@ -1000,8 +1018,8 @@
     <span data-es="Pantalla 19" data-eu="19. Pantaila">Pantalla 19</span>
   </div>
   <h2 data-es="Efecto sobre la flora" data-eu="Landarediaren gaineko eragina">Efecto sobre la flora</h2>
-  <p data-es="La planta solar puede tener distintos efectos sobre la flora y vegetación en el terreno donde se instalaría la planta solar y su entorno cercano."
-     data-eu="Eguzki-zentralak hainbat eragin izan ditzake landaredian, bai zentroa instalatuko litzatekeen lursailean, bai inguruan.">
+  <p data-es="La planta solar puede tener distintos <strong>efectos sobre la flora y vegetación</strong> en el terreno donde se instalaría la planta solar y su entorno cercano."
+     data-eu="Eguzki-zentralak hainbat <strong>eragin izan ditzake landaredian</strong>, bai zentroa instalatuko litzatekeen lursailean, bai inguruan.">
     La planta solar puede tener distintos <strong>efectos sobre la flora y vegetación</strong> en el terreno donde se instalaría la planta solar y su entorno cercano.
   </p>
   <p data-es="En la encuesta se consideran tres tipos de efectos posibles sobre la flora y vegetación:"
@@ -1014,7 +1032,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Positivo.png" alt="Positivo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
+      <div class="attr-label" style="margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta genera un efecto favorable sobre la flora y vegetación." 
            data-eu="Zentralak ondorio mesedegarria du landaredian.">
@@ -1026,7 +1044,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Neutro.png" alt="Sin impacto" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#666; font-weight: bold; margin-bottom: 5px;" data-es="Sin impacto" data-eu="Inpakturik gabe">Sin impacto</div>
+      <div class="attr-label" style="color:#666;  margin-bottom: 5px;" data-es="Sin impacto" data-eu="Inpakturik gabe">Sin impacto</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta no afecta a la flora y vegetación." 
            data-eu="Zentralak ez dio landarediari eragiten.">
@@ -1038,7 +1056,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Negativo.png" alt="Negativo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
+      <div class="attr-label" style=" margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta genera un efecto negativo sobre la flora y vegetación." 
            data-eu="Zentralak ondorio negatiboa du landaredian.">
@@ -1057,9 +1075,9 @@
     <span data-es="Pantalla 20" data-eu="20. Pantaila">Pantalla 20</span>
   </div>
   <h2 data-es="Efecto sobre la fauna" data-eu="Faunaren gaineko eragina">Efecto sobre la fauna</h2>
-  <p data-es="En tercer lugar, la planta solar puede tener efectos sobre la fauna (por ejemplo, sobre diferentes tipos de aves) que habitan en el terreno y entorno donde se instalaría la planta solar. En la encuesta, se consideran tres tipos de efectos sobre la fauna:"
-     data-eu="Hirugarrenik, eguzki-zentralak eragina izan dezake instalatuko litzatekeen lursailean eta inguruan bizi den faunan (adibidez, hegazti mota desberdinetan). Inkestan, faunaren gaineko hiru eragin mota hartzen dira kontuan:">
-    En tercer lugar, la planta solar puede tener efectos sobre la fauna (por ejemplo, sobre diferentes tipos de aves) que habitan en el terreno y entorno donde se instalaría la planta solar. En la encuesta, se consideran tres tipos de efectos sobre la fauna:
+  <p data-es="En tercer lugar, la planta solar puede tener <strong>efectos sobre la fauna</strong> (por ejemplo, sobre diferentes tipos de aves) que habitan en el terreno y entorno donde se instalaría la planta solar. En la encuesta, se consideran tres tipos de efectos sobre la fauna:"
+     data-eu="Hirugarrenik, eguzki-zentralak eragina izan dezake instalatuko litzatekeen lursailean eta inguruan bizi den <strong>faunan</strong> (adibidez, hegazti mota desberdinetan). Inkestan, faunaren gaineko hiru eragin mota hartzen dira kontuan:">
+    En tercer lugar, la planta solar puede tener <strong>efectos sobre la fauna</strong> (por ejemplo, sobre diferentes tipos de aves) que habitan en el terreno y entorno donde se instalaría la planta solar. En la encuesta, se consideran tres tipos de efectos sobre la fauna:
   </p>
   
   <div class="attr-grid" style="display: flex; gap: 15px; margin-top: 20px;">
@@ -1067,7 +1085,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Impacto-positivo.png" alt="Positivo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
+      <div class="attr-label" style=" margin-bottom: 5px;" data-es="Positivo" data-eu="Positiboa">Positivo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta genera un efecto favorable sobre algunas especies de fauna que habita en el entorno de la planta solar." 
            data-eu="Zentralak ondorio mesedegarria du inguruan bizi diren fauna-espezie batzuetan.">
@@ -1079,7 +1097,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Neutro.png" alt="Sin impacto" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#666; font-weight: bold; margin-bottom: 5px;" data-es="Sin impacto" data-eu="Inpakturik gabe">Sin impacto</div>
+      <div class="attr-label" style="color:#666;  margin-bottom: 5px;" data-es="Sin impacto" data-eu="Inpakturik gabe">Sin impacto</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta no afecta significativamente a la fauna del entorno." 
            data-eu="Zentralak ez dio modu esanguratsuan eragiten inguruko faunari.">
@@ -1091,7 +1109,7 @@
       <div style="overflow: hidden; margin-bottom: 10px;">
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Impacto-negativo.png" alt="Negativo" style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
+      <div class="attr-label" style=" margin-bottom: 5px;" data-es="Negativo" data-eu="Negatiboa">Negativo</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta tiene un efecto negativo sobre la fauna que habita en el entorno de la planta solar, por ejemplo, a diferentes tipos de aves." 
            data-eu="Zentralak ondorio negatiboa du inguruan bizi den faunan, adibidez, hegazti mota desberdinetan.">
@@ -1110,7 +1128,7 @@
     <span data-es="Pantalla 21" data-eu="21. Pantaila">Pantalla 21</span>
   </div>
   <h2 data-es="Impacto visual" data-eu="Ikusmen-inpaktua">Impacto visual</h2>
-  <p data-es="También debe tener en cuenta el impacto visual, es decir, hasta qué punto la planta solar de gran tamaño sería visible desde su vivienda o desde caminos que utiliza habitualmente. En esta encuesta se distinguen tres niveles de visibilidad:"
+  <p data-es="También debe tener en cuenta el <strong>impacto visual</strong>, es decir, hasta qué punto la planta solar de gran tamaño sería visible desde su vivienda o desde caminos que utiliza habitualmente. En esta encuesta se distinguen tres niveles de visibilidad:"
      data-eu="Ikusmen-inpaktua ere kontuan hartu behar duzu; hau da, tamaina handiko eguzki-zentral hori zure etxebizitzatik edo ohiko bideetatik norainokoa den ikusgai. Inkesta honetan hiru ikusgaitasun-maila bereizten dira:">
     También debe tener en cuenta el <strong>impacto visual</strong>, es decir, hasta qué punto la planta solar de gran tamaño sería visible desde su vivienda o desde caminos que utiliza habitualmente. En esta encuesta se distinguen tres niveles de visibilidad:
   </p>
@@ -1122,7 +1140,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Irudia14.png" alt="No visible" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="No visible" data-eu="Ez da ikusten">No visible</div>
+      <div class="attr-label" style=" margin-bottom: 5px;" data-es="No visible" data-eu="Ez da ikusten">No visible</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta solar no se ve desde su casa o caminos de uso habitual." 
            data-eu="Eguzki-zentral hori ez da ikusten zure etxetik edo ohiko bideetatik.">
@@ -1135,7 +1153,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/03/Parcialmente-visible.png" alt="Parcialmente visible" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#666; font-weight: bold; margin-bottom: 5px;" data-es="Parcialmente visible" data-eu="Zati bat ikusten da">Parcialmente visible</div>
+      <div class="attr-label" style="color:#666;  margin-bottom: 5px;" data-es="Parcialmente visible" data-eu="Zati bat ikusten da">Parcialmente visible</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta solar queda en parte oculta o integrada en el paisaje, por ejemplo mediante vegetación u otros elementos del terreno, aunque puede verse desde algunos puntos de su entorno habitual." 
            data-eu="Eguzki-zentral hori zati batean ezkutatuta edo paisaian integratuta geratzen da, adibidez landarediaren edo lursailaren beste elementu batzuen bidez, nahiz eta ohiko inguruko puntu batzuetatik ikus daitekeen.">
@@ -1148,7 +1166,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Irudia13.png" alt="Visible" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 5px;" data-es="Visible" data-eu="Ikusgai dago">Visible</div>
+      <div class="attr-label" style=" margin-bottom: 5px;" data-es="Visible" data-eu="Ikusgai dago">Visible</div>
       <div class="attr-desc" style="font-size: 0.9em;" 
            data-es="La planta solar puede verse claramente desde su casa o caminos que utiliza habitualmente." 
            data-eu="Eguzki-zentral hori argi eta garbi ikus daiteke zure etxetik edo ohiko bideetatik.">
@@ -1167,9 +1185,9 @@
     <span data-es="Pantalla 22" data-eu="22. Pantaila">Pantalla 22</span>
   </div>
   <h2 data-es="Participación de la comunidad" data-eu="Komunitatearen parte-hartzea">Participación de la comunidad</h2>
-  <p data-es="Le pediremos que también tenga en cuenta el grado de participación de la comunidad afectada en la gestión de la planta solar."
-     data-eu="Kaltetutako komunitateak eguzki-zentralaren kudeaketan duen parte-hartze maila ere kontuan hartzeko eskatzen dizugu.">
-    Le pediremos que también tenga en cuenta el grado de participación de la comunidad afectada en la gestión de la planta solar.
+  <p data-es="Le pediremos que también tenga en cuenta el <strong>grado de participación de la comunidad afectada</strong> en la gestión de la planta solar."
+     data-eu="<strong>Kaltetutako komunitateak eguzki-zentralaren kudeaketan duen parte-hartze maila</strong> ere kontuan hartzeko eskatzen dizugu.">
+    Le pediremos que también tenga en cuenta el <strong>grado de participación de la comunidad afectada</strong> en la gestión de la planta solar.
   </p>
   <p data-es="En su caso, la comunidad afectada podría decidir sobre cómo repartir los beneficios económicos, quién consume la energía (hogares o empresas) y el destino de la misma."
      data-eu="Zure kasuan, kaltetutako komunitateak erabaki dezake nola banatu onura ekonomikoak, nork kontsumitzen duen energia (etxeak ala enpresak) eta energia horren helburua zein den.">
@@ -1183,7 +1201,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/No-participacion.png" alt="Sin participación" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="color:#666; font-weight: bold; margin-bottom: 8px;" data-es="Sin participación" data-eu="Parte-hartzerik gabe">Sin participación</div>
+      <div class="attr-label" style="color:#666;  margin-bottom: 8px;" data-es="Sin participación de la comunidad afectada" data-eu="Eragindako komunitatearen parte-hartzerik gabe">Sin participación de la comunidad afectada</div>
       <div class="attr-desc" style="font-size: 0.95em;" 
            data-es="La comunidad afectada no participa en la toma de decisiones sobre la gestión de la planta solar." 
            data-eu="Kaltetutako komunitateak ez du parte hartzen eguzki-zentralaren kudeaketari buruzko erabakiak hartzerakoan.">
@@ -1196,7 +1214,7 @@
         <img src="https://www.aztiker.eus/wp-content/uploads/2026/04/Con-participacion.png" alt="Con participación" 
              style="width: 120px; height: auto; display: block; margin: 0 auto;">
       </div>
-      <div class="attr-label" style="font-weight: bold; margin-bottom: 8px;" data-es="Con participación" data-eu="Parte-hartzearekin">Con participación</div>
+      <div class="attr-label" style=" margin-bottom: 8px;" data-es="Con participación de la comunidad afectada" data-eu="Eragindako komunitatearen parte-hartzearekin">Con participación de la comunidad afectada</div>
       <div class="attr-desc" style="font-size: 0.95em;" 
            data-es="La comunidad afectada participa en la toma de decisiones sobre la gestión de la planta solar." 
            data-eu="Kaltetutako komunitateak parte hartzen du eguzki-zentralaren kudeaketari buruzko erabakiak hartzerakoan.">
@@ -1214,20 +1232,20 @@
     <span data-es="Pantalla 23" data-eu="23. Pantaila">Pantalla 23</span>
   </div>
   <h2 data-es="Cambio en la factura eléctrica" data-eu="Aldaketa elektrizitatearen fakturan">Cambio en la factura eléctrica</h2>
-  <p data-es="Por último, cada tarjeta de elección incluye un posible aumento o disminución en la factura eléctrica de su hogar en caso de que se lleve a cabo la planta solar."
-     data-eu="Azkenik, hautatze-txartel bakoitzak zure etxeko elektrizitate-fakturan izan daitekeen gehikuntza edo murrizketa jasotzen du, eguzki-zentral hori egingo balitz.">
+  <p data-es="Por último, cada tarjeta de elección incluye un posible <strong>aumento o disminución en la factura eléctrica de su hogar</strong> en caso de que se lleve a cabo la planta solar."
+     data-eu="Azkenik, hautatze-txartel bakoitzak zure <strong>etxeko elektrizitate-fakturan izan daitekeen gehikuntza edo murrizketa</strong> jasotzen du, eguzki-zentral hori egingo balitz.">
     Por último, cada tarjeta de elección incluye un posible <strong>aumento o disminución en la factura eléctrica de su hogar</strong> en caso de que se lleve a cabo la planta solar.
   </p>
-  <p data-es="Este cambio se expresará en euros al mes y, como referencia, también en euros al año."
-     data-eu="Aldaketa hori hileko eurotan adieraziko da eta, erreferentzia gisa, urteko eurotan ere bai.">
+  <p data-es="Este cambio se expresará en <strong>euros al mes</strong> y, como referencia, también en <strong>euros al año</strong>"
+     data-eu="Aldaketa hori <strong>hileko eurotan</strong> adieraziko da eta, erreferentzia gisa, <strong>urteko eurotan</strong> ere bai.">
     Este cambio se expresará en <strong>euros al mes</strong> y, como referencia, también en <strong>euros al año</strong>.
   </p>
   <p data-es="El cambio en la factura de la electricidad se mantendría durante el funcionamiento de la planta solar, estimada en alrededor de 30 años."
      data-eu="Elektrizitate-fakturaren aldaketa eguzki-zentralaren funtzionamenduak irauten duen bitartean mantenduko litzateke, gutxi gorabehera 30 urtean.">
     El cambio en la factura de la electricidad se mantendría durante el funcionamiento de la planta solar, estimada en alrededor de 30 años.
   </p>
-  <p data-es="En la encuesta, estos cambios pueden ir desde una disminución del 50% de su factura mensual hasta un aumento del 30% en la factura mensual."
-     data-eu="Inkestan, aldaketa horiek hileko fakturaren % 50eko murrizketatik hileko fakturaren % 30eko gehikuntzara joan daitezke.">
+  <p data-es="En la encuesta, estos cambios pueden ir desde una <strong>disminución del 50% de su factura mensual</strong> hasta un <strong>aumento del 30% en la factura mensual</strong>."
+     data-eu="Inkestan, aldaketa horiek <strong>hileko fakturaren % 50eko murrizketatik</strong> hileko fakturaren <strong>% 30eko gehikuntzara</strong> joan daitezke.">
     En la encuesta, estos cambios pueden ir desde una <strong>disminución del 50% de su factura mensual</strong> hasta un <strong>aumento del 30% en la factura mensual</strong>.
   </p>
 
@@ -1296,10 +1314,9 @@
 
 <div class="screen" id="s25">
   <div class="screen-label">
-    <span data-es="Pantalla 25" data-eu="26. Pantaila">Pantalla 25</span>
+    <span data-es="Pantalla 25" data-eu="25. Pantaila">Pantalla 25</span>
   </div>
-  <h2 data-es="Ejemplo de tarjeta de elección" data-eu="Hautatze-txartelaren adibidea">Ejemplo de tarjeta de elección</h2>
-  <p data-es="A continuación, le mostraremos una tarjeta de ejemplo muy sencilla para que pueda familiarizarse con el formato de las próximas preguntas."
+    <p data-es="A continuación, le mostraremos una tarjeta de ejemplo muy sencilla para que pueda familiarizarse con el formato de las próximas preguntas."
      data-eu="Jarraian, adibideko txartel oso sinple bat erakutsiko dizugu, hurrengo galderen formatua ezagutu dezazun.">
     A continuación, le mostraremos una tarjeta de ejemplo muy sencilla para que pueda familiarizarse con el formato de las próximas preguntas.
   </p>
@@ -1329,8 +1346,8 @@
   </div>
   <h2 data-es="Recomendaciones antes de empezar" data-eu="Hasi aurreko gomendioak">Recomendaciones antes de empezar</h2>
   
-  <p data-es="A continuación, se le presentarán seis pantallas de elección similares a la que acaba de ver, pero con todas las características mencionadas. Al elegir su opción preferida, recuerde lo siguiente:"
-     data-eu="Jarraian, ikusi berri duzunaren antzeko hautatze-sei pantaila aurkeztuko zaizkizu, baina aipatutako ezaugarri guztiekin. Zure aukerarik gogokoena hautatzean, gogoratu honako hau:">
+  <p data-es="A continuación, se le presentarán <strong>seis pantallas de elección</strong> similares a la que acaba de ver, pero con todas las características mencionadas. Al elegir su opción preferida, recuerde lo siguiente:"
+     data-eu="Jarraian, ikusi berri duzunaren antzeko <strong>hautatze-sei pantaila</strong> aurkeztuko zaizkizu, baina aipatutako ezaugarri guztiekin. Zure aukerarik gogokoena hautatzean, gogoratu honako hau:">
     A continuación, se le presentarán <strong>seis pantallas de elección</strong> similares a la que acaba de ver, pero con todas las características mencionadas. Al elegir su opción preferida, recuerde lo siguiente:
   </p>
 
@@ -1338,36 +1355,36 @@
     <ul style="list-style: none; padding: 0; margin: 0;">
       <li style="margin-bottom: 12px; display: flex; gap: 10px;">
         <span>•</span>
-        <span data-es="No hay respuestas correctas o incorrectas. Revise cada pantalla con atención y responda según su preferencia personal."
-              data-eu="Ez dago erantzun zuzenik edo okerrik. Begiratu pantaila bakoitza arretaz eta erantzun zure lehentasun pertsonalaren arabera.">
+        <span data-es="<strong>No hay respuestas correctas o incorrectas.</strong> Revise cada pantalla con atención y responda según su preferencia personal."
+              data-eu="<strong>Ez dago erantzun zuzenik edo okerrik</strong>. Begiratu pantaila bakoitza arretaz eta erantzun zure lehentasun pertsonalaren arabera.">
           <strong>No hay respuestas correctas o incorrectas.</strong> Revise cada pantalla con atención y responda según su preferencia personal.
         </span>
       </li>
       <li style="margin-bottom: 12px; display: flex; gap: 10px;">
         <span>•</span>
-        <span data-es="Si no se desarrolla la planta de energía solar propuesta, el terreno mantendría su uso actual."
-              data-eu="Proposatutako eguzki-zentralik garatzen ez bada, lursailak gaur egungo erabilerari eutsiko lioke.">
+        <span data-es="Si no se desarrolla la planta de energía solar propuesta, el terreno mantendría su <strong>uso actual</strong>."
+              data-eu="Proposatutako eguzki-zentralik garatzen ez bada, lursailak <strong>gaur egungo</strong> erabilerari eutsiko lioke.">
           Si no se desarrolla la planta de energía solar propuesta, el terreno mantendría su <strong>uso actual</strong>.
         </span>
       </li>
       <li style="margin-bottom: 12px; display: flex; gap: 10px;">
         <span>•</span>
-        <span data-es="En caso de optar por la opción de no instalar la planta solar, se dificultaría el logro de los objetivos de lucha contra el cambio climático y autoabastecimiento energético en Euskadi."
-              data-eu="Eguzki-zentralik ez instalatzea aukeratuz gero, zaildu egingo litzateke Euskadin aldaketa klimatikoaren aurkako borrokaren eta energia-autoornikuntzaren helburuak lortzea.">
+        <span data-es="En caso de optar por la opción de no instalar la planta solar, se dificultaría el logro de los objetivos de <strong>lucha contra el cambio climático y autoabastecimiento energético</strong> en Euskadi."
+              data-eu="Eguzki-zentralik ez instalatzea aukeratuz gero, zaildu egingo litzateke Euskadin <strong>aldaketa klimatikoaren aurkako borrokaren eta energia-autoornikuntzaren</strong> helburuak lortzea.">
           En caso de optar por la opción de no instalar la planta solar, se dificultaría el logro de los objetivos de <strong>lucha contra el cambio climático y autoabastecimiento energético</strong> en Euskadi.
         </span>
       </li>
       <li style="margin-bottom: 12px; display: flex; gap: 10px;">
         <span>•</span>
-        <span data-es="Las opciones que verá a continuación son hipotéticas, pero si un número suficiente de personas lo aprueban o desaprueban, podrán servir de base para la planificación futura de energías renovables en Álava."
-              data-eu="Jarraian ikusiko dituzun aukerak hipotetikoak dira, baina pertsona nahikoek onartzen edo gaitzesten badituzte, Arabako energia berriztagarrien etorkizuneko plangintzarako oinarri izan daitezke.">
+        <span data-es="Las opciones que verá a continuación son hipotéticas, pero si un número suficiente de personas lo aprueban o desaprueban, <strong>podrán servir de base para la planificación</strong> futura de energías renovables en Álava."
+              data-eu="Jarraian ikusiko dituzun aukerak hipotetikoak dira, baina pertsona nahikoek onartzen edo gaitzesten badituzte, Arabako energia berriztagarrien etorkizuneko <strong>plangintzarako oinarri izan daitezke</strong>.">
           Las opciones que verá a continuación son hipotéticas, pero si un número suficiente de personas lo aprueban o desaprueban, <strong>podrán servir de base para la planificación</strong> futura de energías renovables en Álava.
         </span>
       </li>
       <li style="margin-bottom: 0; display: flex; gap: 10px;">
         <span>•</span>
-        <span data-es="En este tipo de encuestas, es habitual que algunas personas elijan opciones que en la práctica no contratarían o no pagarían realmente. Por favor, responda como si la decisión fuera real y tenga en cuenta su propio presupuesto familiar"
-              data-eu="Mota honetako inkestetan, ohikoa da pertsona batzuek praktikan kontratatuko ez lituzketen edo ordainduko ez lituzketen aukerak hautatzea. Mesedez, erantzun erabakia erreala balitz bezala eta kontuan hartu zure familia-aurrekontua.">
+        <span data-es="En este tipo de encuestas, es habitual que algunas personas elijan opciones que en la práctica no contratarían o no pagarían realmente. Por favor, responda como si la decisión fuera <strong>real</strong> y tenga en cuenta su propio <strong>presupuesto familiar</strong>."
+              data-eu="Mota honetako inkestetan, ohikoa da pertsona batzuek praktikan kontratatuko ez lituzketen edo ordainduko ez lituzketen aukerak hautatzea. Mesedez, erantzun erabakia <strong>erreala</strong> balitz bezala eta kontuan hartu zure familia-aurrekontua.">
           En este tipo de encuestas, es habitual que algunas personas elijan opciones que en la práctica no contratarían o no pagarían realmente. Por favor, responda como si la decisión fuera <strong>real</strong> y tenga en cuenta su propio <strong>presupuesto familiar</strong>.
         </span>
       </li>
@@ -1515,7 +1532,7 @@
   <div class="screen-label">
     <span data-es="SECCIÓN 5 — Pantalla 35" data-eu="5. ATALA — 35. Pantaila">SECCIÓN 5 — Pantalla 35</span>
   </div>
-  <h2 data-es="Debriefing" data-eu="Erantzunen analisia">Debriefing</h2>
+  <h2 data-es="" data-eu="Erantzunen analisia"></h2>
   
   <p>
     <strong data-es="Pregunta 10: En sus respuestas, ¿tuvo en cuenta los ingresos actuales de su hogar al valorar los posibles cambios en la factura eléctrica?" 
@@ -1586,7 +1603,7 @@
   <div class="screen-label">
     <span data-es="SECCIÓN 5 — Pantalla 37" data-eu="5. ATALA — 37. Pantaila">SECCIÓN 5 — Pantalla 37</span>
   </div>
-  <h2 data-es="Debriefing" data-eu="Erantzunen analisia">Debriefing</h2>
+  <h2 data-es="" data-eu="Erantzunen analisia"></h2>
 
   <p>
     <strong data-es="Pregunta 12: ¿Hasta qué punto le parecieron creíbles los cambios en la factura eléctrica mostrados en las tarjetas?" 
@@ -1743,13 +1760,13 @@
   <div style="margin: 30px 0;">
     <input type="number" name="birthyear" id="birthyear" 
            placeholder="Ej: 1985" 
-           min="1900" max=2008"
+           min="1900" max=2007"
            style="padding: 15px; width: 100%; max-width: 220px; font-size: 1.3rem; border-radius: 8px; border: 2px solid #ccc; text-align: center; display: block;">
     
     <p id="error-year" style="color: #dc3545; display: none; margin-top: 10px; font-size: 0.9rem;"
-       data-es="Por favor, introduce un año válido (entre 1900 y 2008)."
-       data-eu="Mesedez, sartu baliozko urte bat (1900 eta 2008 artean).">
-       Por favor, introduce un año válido (entre 1900 y 2008).
+       data-es="Por favor, introduce un año válido (entre 1900 y 2007)."
+       data-eu="Mesedez, sartu baliozko urte bat (1900 eta 2007 artean).">
+       Por favor, introduce un año válido (entre 1900 y 2007).
     </p>
   </div>
 
@@ -3403,140 +3420,219 @@ function seleccionarOpcionDCE(numeroTarjeta, eleccion) {
     if (btn) btn.disabled = false;
 }
 
-function renderizarTarjetasDCE() {
+ function renderizarTarjetasDCE() {
+
     const lang = responses.language || 'es';
-    
+
+   
+
     // 1. OBTENER EL VALOR DE LA FACTURA
+
     // Intentamos 3 vías: el objeto responses, el input directamente, o valor 0
+
     let q6Value = responses.q6 || document.querySelector('input[name="q6"]:checked')?.value;
+
     const baseFactura = parseFloat(q6Value) || 0;
+
 
     console.log("Base Factura detectada para el cálculo:", baseFactura); // Ver en consola (F12)
 
+
     // 2. FUNCIÓN DE CÁLCULO
-    const calcularPrecio = (textoOriginal) => {
-        if (!textoOriginal) return "";
-        
-        // Si es "No instalar", no hacemos nada
-        if (textoOriginal.toLowerCase().includes("instalar") || textoOriginal.toLowerCase().includes("instalatu")) {
-            return textoOriginal;
-        }
 
-        // Expresión regular robusta: cubre dos formatos:
-        //   Español: "+30% de la factura"      → número antes del %
-        //   Euskera: "Hileko fakturaren -% 30"  → número después del %
-        const matchEs = textoOriginal.match(/([+-]?\d+)%/);
-        const matchEu = textoOriginal.match(/([+-])?%\s*(\d+)/);
-        const match = matchEs || matchEu;
-        
-        if (match && baseFactura > 0) {
-            // En formato ES:  match[1] = "+30"  (matchEs)
-            // En formato EU:  match[1] = "-" o undefined, match[2] = "30"  (matchEu)
-            const porcentaje = matchEs
-                ? parseInt(matchEs[1], 10)
-                : parseInt((matchEu[1] || '') + matchEu[2], 10);
-            
-            // Si el porcentaje es 0, dejamos el texto tal cual
-            if (porcentaje === 0) return textoOriginal;
+const calcularPrecio = (textoOriginal) => {
+    if (!textoOriginal) return "";
 
-            const euros = (baseFactura * porcentaje) / 100;
-            const signo = euros > 0 ? "+" : ""; // El negativo ya viene en el número
-
-            // Devolvemos el texto original + el cálculo
-            return `${textoOriginal} (${signo}${euros.toFixed(2)} €)`;
-        }
-        
+    if (textoOriginal.toLowerCase().includes("instalar") || textoOriginal.toLowerCase().includes("instalatu")) {
         return textoOriginal;
-    };
+    }
+
+    const matchEs = textoOriginal.match(/([+-]?\d+)%/);
+    const matchEu = textoOriginal.match(/([+-])?%\s*(\d+)/);
+    const match = matchEs || matchEu;
+
+    if (match && baseFactura > 0) {
+        const porcentaje = matchEs
+            ? parseInt(matchEs[1], 10)
+            : parseInt((matchEu[1] || '') + matchEu[2], 10);
+
+        if (porcentaje === 0) {
+            return lang === 'eu' ? 'Aldaketarik gabe' : 'Sin cambios';
+        }
+
+        const eurosMes = (baseFactura * porcentaje) / 100;
+        const eurosAnio = eurosMes * 12;
+        const signo = eurosMes > 0 ? "+" : "";
+
+        return `<span class="factura-mes">${signo}${Math.round(eurosMes)} euros/mes</span>
+                <span class="factura-anio">${signo}${Math.round(eurosAnio)} euros/año</span>`;
+    }
+
+    return textoOriginal;
+};
 
     // 3. RENDERIZADO
+
     tarjetasSeleccionadas.forEach((t, index) => {
+
         const container = document.getElementById(`dce${index + 1}`);
+
         if (!container) return;
 
+
         const numDCE = index + 1;
+
         const textoNoInstalar = lang === 'eu' ? 'Ez instalatu' : 'No instalar';
 
+
         // Calculamos los valores de factura para esta tarjeta
+
         const fA = calcularPrecio(t.factura[lang][0]);
+
         const fB = calcularPrecio(t.factura[lang][1]);
 
+
         // Texto introductorio para la primera tarjeta, pregunta para las siguientes
+
         const introHTML = numDCE === 1
+
             ? `<div style="background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: var(--r-sm); padding: 16px 20px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">
+
                 ${lang === 'eu'
+
                     ? 'Kontuan hartu gutxi gorabehera 100 futbol-zelairen azalerako lur-sail bat. Lur-sail hori Araban dago eta zuk bizi zaren tokitik 10 km baino gutxiagora. Jarraian, eguzki-planten bi plan posible aurkezten dira. Planen bat onar dezakezu, edo biak baztu eta lur-sail horretan eguzki-energia ez ekoiztea erabaki.'
+
                     : 'Considere un terreno de aproximadamente 100 campos de fútbol. Este terreno se encuentra en Álava y a menos de 10 Km del lugar donde usted vive. A continuación, se muestran dos posibles planes de plantas solares. Usted puede aprobar uno de los planes, o bien rechazar ambos y no producir energía solar en este terreno.'}
+
                </div>`
+
             : `<p style="font-weight: 600; font-size: 1rem; margin-bottom: 12px;">
+
                 ${lang === 'eu' ? 'Eta kasu honetan, zein aukera nahiago duzu?' : 'Y en este caso, ¿qué opción prefiere?'}
+
                </p>`;
 
+
         container.innerHTML = `
+
             <h2>${lang === 'eu' ? `${numDCE} / 6 Aukeraketa` : `Elección ${numDCE} de 6`}</h2>
+
             ${introHTML}
 
+
             <div class="dce-grid">
+
                 <div class="dce-row header">
+
                     <div>${lang === 'eu' ? 'Atributua' : 'Atributo'}</div>
+
                     <div>${lang === 'eu' ? 'A Aukera' : 'Opción A'}</div>
+
                     <div>${lang === 'eu' ? 'B Aukera' : 'Opción B'}</div>
+
                     <div>${lang === 'eu' ? 'C Aukera' : 'Opción C'}</div>
+
                 </div>
-                
-                <div class="celda-atributo">${lang === 'eu' ? 'Lur mota' : 'Terreno'}</div>
+
+               
+
+                <div class="celda-atributo">${lang === 'eu' ? 'Lur mota' : 'Tipo de terreno'}</div>
+
                 ${imgCell('terreno', t.terreno['es'][0])}
+
                 ${imgCell('terreno', t.terreno['es'][1])}
+
                 <div class="columna-combinada-c">${textoNoInstalar}</div>
 
+
                 <div class="celda-atributo">${lang === 'eu' ? 'Distantzia' : 'Distancia'}</div>
+
                 ${imgCell('dist', t.dist['es'][0])}
+
                 ${imgCell('dist', t.dist['es'][1])}
 
-                <div class="celda-atributo">${lang === 'eu' ? 'Flora eragina' : 'Efecto Flora'}</div>
+
+                <div class="celda-atributo">${lang === 'eu' ? 'Floran eragina' : 'Efecto sobre Flora'}</div>
+
                 ${imgCell('florafauna', t.flora['es'][0])}
+
                 ${imgCell('florafauna', t.flora['es'][1])}
 
-                <div class="celda-atributo">${lang === 'eu' ? 'Fauna eragina' : 'Efecto Fauna'}</div>
+
+                <div class="celda-atributo">${lang === 'eu' ? 'Faunan eragina' : 'Efecto sobre la fauna'}</div>
+
                 ${imgCell('fauna', t.fauna['es'][0])}
+
                 ${imgCell('fauna', t.fauna['es'][1])}
 
+
                 <div class="celda-atributo">${lang === 'eu' ? 'Ikusgarritasuna' : 'Visibilidad'}</div>
+
                 ${imgCell('visib', t.visib['es'][0])}
+
                 ${imgCell('visib', t.visib['es'][1])}
 
-                <div class="celda-atributo">${lang === 'eu' ? 'Parte-hartzea' : 'Participación'}</div>
+
+                <div class="celda-atributo" style="text-align: left;">${lang === 'eu' ? 'Eragindako biztanleriaren parte-hartzea' : 'Participación de la población afectada'}</div>
+
                 ${imgCell('part', t.part['es'][0])}
+
                 ${imgCell('part', t.part['es'][1])}
 
-                <div class="celda-atributo celda-factura">${lang === 'eu' ? 'Faktura' : 'Factura'}</div>
-                <div class="celda-factura">${fA}</div>
-                <div class="celda-factura">${fB}</div>
+
+                <div class="celda-atributo celda-factura" style="text-align: left;">${lang === 'eu' ? 'Faktura elektrikoan aldaketa' : 'Cambio en la factura eléctrica'}</div>
+
+                <div class="celda-factura factura-valor">${fA}</div>
+                <div class="celda-factura factura-valor">${fB}</div>
+
             </div>
+
 
             <div class="options-vertical">
+
                 <label class="option-card">
-                    <input type="radio" name="choice_${t.id}" value="A" onclick="seleccionarOpcionDCE(${numDCE}, 'A'); document.getElementById('btnNextDCE${numDCE}').disabled=false;"> 
+
+                    <input type="radio" name="choice_${t.id}" value="A" onclick="seleccionarOpcionDCE(${numDCE}, 'A'); document.getElementById('btnNextDCE${numDCE}').disabled=false;">
+
                     <span>${lang === 'eu' ? 'A Aukera hautatu' : 'Elegir Opción A'}</span>
+
                 </label>
+
                 <label class="option-card">
-                    <input type="radio" name="choice_${t.id}" value="B" onclick="seleccionarOpcionDCE(${numDCE}, 'B'); document.getElementById('btnNextDCE${numDCE}').disabled=false;"> 
+
+                    <input type="radio" name="choice_${t.id}" value="B" onclick="seleccionarOpcionDCE(${numDCE}, 'B'); document.getElementById('btnNextDCE${numDCE}').disabled=false;">
+
                     <span>${lang === 'eu' ? 'B Aukera hautatu' : 'Elegir Opción B'}</span>
+
                 </label>
+
                 <label class="option-card">
-                    <input type="radio" name="choice_${t.id}" value="C" onclick="seleccionarOpcionDCE(${numDCE}, 'C'); document.getElementById('btnNextDCE${numDCE}').disabled=false;"> 
+
+                    <input type="radio" name="choice_${t.id}" value="C" onclick="seleccionarOpcionDCE(${numDCE}, 'C'); document.getElementById('btnNextDCE${numDCE}').disabled=false;">
+
                     <span>${lang === 'eu' ? 'C Aukera (Ez instalatu)' : 'Opción C (No instalar)'}</span>
+
                 </label>
+
             </div>
 
+
             <div class="nav-bar" style="display: flex; justify-content: flex-end; margin-top: 20px;">
+
                 <button id="btnNextDCE${numDCE}" class="btn btn-primary" disabled onclick="nextScreen()">
+
                     ${lang === 'eu' ? 'Hurrengoa →' : 'Siguiente →'}
+
                 </button>
+
             </div>
+
         `;
+
     });
+
 }
+
 
 function checkConsent() {
     const consent = document.querySelector('input[name="consent"]:checked');
@@ -3559,8 +3655,8 @@ function validarAñoYPasar() {
     const valor = parseInt(input.value);
     const errorMsg = document.getElementById('error-year');
 
-    // Validación: entre 1900 y 2008
-    if (isNaN(valor) || valor < 1900 || valor > 2008) {
+    // Validación: entre 1900 y 2007
+    if (isNaN(valor) || valor < 1900 || valor > 2007) {
         // Mostrar error y marcar el borde en rojo
         errorMsg.style.display = 'block';
         input.style.borderColor = '#dc3545';
@@ -4271,7 +4367,8 @@ function changeLanguage(lang) {
     // Traducción de elementos data-es/data-eu
     document.querySelectorAll('[data-es]').forEach(el => {
         const traducción = el.getAttribute(`data-${lang}`);
-        if (traducción) el.textContent = traducción;
+        // CAMBIO AQUÍ: Usamos innerHTML para que interprete las etiquetas <strong>
+        if (traducción) el.innerHTML = traducción; 
     });
 
     // Traducción de botones
