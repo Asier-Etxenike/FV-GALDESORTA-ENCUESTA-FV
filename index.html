@@ -74,9 +74,12 @@
 .celda-atributo {
     font-weight: bold; 
     background: var(--surface2) !important; 
-    justify-content: flex-start !important; 
-    padding-left: 15px !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    padding: 10px 8px 10px 15px !important;
     text-align: left;
+    display: flex !important;
+    flex-direction: column;
 }
 
 /* Cabecera */
@@ -312,8 +315,9 @@
     min-height: 75px;
 }
 .factura-arrow {
-    font-size: 1.4rem;
+    font-size: 2rem;
     line-height: 1;
+    font-weight: 900;
 }
 .factura-mes {
     font-size: 0.95rem;
@@ -336,9 +340,9 @@
 @media (min-width: 600px) {
     .survey-wrap { padding: 16px 12px 40px; }
     .dce-grid > div { padding: 8px 4px; font-size: 0.78rem; min-height: 60px; }
-    .celda-atributo { padding-left: 8px !important; font-size: 0.78rem; }
+    .celda-atributo { padding: 8px 4px 8px 8px !important; font-size: 0.78rem; align-items: flex-start !important; justify-content: flex-start !important; }
     .dce-grid img { width: 60px !important; }
-    .factura-arrow { font-size: 1.1rem; }
+    .factura-arrow { font-size: 1.6rem; }
     .factura-mes { font-size: 0.82rem; }
     .factura-anio { font-size: 0.7rem; }
     .inline-choice-label { padding: 4px 10px; font-size: 0.75rem; }
@@ -353,7 +357,7 @@
     padding: 10px 6px;
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    background: var(--accent-light);
+    background: #f9f9f9;
 }
 .celda-eleccion-c {
     grid-column: 4;
@@ -3438,12 +3442,12 @@ function renderizarTarjetasDCE() {
                 const eurosMes = (baseFactura * porcentaje) / 100;
                 const eurosAnio = eurosMes * 12;
                 const signo = eurosMes > 0 ? "+" : "";
-                const arrow = eurosMes > 0 ? "\u25b2" : "\u25bc";
+                const arrow = eurosMes > 0 ? "\u2B06" : "\u2B07";
                 return '<span class="factura-arrow">'+arrow+'</span>'
                      + '<span class="factura-mes">'+signo+Math.round(eurosMes)+' \u20ac/'+(lang==='eu'?'hil':'mes')+'</span>'
                      + '<span class="factura-anio">'+signo+Math.round(eurosAnio)+' \u20ac/'+(lang==='eu'?'urte':'a\u00f1o')+'</span>';
             } else {
-                const arrow = porcentaje > 0 ? "\u25b2" : "\u25bc";
+                const arrow = porcentaje > 0 ? "\u2B06" : "\u2B07";
                 const signo = porcentaje > 0 ? "+" : "";
                 return '<span class="factura-arrow">'+arrow+'</span>' 
                 + '<strong>' + signo + porcentaje + '%</strong>';
