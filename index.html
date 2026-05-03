@@ -267,7 +267,7 @@
     background: var(--accent-light);
     border-color: var(--accent);
     transform: translateY(-1px);
-    box-shadow: var(--shadow);
+    box-shadow: none;
 }
 
 /* El círculo del radio button */
@@ -3471,7 +3471,7 @@ function renderizarTarjetasDCE() {
               + '</p>';
 
         const lbl = (val) => '<label class="inline-choice-label"><input type="radio" name="choice_' + t.id + '" value="' + val + '" onclick="seleccionarOpcionDCE(' + numDCE + ', \'' + val + '\'); document.getElementById(\'btnNextDCE' + numDCE + '\').disabled=false;">'
-            + (val === 'C' ? (lang === 'eu' ? 'Ez instalatu' : 'No instalar') : (lang === 'eu' ? 'Hautatu' : 'Elegir'))
+            + (val === 'C' ? (lang === 'eu' ? 'Hautatu C' : 'Elegir C') : (lang === 'eu' ? 'Hautatu ' : 'Elegir ') + val)
             + '</label>';
 
         container.innerHTML =
