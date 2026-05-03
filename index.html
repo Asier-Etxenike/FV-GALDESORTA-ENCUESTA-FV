@@ -3275,16 +3275,23 @@ function showScreen(idx) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Mezclar y elegir 6
-    tarjetasSeleccionadas = [...TODAS_LAS_TARJETAS].sort(() => 0.5 - Math.random()).slice(0, 6);
-    
+    // Mezclar y elegir 6 (Fisher-Yates)
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+    tarjetasSeleccionadas = shuffle([...TODAS_LAS_TARJETAS]).slice(0, 6);
+
     // GUARDAR EN COLUMNA DIFERENTE
     responses.DCE_Tarjetas_Vistas = tarjetasSeleccionadas.map(t => t.id).join(", ");
-    
+
     renderizarTarjetasDCE();
     showScreen(0);
 
-    // Drag & drop del ranking (debe ejecutarse cuando el DOM ya existe)
+    // Drag & drop del ranking
     const rankingList = document.getElementById('rankingList');
     if (rankingList) {
         rankingList.addEventListener('dragstart', (e) => {
