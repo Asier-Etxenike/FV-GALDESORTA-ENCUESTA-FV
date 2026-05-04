@@ -27,6 +27,48 @@
   .progress-bar-fill{height:4px;background:var(--accent2);border-radius:2px;transition:width 0.5s ease}
 
   .survey-wrap{width:100%;max-width:1200px;padding:32px 40px 80px;flex:1}
+  /* DCE screens use full height flex layout */
+  #dce1.active,#dce2.active,#dce3.active,#dce4.active,#dce5.active,#dce6.active{
+    display:flex;
+    flex-direction:column;
+    height:calc(100dvh - 58px);
+    overflow:hidden;
+  }
+  /* Reduce survey-wrap padding when a DCE screen is active */
+  .survey-wrap:has(#dce1.active),
+  .survey-wrap:has(#dce2.active),
+  .survey-wrap:has(#dce3.active),
+  .survey-wrap:has(#dce4.active),
+  .survey-wrap:has(#dce5.active),
+  .survey-wrap:has(#dce6.active){
+    padding: 8px 12px 8px;
+  }
+  /* Compact h2 and intro inside DCE screens */
+  #dce1 h2,#dce2 h2,#dce3 h2,#dce4 h2,#dce5 h2,#dce6 h2{
+    font-size: clamp(0.9rem, 2vh, 1.2rem);
+    margin-bottom: 4px;
+  }
+  #dce1 p,#dce2 p,#dce3 p,#dce4 p,#dce5 p,#dce6 p{
+    font-size: clamp(0.75rem, 1.5vh, 0.95rem);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+  #dce1 > div[style*="background"],#dce2 > div[style*="background"],
+  #dce3 > div[style*="background"],#dce4 > div[style*="background"],
+  #dce5 > div[style*="background"],#dce6 > div[style*="background"]{
+    padding: 6px 12px !important;
+    margin-bottom: 6px !important;
+    font-size: clamp(0.75rem, 1.5vh, 0.9rem) !important;
+    line-height: 1.3 !important;
+  }
+  /* Compact nav-bar inside DCE screens */
+  #dce1 .nav-bar,#dce2 .nav-bar,#dce3 .nav-bar,
+  #dce4 .nav-bar,#dce5 .nav-bar,#dce6 .nav-bar{
+    margin-top: 6px;
+    padding-top: 0;
+    border-top: none;
+    flex-shrink: 0;
+  }
   .screen{display:none;}
   .screen.active{display:block; animation:fadeSlide 0.35s ease}
   @keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -46,64 +88,102 @@
 }
 
 /* Estilos DCE Actualizados */
-/* Contenedor principal */
-.dce-grid { 
-    display: grid; 
-    grid-template-columns: 1.2fr 1fr 1fr 1fr; 
-    background: white; 
-    border: 1px solid var(--border); 
-    border-radius: var(--r); 
-    overflow: hidden; 
-    margin: 20px 0; 
+/* Contenedor principal: CSS Grid universal con columna C combinada */
+.dce-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-rows: auto repeat(6, minmax(0, 1fr)) auto;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    margin: 12px 0;
+    flex: 1;
+    min-height: 0;
 }
 
-/* Formato común para TODAS las celdas del cuerpo */
-.dce-grid > div { 
-    padding: 12px 8px; 
-    text-align: center; 
-    border-right: 1px solid #eee; 
+/* Cabecera: display:contents para que sus hijos caigan en el grid */
+.dce-row.header { display: contents; }
+.dce-row.header > div {
+    background: var(--accent) !important;
+    color: white !important;
+    font-weight: bold;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    padding: clamp(6px, 1.2vh, 12px) clamp(4px, 0.8vw, 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: clamp(0.7rem, 1.4vh, 0.9rem);
+}
+
+/* Filas de atributos: display:contents para que sus hijos caigan en el grid */
+.dce-row-atrib {
+    display: contents;
+}
+.dce-row-atrib > div {
+    padding: clamp(4px, 0.9vh, 10px) clamp(3px, 0.6vw, 8px);
+    text-align: center;
+    border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 0.85rem;
-    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.68rem, 1.3vh, 0.85rem);
+}
+
+/* Ocultar celdas C individuales — la celda combinada las reemplaza */
+.dce-row-atrib .celda-c-fila {
+    display: none !important;
 }
 
 /* Clase específica para la columna de Atributos (Gris y negrita) */
 .celda-atributo {
-    font-weight: bold; 
-    background: var(--surface2) !important; 
+    font-weight: bold;
+    background: var(--surface2) !important;
     justify-content: flex-start !important;
-    align-items: flex-start !important;
-    padding: 10px 8px 10px 15px !important;
+    align-items: center !important;
+    padding: clamp(4px, 0.9vh, 10px) clamp(3px, 0.6vw, 8px) clamp(4px, 0.9vh, 10px) clamp(8px, 1.2vw, 15px) !important;
     text-align: left;
     display: flex !important;
     flex-direction: column;
+    font-size: clamp(0.68rem, 1.3vh, 0.85rem);
 }
 
-/* Cabecera */
-.dce-row.header { display: contents; }
-.dce-row.header div {
-    background: var(--accent) !important; 
-    color: white !important; 
-    font-weight: bold;
-    border-right: 1px solid rgba(255,255,255,0.2);
-}
-
-/* Celda combinada "No instalar la planta solar" */
+/* Celda C combinada: abarca las 6 filas de atributos (filas 2 a 7 del grid) */
 .columna-combinada-c {
-    grid-column: 4; 
-    grid-row: 2 / span 6; /* terreno + dist + eco + visib + part + factura */
+    display: flex !important;
+    grid-column: 4;
+    grid-row: 2 / span 6;
     background: #f9f9f9 !important;
     font-weight: bold;
-    border-right: none !important;
-    display: flex !important;
+    font-size: clamp(0.72rem, 1.4vh, 0.9rem);
+    text-align: center;
     align-items: center !important;
     justify-content: center !important;
-    text-align: center;
-    font-size: 0.9rem;
-    padding: 16px !important;
+    padding: clamp(6px, 1vh, 16px) clamp(4px, 0.8vw, 12px) !important;
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-right: none !important;
+}
+
+/* Fila de elección */
+.dce-row-eleccion {
+    display: contents;
+}
+.dce-row-eleccion > div {
+    padding: clamp(6px, 1.2vh, 12px) clamp(4px, 0.6vw, 8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #eee;
+    border-top: 2px solid var(--border);
+    background: #fafafa;
+}
+.dce-row-eleccion > div:last-child { border-right: none; }
+.dce-row-eleccion .celda-atributo {
+    background: var(--surface2) !important;
+    border-top: 2px solid var(--border);
 }
 
 /* --- Estilos para la Tabla de Elección (DCE) --- */
@@ -312,15 +392,14 @@
     align-items: center;
     justify-content: center;
     gap: 3px;
-    min-height: 75px;
 }
 .factura-arrow {
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 2.5vh, 2rem);
     line-height: 1;
     font-weight: 900;
 }
 .factura-mes {
-    font-size: 0.95rem;
+    font-size: clamp(0.72rem, 1.4vh, 0.95rem);
     font-weight: 700;
     line-height: 1.2;
 }
@@ -336,97 +415,30 @@
     font-style: italic;
 }
 
-/* ── Tablet: layout vertical para las tarjetas DCE ──────────────── */
+/* ── Tablet/pantallas pequeñas: ajustes generales (no DCE grid) ──── */
 @media (min-width: 600px) {
     .survey-wrap { padding: 16px 12px 40px; }
-    .inline-choice-label { padding: 8px 18px; font-size: 0.88rem; }
+    .inline-choice-label { padding: 6px 12px; font-size: 0.82rem; }
     h2 { font-size: 1.1rem; }
-
-    /* ── Contenedor principal: una columna por opción (A, B, C) ──── */
-    .dce-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        overflow: hidden;
-    }
-
-    /* Cabecera: 4 columnas (etiqueta + A + B + C) */
-    .dce-grid .dce-row.header {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr 1fr 1fr;
-        background: var(--accent);
-    }
-    .dce-grid .dce-row.header > div {
-        padding: 12px 8px;
-        text-align: center;
-        font-weight: bold;
-        color: white;
-        border-right: 1px solid rgba(255,255,255,0.2);
-        font-size: 0.9rem;
-        min-height: unset;
-    }
-
-    /* Cada fila de atributo: etiqueta + valor A + valor B + celda C */
-    .dce-row-atrib {
-        display: grid !important;
-        grid-template-columns: 1.4fr 1fr 1fr 1fr;
-        border-bottom: 1px solid #eee;
-        align-items: stretch;
-    }
-    .dce-row-atrib > div {
-        padding: 10px 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 0.83rem;
-        border-right: 1px solid #eee;
-    }
-    .dce-row-atrib > div:last-child { border-right: none; }
-    .dce-row-atrib .celda-atributo {
-        background: var(--surface2) !important;
-        font-weight: bold;
-        justify-content: flex-start !important;
-        align-items: center !important;
-        text-align: left;
-        padding: 10px 8px 10px 14px !important;
-        font-size: 0.82rem;
-    }
-    /* Celda C compartida en cada fila */
-    .dce-row-atrib .celda-c-fila {
-        background: #f9f9f9;
-        font-style: italic;
-        color: var(--text-muted);
-        font-size: 0.78rem;
-        text-align: center;
-    }
 
     /* Fila de elección */
     .dce-row-eleccion {
-        display: grid !important;
-        grid-template-columns: 1.4fr 1fr 1fr 1fr;
-        border-top: 2px solid var(--border);
-        background: #fafafa;
+        display: contents !important;
     }
     .dce-row-eleccion > div {
-        padding: 12px 8px;
+        padding: clamp(6px, 1.2vh, 12px) clamp(4px, 0.6vw, 8px);
         display: flex;
         align-items: center;
         justify-content: center;
         border-right: 1px solid #eee;
+        border-top: 2px solid var(--border);
+        background: #fafafa;
     }
     .dce-row-eleccion > div:last-child { border-right: none; }
-
-    /* Imágenes en tablet */
-    .dce-grid img { width: 70px !important; height: auto; }
-    .factura-arrow { font-size: 1.6rem; }
-    .factura-mes { font-size: 0.85rem; }
-    .factura-anio { font-size: 0.72rem; }
-
-    /* Ocultar el columna-combinada-c original en tablet */
-    .columna-combinada-c { display: none !important; }
+    .dce-row-eleccion .celda-atributo {
+        background: var(--surface2) !important;
+        border-top: 2px solid var(--border);
+    }
 }
 
 /* ── Errenkada hautaketa ─────────────────────────────────────────── */
@@ -446,12 +458,12 @@
 .inline-choice-label {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     background: var(--accent);
     border-radius: 20px;
-    padding: 7px 16px;
+    padding: clamp(4px, 0.8vh, 7px) clamp(8px, 1.5vw, 16px);
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: clamp(0.72rem, 1.4vh, 0.85rem);
     font-weight: 600;
     color: white;
     white-space: nowrap;
@@ -495,7 +507,7 @@
   <h1 data-es="Energía solar y usos del suelo en Álava" data-eu="Eguzki-energia eta lurzoruaren erabilerak Araban">
     Energía solar y usos del suelo en Álava
 </h1>
-<p data-es="Buenos días/tardes y gracias por participar en esta encuesta, en la que le pediremos su opinión sobre distintas opciones relacionadas con cómo y dónde podrían ubicarse instalaciones de energía solar fotovoltaica en Álava." data-eu="Egun on/arratsalde on, eta eskerrik asko inkesta honetan parte hartzeagatik. Bertan, Arabako eguzki-energia fotovoltaikoko instalazioak nola eta non koka daitezkeen galdetuko dizugu.">
+<p data-es="<strong>Buenos días/tardes y gracias por participar</strong> en esta encuesta, en la que le pediremos su opinión sobre distintas opciones relacionadas con cómo y dónde podrían ubicarse instalaciones de energía solar fotovoltaica en Álava." data-eu="Egun on/arratsalde on, eta eskerrik asko inkesta honetan parte hartzeagatik. Bertan, Arabako eguzki-energia fotovoltaikoko instalazioak nola eta non koka daitezkeen galdetuko dizugu.">
     Buenos días/tardes y gracias por participar en esta encuesta, en la que le pediremos su opinión sobre distintas opciones relacionadas con cómo y dónde podrían ubicarse instalaciones de energía solar fotovoltaica en Álava.
 </p>
     <p data-es="El estudio está siendo realizado por un equipo de investigación de la Universidad del País Vasco (UPV/EHU) y del Basque Centre for Climate Change (BC3), en el marco de un proyecto europeo de investigación sobre transición energética y sostenibilidad (https://www.biodiversa.eu/2023/04/19/bridgingvalues)." data-eu="Euskal Herriko Unibertsitateko (UPV/EHU) eta Basque Centre for Climate Changeko (BC3) ikerketa-talde bat ari da ikerketa egiten, trantsizio energetikoari eta jasangarritasunari buruzko Europako ikerketa-proiektu baten esparruan (https://www.biodiversa.eu/2023/04/19/bridgingvalues).">El estudio está siendo realizado por un equipo de investigación de la Universidad del País Vasco (UPV/EHU) y del Basque Centre for Climate Change (BC3), en el marco de un proyecto europeo de investigación sobre transición energética y sostenibilidad (https://www.biodiversa.eu/2023/04/19/bridgingvalues).</p>
@@ -514,7 +526,7 @@
     <p data-es="Sus respuestas serán tratadas de forma <strong>confidencial</strong> y de acuerdo con la normativa vigente en materia de protección de datos. En caso de difusión o publicación de resultados, nunca se identificará personalmente a los participantes." data-eu="Zure erantzunak <strong>konfidentzialtasunez</strong> eta datuen babesaren arloan indarrean dagoen araudiaren arabera tratatuko dira. Emaitzak zabalduz edo argitaratuz gero, parte-hartzaileak ez dira inoiz pertsonalki identifikatuko.">Sus respuestas serán tratadas de forma <strong>confidencial</strong> y de acuerdo con la normativa vigente en materia de protección de datos. En caso de difusión o publicación de resultados, nunca se identificará personalmente a los participantes.</p>
     <p data-es="Si desea más información sobre el estudio, puede ponerse en contacto con: David Hoyos (david.hoyos@ehu.eus) o Unai Pascual (unai.pascual@bc3research.org)." data-eu="Azterlanari buruzko informazio gehiago nahi izanez gero, jar zaitez harremanetan David Hoyosekin (david.hoyos@ehu.eus) edo Unai Pascualekin (unai.pascual@bc3research.org).">Si desea más información sobre el estudio, puede ponerse en contacto con: David Hoyos (david.hoyos@ehu.eus) o Unai Pascual (unai.pascual@bc3research.org).</p>
     <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
-    <p data-es="CONSENTIMIENTO: Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento." data-eu="ONARPENA: Adierazten dut ikerketa honi buruzko informazio nahikoa jaso dudala, ulertzen dudala zertan datzan nire parte-hartzea eta badakidala edozein unetan erretiratu naitekeela."><strong> CONSENTIMIENTO:</strong> Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento.</p>
+    <p data-es="<strong> CONSENTIMIENTO:</strong> Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento." data-eu="<strong>ONARPENA:</strong> Adierazten dut ikerketa honi buruzko informazio nahikoa jaso dudala, ulertzen dudala zertan datzan nire parte-hartzea eta badakidala edozein unetan erretiratu naitekeela."><strong> CONSENTIMIENTO:</strong> Declaro que he recibido información suficiente sobre este estudio, que entiendo en qué consiste mi participación y que sé que puedo retirarme en cualquier momento.</p>
   </div>
   <div class="radio-group">
     <p data-es="¿Da su consentimiento para participar en esta encuesta?" data-eu="Inkesta honetan parte hartzeko baimena ematen duzu?"><strong>¿Da su consentimiento para participar en esta encuesta?</strong></p>
@@ -556,9 +568,9 @@
   </div>
 
   <div style="text-align: center; margin-top: 25px; margin-bottom: 25px;">
-    <img data-src-es="https://www.aztiker.eus/wp-content/uploads/2026/04/Energia-kontsumoa-1.png"
-         data-src-eu="https://www.aztiker.eus/wp-content/uploads/2026/05/Energia-kontsumoa-EUS.png"
-         src="https://www.aztiker.eus/wp-content/uploads/2026/04/Energia-kontsumoa-1.png" 
+    <img data-src-es="https://www.aztiker.eus/wp-content/uploads/2026/05/Kontsumoa-ES.png"
+         data-src-eu="https://www.aztiker.eus/wp-content/uploads/2026/05/Kontsumoa-EUS.png"
+         src="https://www.aztiker.eus/wp-content/uploads/2026/05/Kontsumoa-ES.png" 
          alt="Gráfico de consumo de energía" 
          style="max-width: 600px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
   </div>
@@ -596,6 +608,13 @@
     </script>
   </div>
 
+    <div style="margin-top:12px;">
+    <label class="radio-opt" style="display:inline-flex; width:auto; padding:10px 18px;">
+      <input type="radio" name="q1" value="nsnc" onchange="checkP4()"> 
+      <span style="margin-left:10px;" data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
+    </label>
+  </div>
+
   <p>
     <strong data-es="En su opinión, ¿hasta qué punto cree que es importante poder producir electricidad en Euskadi, en lugar de importarla de fuera de Euskadi?" 
             data-eu="Zure ustez, zenbateraino da garrantzitsua elektrizitatea Euskadin ekoiztea, Euskaditik kanpo inportatu beharrean?">
@@ -617,6 +636,13 @@
         `);
       }
     </script>
+  </div>
+
+  <div style="margin-top:12px;">
+    <label class="radio-opt" style="display:inline-flex; width:auto; padding:10px 18px;">
+      <input type="radio" name="q2" value="nsnc" onchange="checkP4()"> 
+      <span style="margin-left:10px;" data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
+    </label>
   </div>
 
   <div class="nav-bar">
@@ -721,7 +747,7 @@
   
   <p data-es="Actualmente, <strong>Álava</strong> tiene una capacidad para la producción de electricidad con paneles solares de aproximadamente 150 megavatios, con la que se satisface el consumo eléctrico de alrededor de 55.000 hogares."
      data-eu="Gaur egun, <strong>Arabak</strong> 150 megavatio inguruko gaitasuna du eguzki-panelen bidez elektrizitatea ekoizteko, eta horrekin 55.000 etxebizitza ingururen elektrizitate-kontsumoa asetzen da.">
-    Actualmente, Álava tiene una capacidad para la producción de electricidad con paneles solares de aproximadamente 150 megavatios, con la que se satisface el consumo eléctrico de alrededor de 55.000 hogares.
+    Actualmente, <strong>Álava</strong> tiene una capacidad para la producción de electricidad con paneles solares de aproximadamente 150 megavatios, con la que se satisface el consumo eléctrico de alrededor de 55.000 hogares.
   </p>
   
   <p data-es="La posible expansión de plantas solares en Álava plantea preguntas sobre dónde ubicarlas, qué terrenos podrían verse afectados y cómo deberían tomarse esas decisiones."
@@ -943,7 +969,7 @@
     <ul style="list-style: none; padding: 0; margin: 0;">
       <li style="margin-bottom: 12px; display: flex; gap: 10px;">
         <span>•</span>
-        <strong data-es="Terreno Natural" data-eu="Natura-lurzoruak">Terreno Natural</strong>
+        <strong data-es="Terreno natural" data-eu="Natura-lurzoruak">Terreno natural</strong>
       </li>
       <li style="margin-bottom: 12px; display: flex; gap: 10px;">
         <span>•</span>
@@ -1159,9 +1185,9 @@
     <span data-es="Pantalla 18" data-eu="18. Pantaila">Pantalla 18</span>
   </div>
   <h2 data-es="Distancia de la instalación" data-eu="Instalazioaren distantzia">Distancia de la instalación</h2>
-  <p data-es="Tanbién se considera la <strong>distancia entre la planta solar y su vivienda.</strong> En esta encuesta, la planta solar puede situarse a distintas distancias de su vivienda: <strong>500 m, 2 km, 5 km, 10 km</strong>"
-     data-eu="Eguzki-zentralaren eta <strong>zure etxebizitzaren arteko distantzia</strong> hartzen da kontuan. Inkesta honetan eguzki-zentrala zure etxebizitzatik distantzia desberdinetara jar daiteke: <strong>500 m, 2 km, 5 km, 10 km</strong>">
-    Se considera la <strong>distancia entre la planta solar y su vivienda.</strong> En esta encuesta, la planta solar puede situarse a distintas distancias de su vivienda: <strong>500 m, 2 km, 5 km, 10 km</strong>
+  <p data-es="También se considera la <strong>distancia</strong> entre la planta solar y su vivienda. En esta encuesta, la planta solar puede situarse a distintas distancias de su vivienda: <strong>500 m, 2 km, 5 km, 10 km</strong>"
+     data-eu="Eguzki-zentralaren eta zure etxebizitzaren arteko <strong>distantzia</strong> ere hartzen da kontuan. Inkesta honetan eguzki-zentrala zure etxebizitzatik distantzia desberdinetara jar daiteke: <strong>500 m, 2 km, 5 km, 10 km</strong>">
+    También se considera la <strong>distancia</strong> entre la planta solar y su vivienda. En esta encuesta, la planta solar puede situarse a distintas distancias de su vivienda: <strong>500 m, 2 km, 5 km, 10 km</strong>
   </p>
   <p id="s18_p1"></p>
   
@@ -1180,17 +1206,17 @@
   <div class="screen-label"><span data-es="Pantalla 19" data-eu="19. Pantaila">Pantalla 19</span></div>
   <h2 data-es="Efecto ecológico" data-eu="Eragin ekologikoa">Efecto ecológico</h2>
   
-  <p data-es="La planta solar puede tener distintos efectos ecológicos..." data-eu="Eguzki-zentralak hainbat eragin ekologiko izan ditzake instalatuko litzatekeen lursailean eta haren ingurune hurbilean. Ondorio horiek landarediari, florari eta inguruko faunari eragin diezaiekete.">
-    La planta solar puede tener distintos efectos ecológicos sobre el terreno en el que se instalaría y su entorno cercano. Estos efectos pueden afectar tanto a la vegetación y la flora como a la fauna presente en la zona.
+  <p data-es="La planta solar puede tener distintos <strong>efectos ecológicos</strong> sobre el terreno en el que se instalaría y su entorno cercano. Estos efectos pueden afectar tanto a la vegetación y la flora como a la fauna presente en la zona." data-eu="Eguzki-zentralak hainbat <strong>eragin ekologiko</strong> izan ditzake instalatuko litzatekeen lursailean eta haren ingurune hurbilean. Ondorio horiek landarediari, florari eta inguruko faunari eragin diezaiekete.">
+    La planta solar puede tener distintos <strong>efectos ecológicos</strong> sobre el terreno en el que se instalaría y su entorno cercano. Estos efectos pueden afectar tanto a la vegetación y la flora como a la fauna presente en la zona.
   </p>
 
-    <p data-es="En esta encuesta se consideran tres tipos de efectos ecológicos posibles:" data-eu=" Inkesta honetan, hiru eragin ekologiko mota daude:">
+    <p data-es="En esta encuesta se consideran tres tipos de efectos ecológicos posibles:" data-eu=" Inkesta honetan, hiru eragin ekologiko posible hartzen dira aintzat:">
     En esta encuesta se consideran tres tipos de efectos ecológicos posibles:
   </p>
 
   <!-- Zerrenda (Bullet points) -->
   <ul style="margin: 20px 0; padding-left: 20px; line-height: 1.6;">
-    <li data-es="<strong>Negativo:</strong> La planta genera un effecto ecológico negativo." data-eu="<strong>Eragin negatiboa:</strong> Zentralak eragin ekologiko negatiboa du.">
+    <li data-es="<strong>Negativo:</strong> La planta genera un efecto ecológico negativo." data-eu="<strong>Eragin negatiboa:</strong> Zentralak eragin ekologiko negatiboa du.">
         <strong>Negativo:</strong> La planta genera un efecto ecológico negativo.
     </li>
     <li data-es="<strong>Sin impacto:</strong> La planta no genera efectos ecológicos apreciables." data-eu="<strong>Inpakturik gabe:</strong> Zentralak ez du eragin ekologiko nabarmenik sortzen.">
@@ -1235,8 +1261,8 @@
   <div class="screen-label"><span data-es="Pantalla 21" data-eu="21. Pantaila">Pantalla 21</span></div>
   <h2 data-es="Impacto visual" data-eu="Ikusmen-inpaktua">Impacto visual</h2>
   
-  <p data-es="En esta encuesta se distinguen dos niveles de visibilidad:" data-eu="Inkesta honetan bi ikusgaitasun-maila bereizten dira:">
-    En esta encuesta se distinguen dos niveles de visibilidad:
+  <p data-es="También debe tener en cuenta el <strong>impacto visual</strong>, es decir, hasta qué punto la planta solar de gran tamaño sería visible desde su vivienda o desde caminos que utiliza habitualmente. En esta encuesta se distinguen dos niveles de visibilidad:" data-eu="<strong>Ikusmen-inpaktua</strong> ere kontuan izan behar da, hau da, eguzki-zentral handia zenbateraino izango litzatekeen ikusgai zure etxebizitzatik edo erabili ohi dituzun bideetatik. Inkesta honetan bi ikuspen-maila bereizten dira:">
+    También debe tener en cuenta el <strong>impacto visual</strong>, es decir, hasta qué punto la planta solar de gran tamaño sería visible desde su vivienda o desde caminos que utiliza habitualmente. En esta encuesta se distinguen dos niveles de visibilidad:
   </p>
 
   <ul style="margin: 20px 0; padding-left: 20px; line-height: 1.6;">
@@ -1274,8 +1300,8 @@
   <div class="screen-label"><span data-es="Pantalla 22" data-eu="22. Pantaila">Pantalla 22</span></div>
   <h2 data-es="Participación de la comunidad afectada" data-eu="Eragindako komunitatearen parte-hartzea">Participación de la comunidad afectada</h2>
   
-  <p data-es="Considere dos posibilidades sobre la gestión de la planta:" data-eu="Mesedez, bi aukera hauek kontuan hartu kudeaketari buruz:">
-    Considere dos posibilidades sobre la gestión de la planta:
+  <p data-es="Le pedimos que también tenga en cuenta el <strong>grado de participación de la comunidad afectada</strong> en la gestión de la planta solar. En este contexto, participar en la gestión puede significar, por ejemplo, poder decidir sobre algunos aspectos del proyecto, como el reparto de los beneficios económicos o sobre quién consume la energía y dónde se consume. Considere, por favor, dos posibilidades:" data-eu="Era berean, eskatzen dizugu kontuan har dezazula <strong>eragindako komunitateak zer parte-hartze maila</strong> duen eguzki-plantaren kudeaketan. Testuinguru horretan, kudeaketan parte hartzea izan daiteke, adibidez, proiektuaren alderdi batzuei buruz erabaki ahal izatea, hala nola etekin ekonomikoen banaketari buruz edo energia nork kontsumitzen duen eta non kontsumitzen den. Kontuan hartu, mesedez, bi aukera:">
+    Le pedimos que también tenga en cuenta el <strong>grado de participación de la comunidad afectada</strong> en la gestión de la planta solar. En este contexto, participar en la gestión puede significar, por ejemplo, poder decidir sobre algunos aspectos del proyecto, como el reparto de los beneficios económicos o sobre quién consume la energía y dónde se consume. Considere, por favor, dos posibilidades:
   </p>
 
   <ul style="margin: 20px 0; padding-left: 20px; line-height: 1.6;">
@@ -1407,9 +1433,9 @@
   </p>
 
   <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid var(--border); margin-top: 20px;">
-    <img data-src-es="https://www.aztiker.eus/wp-content/uploads/2026/05/Txartel-eredua-1.png"
-         data-src-eu="https://www.aztiker.eus/wp-content/uploads/2026/05/Txartel-eredua-EUS-2.png"
-         src="https://www.aztiker.eus/wp-content/uploads/2026/05/Txartel-eredua-1.png" 
+    <img data-src-es="https://www.aztiker.eus/wp-content/uploads/2026/05/Txartel-eredua2.png"
+         data-src-eu="https://www.aztiker.eus/wp-content/uploads/2026/05/Txartel-eredua-EUS2.png"
+         src="https://www.aztiker.eus/wp-content/uploads/2026/05/Txartel-eredua2.png" 
          alt="Ejemplo de tarjeta de elección" 
          style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
     </div>
@@ -1423,7 +1449,6 @@
   <div class="screen-label">
     <span data-es="Pantalla 26" data-eu="26. Pantaila">Pantalla 26</span>
   </div>
-  <h2 data-es="Recomendaciones antes de empezar" data-eu="Hasi aurreko gomendioak">Recomendaciones antes de empezar</h2>
   
   <p data-es="A continuación, se le presentarán <strong>seis pantallas de elección</strong> similares a la que acaba de ver, pero con todas las características mencionadas. Al elegir su opción preferida, recuerde lo siguiente:"
      data-eu="Jarraian, ikusi berri duzunaren antzeko <strong>hautatze-sei pantaila</strong> aurkeztuko zaizkizu, baina aipatutako ezaugarri guztiekin. Zure aukerarik gogokoena hautatzean, gogoratu honako hau:">
@@ -1622,6 +1647,10 @@
       <input type="radio" name="p10" value="no" onchange="checkP35()"> 
       <span data-es="No" data-eu="Ez">No</span>
     </label>
+    <label class="option-card" style="display: flex; align-items: center; gap: 10px; padding: 15px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+      <input type="radio" name="p10" value="nsnc" onchange="checkP35()"> 
+      <span data-es="NS/NC" data-eu="ED/EE">NS/NC</span>
+    </label>
   </div>
 
   <div class="nav-bar">
@@ -1719,9 +1748,9 @@
     <span data-es="Pantalla 38 (P13)" data-eu="38. Pantaila (G13)">Pantalla 38 (P13)</span>
   </div>
   <p>
-    <strong data-es="A continuación, se presentan varias frases sobre diferentes aspectos que pueden ser más o menos prioritarios para usted al pensar sobre la naturaleza en el futuro. Por favor, indique el grado de prioridad que usted considera que cada uno de estos aspectos debería tener en el futuro en Álava. (1: no debería ser nada prioritario, y 7: debería tener máxima prioridad)"
-            data-eu="Jarraian, etorkizunean naturari buruz pentsatzean gutxi-asko lehentasunak izan daitezkeen hainbat alderdiri buruzko esaldiak aurkezten dira. Mesedez, adierazi alderdi horietako bakoitzak etorkizunean Araban izan beharko lukeen lehentasun-maila. (1: ez luke batere lehentasunik izan behar, eta 7: gehieneko lehentasuna izan beharko luke)">
-      A continuación, se presentan varias frases sobre diferentes aspectos que pueden ser más o menos prioritarios para usted al pensar sobre la naturaleza en el futuro. Por favor, indique el grado de prioridad que usted considera que cada uno de estos aspectos debería tener en el futuro en Álava. (1: no debería ser nada prioritario, y 7: debería tener máxima prioridad)
+    <strong data-es="A continuación, se presentan varias frases sobre diferentes aspectos que pueden ser relevantes al pensar sobre la naturaleza en Álava en el futuro. Por favor, indique el grado de prioridad que usted considera para cada uno de estos aspectos (1 indica que no es nada prioritario, y 7 máxima prioridad)"
+            data-eu="Jarraian, etorkizunean Arabako naturari buruz pentsatzean garrantzitsuak izan daitezkeen hainbat alderdiri buruzko hainbat esaldi aurkezten dira. Mesedez, adierazi zein lehentasun-maila duzun alderdi horietako bakoitzerako (1ak adierazten du ez dela batere lehentasunezkoa, eta 7ak lehentasun handiena)">
+      A continuación, se presentan varias frases sobre diferentes aspectos que pueden ser relevantes al pensar sobre la naturaleza en Álava en el futuro. Por favor, indique el grado de prioridad que usted considera para cada uno de estos aspectos (1 indica que no es nada prioritario, y 7 máxima prioridad)
     </strong>
   </p>
 
@@ -2213,9 +2242,16 @@
 </div>
 
 <div class="screen" id="s51">
-  <div class="screen-label">Pantalla 51 (P26)</div>
-  <p><strong> :</strong> Por favor, indique de forma aproximada en qué intervalo se sitúan sus ingresos mensuales personales y los ingresos mensuales de su hogar. Sus respuestas serán tratadas de forma confidencial.</p>
-
+  <div class="screen-label">
+    <span data-es="Pantalla 51 (P26)" data-eu="51. Pantaila (G26)">Pantalla 51 (P26)</span>
+</div>
+    <p>
+    <strong data-es="Por favor, indique de forma aproximada en qué intervalo se sitúan sus ingresos mensuales personales y los ingresos mensuales de su hogar. Sus respuestas serán tratadas de forma confidencial." 
+            data-eu="Mesedez, adierazi gutxi gorabehera zure hileko diru-sarrera pertsonalak eta zure etxeko hileko diru-sarrerak zein tartetan dauden. Zure erantzunak konfidentzialtasunez tratatuko dira.">
+      Por favor, indique de forma aproximada en qué intervalo se sitúan sus ingresos mensuales personales y los ingresos mensuales de su hogar. Sus respuestas serán tratadas de forma confidencial.
+    </strong>
+  </p>
+  
   <div style="overflow-x: auto;">
   <table class="opinion-table" style="font-size: 0.85rem; width: 100%;">
     <thead>
@@ -2435,9 +2471,9 @@
 <div class="screen" id="s56">
   <div style="margin-top: 20px;">
     <label style="display: block; margin-bottom: 8px; font-weight: bold;" 
-           data-es="Si desea añadir algún comentario adicional, puede hacerlo aquí:" 
-           data-eu="Iruzkin gehigarririk gehitu nahi baduzu, hemen egin dezakezu:">
-      Si desea añadir algún comentario adicional, puede hacerlo aquí:
+           data-es="Muchas gracias por haber tomado parte en nuestra investigación. Si desea añadir algún comentario adicional, puede hacerlo a continuación:" 
+           data-eu="Mila esker gure ikerketan parte hartu izangatik. Iruzkin gehigarririk gehitu nahi baduzu, hemen egin dezakezu:">
+      Muchas gracias por haber tomado parte en nuestra investigación. Si desea añadir algún comentario adicional, puede hacerlo a continuación:
     </label>
     <textarea id="comentarios" name="comentarios" rows="4" 
               oninput="checkS56()"
@@ -2448,9 +2484,9 @@
 
   <div style="margin-top: 25px; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
     <label style="display: block; margin-bottom: 8px;" 
-           data-es="Por último, y solo si está de acuerdo, le pedimos un número de teléfono de contacto para el control de calidad del trabajo de campo:" 
-           data-eu="Azkenik, eta ados bazaude soilik, harremanetarako telefono zenbaki bat eskatzen dizugu, landa-lanaren kalitatea kontrolatzeko:">
-      Por último, y solo si está de acuerdo, le pedimos un <strong>número de teléfono</strong> de contacto:
+           data-es="Por último, y solo si está de acuerdo, le pedimos un <strong>número de teléfono</strong> de contacto para el control de calidad del trabajo de campo:" 
+           data-eu="Azkenik, eta ados bazaude soilik, harremanetarako <strong>telefono zenbaki bat</strong> eskatzen dizugu, landa-lanaren kalitatea kontrolatzeko:">
+      Por último, y solo si está de acuerdo, le pedimos un <strong>número de teléfono</strong> de contacto para el control de calidad del trabajo de campo::
     </label>
     <input type="tel" id="telefono" name="telefono" placeholder="Ej: 600000000" 
            oninput="checkS56()"
@@ -2512,7 +2548,7 @@
     </p>
     <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-muted); margin-bottom:4px; padding:0 2px;">
       <span data-es="No ha comprendido bien" data-eu="Ez du ondo ulertu">No ha comprendido bien</span>
-      <span data-es="Muy bien" data-eu="Oso ondo">Muy bien</span>
+      <span data-es="Ha comprendido muy bien" data-eu="Oso ondo ulertu du">Ha comprendido muy bien</span>
     </div>
     <div class="scale-group">
       <script>
@@ -3445,7 +3481,7 @@ function imgCell(mapKey, rawValue, lang) {
         return `<div style="display:flex;flex-direction:column;gap:4px;align-items:center;">${val}</div>`;
     }
     return `<div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-        <img src="${url}" alt="${val}" style="width:100px !important;height:auto;display:block;margin:0 auto;">
+        <img src="${url}" alt="${val}" style="width:clamp(40px,7vw,90px) !important;height:auto;display:block;margin:0 auto;">
         </div>`;
 }
 
@@ -3542,7 +3578,7 @@ function renderizarTarjetasDCE() {
             + '<div class="celda-c-fila">' + cText + '</div>'
             + '</div>';
 
-        const cLabel = lang === 'eu' ? 'Ez instalatu' : 'No instalar';
+        const cLabel = lang === 'eu' ? 'Ez instalatu eguzki-zentrala' : 'No instalar la planta solar';
 
         container.innerHTML =
             '<h2>' + (lang === 'eu' ? numDCE + ' / 6 Aukeraketa' : 'Elecci\u00f3n ' + numDCE + ' de 6') + '</h2>'
@@ -3599,8 +3635,8 @@ function renderizarTarjetasDCE() {
           + '<div>' + lbl('B') + '</div>'
           + '<div>' + lbl('C') + '</div>'
           + '</div>'
-          // Legacy combined-C column (hidden on tablet via CSS, visible on mobile fallback)
-          + '<div class="columna-combinada-c" style="display:none">' + textoNoInstalar + '</div>'
+          // Combined-C column: visible on tablet (grid-row span), hidden on mobile
+          + '<div class="columna-combinada-c">' + textoNoInstalar + '</div>'
           + '</div>'
           + '<div class="nav-bar" style="display: flex; justify-content: flex-end; margin-top: 20px;">'
           + '<button id="btnNextDCE' + numDCE + '" class="btn btn-primary" disabled onclick="nextScreen()">'
